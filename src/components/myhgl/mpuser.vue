@@ -255,6 +255,12 @@
                         width: 150,
                     },
                     {
+                        align: 'left',
+                        title: '注册时间',
+                        key: 'hasDevNum',
+                        width: 80,
+                    },
+                    {
                         title: '管理',
                         key: 'action',
                         width: 270,
@@ -408,10 +414,8 @@
                 this.tgfwO = true
             },
             sbfp(e) {
-                debugger
                 this.pubUserId = e.row.id
                 this.sbfpO = true
-
             },
             sbfpS() {
                 this.$refs['sbfpforms'].validate((valid) => {
@@ -640,7 +644,7 @@
             }, getoptions() {
                 this.Global.fun(this, 'get', {
                         base: '/mzone',
-                        other: '/all?',
+                        other: '/allwithTgNum?',
                         access_token: this.api.access_token,
                     }, {},
                     function (res, that) {
