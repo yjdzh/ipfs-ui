@@ -256,9 +256,9 @@
                     },
                     {
                         align: 'left',
-                        title: '注册时间',
+                        title: '关联设备数量',
                         key: 'hasDevNum',
-                        width: 80,
+                        width: 90,
                     },
                     {
                         title: '管理',
