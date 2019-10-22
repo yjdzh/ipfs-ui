@@ -1,0 +1,248 @@
+@import "evanColor";
+
+.EVbase {
+    background: #fff;
+    padding: 15px 0;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    .EVbaseBoxT {
+        padding-top: 40px;
+    }
+    .EVbaseBox {
+        position: relative;
+        height: 100%;
+        width: 100%;
+
+        .EVcontent {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+            padding: 0 15px;
+            > .evanTab {
+                height: 100%;
+                > .ivu-tabs-content {
+                    height: 100%;
+                    position: absolute;
+                    width: 100%;
+                    top: 0px;
+                    padding-top: 45px;
+                    z-index: 0;
+                    .EVtabContent {
+                        height: 100%;
+                        .EVbase {
+                            padding: 0px;
+                        }
+
+                    }
+                }
+                > .ivu-tabs-bar {
+                    position: relative;
+                    z-index: 1;
+                }
+            }
+
+        }
+        .mbxBox {
+            position: absolute;
+            width: 100%;
+            height: auto;
+            top: 0;
+            padding: 0 15px;
+
+        }
+        .evaninline {
+            display: table;
+            width: 100%;
+            border-collapse: separate;
+            position: relative;
+            top: 1px;
+            .evan-prepend, .evan-append {
+                background-color: unset;
+                border: none;
+                border-radius: unset;
+                padding: 0px;
+                > span {
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+        }
+        .ivu-form-item-label {
+            line-height: 14px;
+            height: 34px;
+        }
+        .EVbaseBox-content {
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            height: auto;
+            min-height: 100%;
+            position: relative;
+            padding-bottom: 65px;
+            overflow: hidden;
+        }
+        .pageload {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            height: 100%;
+            > div.ivu-row {
+                width: 100%;
+                height: 100%;
+                > div.ivu-col-span-8 {
+                    display: block;
+                    width: 33.33333333%;
+                    width: 100%;
+                    height: 100%;
+                    .ivu-spin-fix .ivu-spin-main {
+                        position: absolute;
+                        top: 200px;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                    }
+                }
+            }
+        }
+        .btnBox {
+            position: absolute;
+            bottom: 0px;
+            text-align: center;
+            width: 100%;
+            box-sizing: border-box;
+            left: 0;
+            > div {
+                margin-left: 0 !important
+            }
+        }
+
+    }
+}
+
+.crumb-title {
+    border-left: 2px solid @ThemeColor;
+    padding-left: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    display: block;
+    line-height: 20px;
+    margin-bottom: 10px;
+    position: relative;
+    &:after {
+        position: absolute;
+        content: '';
+        bottom: -10px;
+        font-size: 16px;
+        font-weight: 500;
+        border: none;
+        display: block;
+        border-bottom: 1px solid @BaseLineColor;
+        width: 100%;
+        left: 0px;
+    }
+}
+
+.ivu-btn-primary {
+    color: @BtnText;
+    background-color: @BtnPrimary;
+    border-color: @BtnPrimary;
+    &:hover {
+        color: @BtnTextHover;
+        background-color: @BtnPrimaryHover;
+        border-color: @BtnPrimaryHover;
+    }
+}
+
+.EVcode {
+    text-align: left;
+    font-size: 14px;
+    background: #333;
+    color: #fff5d4;
+    padding: 10px;
+    border-radius: 6px;
+    line-height: 24px;
+    padding-left: 20px;
+    margin: 8px 5px;
+}
+
+.EVeg {
+    padding: 5px 0px 5px 0px;
+    > span {
+        display: inline-block;
+        padding-bottom: 10px;
+        font-size: 14px;
+        color: #000;
+        font-weight: bold;
+    }
+    .ivu-table div.ivu-table-cell {
+        padding-left: 10px;
+        padding-right: 10px;
+        white-space: normal;
+    }
+    .EVegtb {
+        padding: 0 5px;
+    }
+
+}
+
+p.EVeg {
+    display: flex;
+    border-bottom: #eaecf1 dashed 1px;
+    padding: 5px;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.EVsearch, .EVbtn, .EVpagePage, .EVmoreBtn {
+    display: inline-table;
+}
+
+.EVsearch {
+}
+
+.EVbtn, .EVmoreBtn {
+    float: right;
+}
+
+.noFooter {
+    .ivu-modal-footer {
+        padding: 0;
+        border-top: none
+    }
+    .ivu-modal-body, .EVbase {
+        padding-bottom: 0;
+    }
+    .btnBox {
+        margin-bottom: 15px;
+    }
+}
+
+
+
+.EVp15 {
+    padding-left: 15px;
+}
+
+.ivu-modal-body .EVbase {
+
+    padding: 0 !important;
+}
+.vue-treeselect--disabled .vue-treeselect__control {
+    background-color: #f3f3f3!important;
+    .vue-treeselect__single-value{
+        color: #ccc!important;;
+    }
+}
+
+.ivu-row {
+    width: 100%;
+}
+.ivu-icon-ios-cloud-upload-outline{
+    display: none;
+}
