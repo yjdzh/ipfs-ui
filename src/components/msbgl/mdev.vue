@@ -96,7 +96,9 @@
             <div slot="btnBox" class="btn">
                 <!--<Button @click="added" type="success">新增</Button>-->
 
-
+                <span class="inline">
+					<Alert type="info" show-icon>设备总数：{{allline}} 台</Alert>
+				</span>
                 <span class="inline">
 					<Alert type="success" show-icon>在线设备：{{online}} 台</Alert>
 				</span>
@@ -207,6 +209,7 @@
             return {
                 selects: [],
                 json: {},
+                allline: 0,
                 online: 0,
                 outline: 0,
                 search: {},
@@ -1029,6 +1032,7 @@
                             const muns = res.data.data.split(',')
                             that.online = muns[0]
                             that.outline = muns[1]
+                            that.allline== muns[2]
 
                         } else {
                             that.$Message.destroy();
