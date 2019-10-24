@@ -10,6 +10,11 @@
                 <div class="screenBleft">
                     <div class="left1box">
                         <div class="pront">
+                            <div class="loader3 p0">
+                                <span></span>
+                                <span></span>
+                            </div>
+
                             <div class="loader3 p1">
                                 <span></span>
                                 <span></span>
@@ -334,7 +339,7 @@
 
                 this.chart.setOption(optionData);
             },
-            bottom1: function (id, x, y, names) {
+            bottom1: function (id,  y,x, names) {
                 var th = this;
                 this.chart = echarts.init(document.getElementById(id));
                 this.chart.clear();
@@ -344,14 +349,14 @@
                 const optionData = {
                     grid: {
 
-                        right: "120px",
-                        left: "60px",
+                        right: "50px",
+                        left: "140px",
                     },
-                    tooltip: {
-                        show: true,
-                        trigger: 'item',
-                        formatter: x + " 存储使用率：{c}%"
-                    },
+                    // tooltip: {
+                    //     show: true,
+                    //     trigger: 'item',
+                    //     formatter: x + " 存储使用率：{c}%"
+                    // },
                     xAxis: {
                         show: false
                     },
@@ -361,21 +366,24 @@
                             data: y,
                             inverse: false,
                             axisLabel: {
-                                color: "#7981e8",
-                                formatter: y + '%',
-                                fontSize: 14,
-                            }
+                                textStyle: {
+                                    fontSize: 14,
+                                    color: "#fff"
+                                }
+                            },
                         },
                         {
                             show: true,
                             inverse: false,
                             data: x,
                             axisLabel: {
-                                textStyle: {
-                                    fontSize: 14,
-                                    color: "#fff"
-                                }
-                            },
+                                color: "#7981e8",
+                                formatter: x+'%',
+                                fontSize: 14,
+                            }
+
+
+
 
                         }
                     ],
@@ -386,7 +394,7 @@
                             yAxisIndex: 0,
                             hoverAnimation: false,
 
-                            data: y,
+                            data: x,
                             barWidth: 30,
                             itemStyle: {
                                 normal: {
@@ -440,7 +448,7 @@
                 };
                 this.chart.setOption(optionData);
             },
-            bottom2: function (id, x, y, names) {
+            bottom2: function (id,  y,x, names) {
                 var th = this;
                 this.chart = echarts.init(document.getElementById(id));
                 this.chart.clear();
@@ -449,14 +457,14 @@
                 var myColor = ["#1089E7"];
                 const optionData = {
                     grid: {
-right: "120px",
-                        left: "60px",
+                        right: "50px",
+                        left: "140px",
                     },
-                    tooltip: {
-                        show: true,
-                        trigger: 'item',
-                        formatter: x + " 存储使用率：{c}%"
-                    },
+                    // tooltip: {
+                    //     show: true,
+                    //     trigger: 'item',
+                    //     formatter: x + " 存储使用率：{c}%"
+                    // },
                     xAxis: {
                         show: false
                     },
@@ -466,21 +474,24 @@ right: "120px",
                             data: y,
                             inverse: false,
                             axisLabel: {
-                                color: "#7981e8",
-                                formatter: y + '%',
-                                fontSize: 14,
-                            }
+                                textStyle: {
+                                    fontSize: 14,
+                                    color: "#fff"
+                                }
+                            },
                         },
                         {
                             show: true,
                             inverse: false,
                             data: x,
                             axisLabel: {
-                                textStyle: {
-                                    fontSize: 14,
-                                    color: "#fff"
-                                }
-                            },
+                                color: "#7981e8",
+                                formatter: x+'%',
+                                fontSize: 14,
+                            }
+
+
+
 
                         }
                     ],
@@ -491,7 +502,7 @@ right: "120px",
                             yAxisIndex: 0,
                             hoverAnimation: false,
 
-                            data: y,
+                            data: x,
                             barWidth: 30,
                             itemStyle: {
                                 normal: {
@@ -545,7 +556,7 @@ right: "120px",
                 };
                 this.chart.setOption(optionData);
             },
-            bottom3: function (id, x, y, names) {
+            bottom3: function (id,  y,x, names) {
                 var th = this;
                 this.chart = echarts.init(document.getElementById(id));
                 this.chart.clear();
@@ -554,14 +565,14 @@ right: "120px",
                 var myColor = ["#1089E7"];
                 const optionData = {
                     grid: {
-right: "120px",
-                        left: "60px",
+right: "50px",
+                        left: "140px",
                     },
-                    tooltip: {
-                        show: true,
-                        trigger: 'item',
-                        formatter: x + " 存储使用率：{c}%"
-                    },
+                    // tooltip: {
+                    //     show: true,
+                    //     trigger: 'item',
+                    //     formatter: x + " 存储使用率：{c}%"
+                    // },
                     xAxis: {
                         show: false
                     },
@@ -571,21 +582,24 @@ right: "120px",
                             data: y,
                             inverse: false,
                             axisLabel: {
-                                color: "#7981e8",
-                                formatter: y + '%',
-                                fontSize: 14,
-                            }
+                                textStyle: {
+                                    fontSize: 14,
+                                    color: "#fff"
+                                }
+                            },
                         },
                         {
                             show: true,
                             inverse: false,
                             data: x,
                             axisLabel: {
-                                textStyle: {
-                                    fontSize: 14,
-                                    color: "#fff"
-                                }
-                            },
+                                color: "#7981e8",
+                                formatter: x+'%',
+                                fontSize: 14,
+                            }
+
+
+
 
                         }
                     ],
@@ -596,7 +610,7 @@ right: "120px",
                             yAxisIndex: 0,
                             hoverAnimation: false,
 
-                            data: y,
+                            data: x,
                             barWidth: 30,
                             itemStyle: {
                                 normal: {
@@ -797,7 +811,16 @@ right: "120px",
                 opacity: 0;
             }
         }
-
+        .p0 {
+            top: 49%;
+            left: 74%;
+            width: 90px;
+            height: 90px;
+            span{
+                width: 90px;
+                height: 90px;
+            }
+        }
 
         .p1 {
             top: 23%;
