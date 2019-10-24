@@ -5,7 +5,7 @@
             <Row>
                 <Col span="12" style="padding: 5px">
                     <Card dis-hover>
-                        <b>云池钱包：</b>
+                        <b>数据中心钱包：</b>
                         <span>{{zoneVirId}}</span>
                     </Card>
 
@@ -93,7 +93,7 @@
                     zoneVirId: [{
                         type: 'number',
                         required: true,
-                        message: '请选择云池钱包',
+                        message: '请选择数据中心钱包',
                         trigger: 'change'
                     }],
                     playMoney: [{

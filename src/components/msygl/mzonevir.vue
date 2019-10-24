@@ -23,7 +23,7 @@
                         <Form :model="formItem" :label-width="90" style="overflow: hidden">
 
                             <Col span="23">
-                                <FormItem label="云池">
+                                <FormItem label="数据中心">
 
                                     <Select v-model="formItem.search_EQ_zoneId">
                                         <Option :value="zoneOption.id" :label="zoneOption.name"
@@ -157,7 +157,7 @@
                 powerOperaListInit: {},
                 oprah: {},
 
-                pageTitle: '云池钱包', //页面标题
+                pageTitle: '数据中心钱包', //页面标题
                 totalpage: 0,
                 pagesize: this.Global.pagesize,
                 current: 1,
@@ -194,7 +194,7 @@
                     },
                     {
                         align: 'left',
-                        title: '所属云池',
+                        title: '所属数据中心',
                         key: 'zoneEntity.name',
                         render: function (h, params) {
                             return h('span', [params.row.zoneEntity.name])

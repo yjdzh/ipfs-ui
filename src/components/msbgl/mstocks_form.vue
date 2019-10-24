@@ -47,7 +47,7 @@
 			</Row>
 
 			<Row v-if="formValidate.saleState!=0">
-				<EVitemContainer label="所属云池" prop="zoneId" :span="12">
+				<EVitemContainer label="所属数据中心" prop="zoneId" :span="12">
 
 					<Select v-model="formValidate.zoneId">
 						<Option :value="zoneOption.id" v-text="zoneOption.name" v-for="zoneOption in zoneOptions" :key="zoneOption.index"></Option>
@@ -226,7 +226,7 @@
                         {
                             type: 'number',
                             required: true,
-                            message: '请选择云池',
+                            message: '请选择数据中心',
                             trigger: 'change'
                         }
                     ],
@@ -260,7 +260,7 @@
 
 				// if(data.saleState==='1' && data.zoneId===''){
 				// 	 e.$Message.destroy();
-				// 	 e.$Message.info('请选择托管设备所属云池');
+				// 	 e.$Message.info('请选择托管设备所属数据中心');
 				// 	return;
 				// }
 				//alert(data.zoneId+","+data.bussState)

@@ -7,6 +7,7 @@
     name: 'Logout',
     data () {
       return {}
+      
     },
     created: function (){
       api.logout(this)

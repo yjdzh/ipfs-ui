@@ -4,8 +4,8 @@
             <div slot="searchBox" class="serach">
 
 
-                云池钱包
-                <Select v-model="searchType" placeholder="请选择搜索云池钱包">
+                数据中心钱包
+                <Select v-model="searchType" placeholder="请选择搜索数据中心钱包">
                     <Option v-for="virOption in options" :value="virOption.id" :label="virOption.allName"
                             :key="virOption.index"></Option>
                 </Select>
@@ -24,13 +24,13 @@
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
 <!--                            <Col span="23">-->
-<!--                                <FormItem label="云池名称">-->
-<!--                                    <Input v-model="formItem.search_LIKE_name" placeholder="请输入云池名称"></Input>-->
+<!--                                <FormItem label="数据中心名称">-->
+<!--                                    <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>-->
 <!--                                </FormItem>-->
 <!--                            </Col>-->
 <!--                            <Col span="23">-->
-<!--                                <FormItem label="云池地址">-->
-<!--                                    <Input v-model="formItem.search_LIKE_addr" placeholder="请输入云池地址"></Input>-->
+<!--                                <FormItem label="数据中心地址">-->
+<!--                                    <Input v-model="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>-->
 <!--                                </FormItem>-->
 <!--                            </Col>-->
 <!--                            <Col span="23">-->
@@ -41,7 +41,7 @@
 
 
                             <Col span="23">
-                                <FormItem label="云池钱包">
+                                <FormItem label="数据中心钱包">
 
                                     <Select v-model="formItem.search_EQ_zoneVirId">
                                                                                 <Option :value="zoneVirOption.id" :label="zoneVirOption.allName"
@@ -153,7 +153,7 @@
                 },
                     {
                         align: 'left',
-                        title: '所属云池',
+                        title: '所属数据中心',
                         key: 'zoneEntity.name',
                         render: function (h, params) {
                             return h('span', [params.row.zoneVirModel.zoneName])

@@ -7,11 +7,11 @@
 
 
             <Row>
-                <EVitemContainer label="云池名称" prop="name" :span="12">
-                    <Input v-model="formValidate.name" placeholder="请输入云池名称"></Input>
+                <EVitemContainer label="数据中心名称" prop="name" :span="12">
+                    <Input v-model="formValidate.name" placeholder="请输入数据中心名称"></Input>
                 </EVitemContainer>
-                <EVitemContainer label="云池地址" prop="addr" :span="12">
-                    <Input v-model="formValidate.addr" placeholder="请输入云池地址" :disabled="this.openType==-1?false:true"></Input>
+                <EVitemContainer label="数据中心地址" prop="addr" :span="12">
+                    <Input v-model="formValidate.addr" placeholder="请输入数据中心地址" :disabled="this.openType==-1?false:true"></Input>
                 </EVitemContainer>
             </Row>
             <Row>
@@ -53,7 +53,7 @@
 
                 },
 
-                pageTitle: '云池管理-',
+                pageTitle: '数据中心管理-',
                 pageload: true,
                 search: '111',
                 current: 1,
@@ -70,7 +70,7 @@
                 infoChangeRules: {
 					name: [{
 							required: true,
-							message: '请输入云池名称',
+							message: '请输入数据中心名称',
 							trigger: 'blur'
 						},
 						{
@@ -83,7 +83,7 @@
 
 					addr: [{
 							required: true,
-							message: '请输入云池地址',
+							message: '请输入数据中心地址',
 							trigger: 'blur'
 						},
 						{

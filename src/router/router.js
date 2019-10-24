@@ -149,7 +149,7 @@ export const appRouter = {
 			path: '/mkcgl-mzone',
 			name: 'mkcgl-mzone',
 			meta: {
-				title: '云池管理',
+				title: '数据中心管理',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -164,7 +164,7 @@ export const appRouter = {
 			path: '/mkcgl-mzone-form',
 			name: 'mzone_form',
 			meta: {
-				title: '云池管理',
+				title: '数据中心管理',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -357,7 +357,7 @@ export const appRouter = {
 			path: '/msygl-mzonevir',
 			name: 'msygl-mzonevir',
 			meta: {
-				title: '云池钱包',
+				title: '数据中心钱包',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -372,7 +372,7 @@ export const appRouter = {
 			path: '/msygl-mzonevir-form',
 			name: 'mzonevir-form',
 			meta: {
-				title: '云池钱包',
+				title: '数据中心钱包',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -532,7 +532,7 @@ export const appRouter = {
 			path: '/mtjgl-mkcsy',
 			name: 'mtjgl-mkcsy',
 			meta: {
-				title: '云池收益',
+				title: '数据中心收益',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',

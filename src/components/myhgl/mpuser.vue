@@ -59,7 +59,7 @@
                         <Form ref="sbfpforms" :model="sbfpforms" :label-width="100" :rules="sbfpformRules"
                               style="overflow: hidden">
                             <Col span="23">
-                                <FormItem label="所属云池" prop="zoneId">
+                                <FormItem label="所属数据中心" prop="zoneId">
                                     <Select v-model="sbfpforms.zoneId">
                                         <Option :value="zoneOption.id" v-text="zoneOption.name"
                                                 v-for="zoneOption in zoneOptions"
@@ -384,7 +384,7 @@
 
                 sbfpformRules:
                     {
-                        zoneId: [{type: 'number', required: true, message: "所属云池不能为空", trigger: "change"}],
+                        zoneId: [{type: 'number', required: true, message: "所属数据中心不能为空", trigger: "change"}],
                         num:
                             [{type: 'number', required: true, message: "托管数量不能为空", trigger: "change"}],
                         monthNum:

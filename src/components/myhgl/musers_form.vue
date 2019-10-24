@@ -14,7 +14,7 @@
             </Row>
             <Row>
 
-				<EVitemContainer label="管理云池" prop="zoneId" :span="12">
+				<EVitemContainer label="管理数据中心" prop="zoneId" :span="12">
 
 					<Select v-model="formValidate.zoneId" :disabled="formValidate.isAdmin == 1 ? true : false">
 						<Option :value="zoneOption.id"  :label="zoneOption.name" v-text="zoneOption.name" v-for="zoneOption in zoneOptions" :key="zoneOption.index"></Option>

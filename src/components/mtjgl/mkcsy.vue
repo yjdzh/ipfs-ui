@@ -23,12 +23,12 @@
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
                             <FormItem label="客户名称">
-                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入云池名称"></Input>
+                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="云池地址">
-                                <Input v-model="formItem.search_LIKE_addr" placeholder="请输入云池地址"></Input>
+                            <FormItem label="数据中心地址">
+                                <Input v-model="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
@@ -117,7 +117,7 @@
                 powerListInit: [],
                 powerOperaListInit: {},
                 oprah: {},
-                pageTitle: '云池收益', //页面标题
+                pageTitle: '数据中心收益', //页面标题
                 totalpage: 0,
                 pagesize: this.Global.pagesize,
                 current: 1,
@@ -138,13 +138,13 @@
                 },
                 options: [ //下拉选项
                     {
-                        label: '云池名称',
+                        label: '数据中心名称',
                         value: 'search_LIKE_name',
                     },
                 ],
                 datahead: [{
                         align: 'left',
-                        title: '云池名称',
+                        title: '数据中心名称',
                         key: 'zoneName'
                     },
                     {

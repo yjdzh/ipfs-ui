@@ -33,7 +33,7 @@
 
                             </Col>
                             <Col span="23">
-                                <FormItem label="所属云池" prop="zoneId">
+                                <FormItem label="所属数据中心" prop="zoneId">
                                     <Select v-model="formItem.search_EQ_zoneId">
                                         <Option :value="zoneOption.id" v-text="zoneOption.name"
                                                 v-for="zoneOption in zoneOptions"

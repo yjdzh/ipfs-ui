@@ -37,7 +37,7 @@
 
             <Form ref="formValidate"  v-if="uploads" :model="formValidate" :rules="ruleValidate" :label-width="80">
 
-                <FormItem label="所属云池" prop="zoneId">
+                <FormItem label="所属数据中心" prop="zoneId">
                     <Select v-model="formValidate.zoneId" @on-change="onchange">
                         <Option :value="zoneOption.id" v-text="zoneOption.name" v-for="zoneOption in zoneOptions"
                                 :key="zoneOption.index"></Option>
@@ -218,7 +218,7 @@
                         {
                             type: 'number',
                             required: true,
-                            message: '请选择云池',
+                            message: '请选择数据中心',
                             trigger: 'change'
                         }
                     ],

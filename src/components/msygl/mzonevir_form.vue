@@ -6,7 +6,7 @@
         <div slot="form">
 
             <Row>
-				<EVitemContainer label="云池" prop="zoneId" :span="12" >
+				<EVitemContainer label="数据中心" prop="zoneId" :span="12" >
 					<Select v-model="formValidate.zoneId" :disabled="this.openType!=-1">
 						<Option :value="zoneOption.id" :label="zoneOption.name" v-for="zoneOption in zoneOptions" :key="zoneOption.index"></Option>
 					</Select>
@@ -53,7 +53,7 @@
             var _this = this
             const zoneId = function(coder, value, callback) {
                 if (value === '') {
-                    callback(new Error('请选择所属云池'));
+                    callback(new Error('请选择所属数据中心'));
                 } else {
 
 
@@ -141,7 +141,7 @@
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
 
-                pageTitle: '云池钱包-',
+                pageTitle: '数据中心钱包-',
                 pageload: true,
                 search: '111',
                 current: 1,
@@ -169,7 +169,7 @@
 					zoneId: [{
 						type: 'number',
 						required: true,
-						message: '请选择所属云池',
+						message: '请选择所属数据中心',
                         // validator: zoneId,
 						trigger: 'change'
 					}],

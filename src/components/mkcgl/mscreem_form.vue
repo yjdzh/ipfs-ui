@@ -72,7 +72,7 @@
                     <Input v-model="formValidate.kcmc1" placeholder="请输入数据中心1的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="存储占比" prop="cczb1" :span="12">
-                    <EVinputNumber v-model="formValidate.cczb1" :min="0" :max="100" placeholder="请输入云池1的存储占比"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.cczb1" :min="0" :max="100" placeholder="请输入数据中心1的存储占比"></EVinputNumber>
                 </EVitemContainer>
             </Row>
 
@@ -81,7 +81,7 @@
                     <Input v-model="formValidate.kcmc2" placeholder="请输入数据中心2的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="存储占比" prop="cczb2" :span="12">
-                    <EVinputNumber v-model="formValidate.cczb2" :min="0" :max="100" placeholder="请输入云池2的存储占比"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.cczb2" :min="0" :max="100" placeholder="请输入数据中心2的存储占比"></EVinputNumber>
                 </EVitemContainer>
             </Row>
 
@@ -91,7 +91,7 @@
                     <Input v-model="formValidate.kcmc3" placeholder="请输入数据中心3的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="存储占比" prop="cczb3" :span="12">
-                    <EVinputNumber v-model="formValidate.cczb3" :min="0" :max="100" placeholder="请输入云池3的存储占比"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.cczb3" :min="0" :max="100" placeholder="请输入数据中心3的存储占比"></EVinputNumber>
                 </EVitemContainer>
             </Row>
 
@@ -258,7 +258,7 @@
 
                     kcmc1: [{
                             required: true,
-                            message: '请输入云池1的名称信息',
+                            message: '请输入数据中心1的名称信息',
                             trigger: 'blur'
                         },
                         {
@@ -271,12 +271,12 @@
                     cczb1: [{
                         type: 'number',
                         required: true,
-                        message: '请输入云池1的存储占比',
+                        message: '请输入数据中心1的存储占比',
                         trigger: 'blur'
                     }],
                     kcmc2: [{
                             required: true,
-                            message: '请输入云池2的名称信息',
+                            message: '请输入数据中心2的名称信息',
                             trigger: 'blur'
                         },
                         {
@@ -289,13 +289,13 @@
                     cczb2: [{
                         type: 'number',
                         required: true,
-                        message: '请输入云池2的存储占比',
+                        message: '请输入数据中心2的存储占比',
                         trigger: 'blur'
                     }],
 
                     kcmc3: [{
                             required: true,
-                            message: '请输入云池3的名称信息',
+                            message: '请输入数据中心3的名称信息',
                             trigger: 'blur'
                         },
                         {
@@ -308,7 +308,7 @@
                     cczb3: [{
                         type: 'number',
                         required: true,
-                        message: '请输入云池3的存储占比',
+                        message: '请输入数据中心3的存储占比',
                         trigger: 'blur'
                     }]
 

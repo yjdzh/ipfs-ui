@@ -5,7 +5,7 @@
 		<div slot="form">
 
 			<Row>
-				<EVitemContainer label="云池钱包" prop="zoneVirId" :span="12">
+				<EVitemContainer label="数据中心钱包" prop="zoneVirId" :span="12">
 					<Select v-model="formValidate.zoneVirId" >
 						<Option :value="zoneVirOption.id" :label="zoneVirOption.allName" v-for="zoneVirOption in zoneVirOptions" :key="zoneVirOption.index"></Option>
 					</Select>
@@ -82,7 +82,7 @@
 					zoneVirId: [{
 						type: 'number',
 						required: true,
-						message: '请选择云池钱包',
+						message: '请选择数据中心钱包',
 						trigger: 'change'
 					}],
 					playMoney: [{

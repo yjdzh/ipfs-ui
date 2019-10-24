@@ -22,12 +22,12 @@
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
                             <FormItem label="客户名称">
-                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入云池名称"></Input>
+                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="云池地址">
-                                <Input v-model="formItem.search_LIKE_addr" placeholder="请输入云池地址"></Input>
+                            <FormItem label="数据中心地址">
+                                <Input v-model="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
@@ -204,7 +204,7 @@
                     zoneId: [{
                         type: 'number',
                         required: true,
-                        message: "所属云池不能为空",
+                        message: "所属数据中心不能为空",
                         trigger: "change"
                     }],
                     num: [{
