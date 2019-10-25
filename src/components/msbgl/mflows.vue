@@ -93,8 +93,8 @@
 					{
 						align: 'left',
 						title: '入库日期',
-						key: 'factoryDate',
-					    width: 100
+						key: 'createDate',
+					    width: 150
 					},
 
 					{
@@ -167,7 +167,7 @@
                     {
                     	align: 'left',
                     	title: '入库数量',
-                    	key: 'inboundNum',
+                    	key: 'stockCount',
                         width: 100,
                     },
 					{

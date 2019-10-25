@@ -41,13 +41,13 @@
 				<EVitemContainer label="业务状态" prop="bussState" :span="12">
 					<RadioGroup v-model="formValidate.bussState" type="button">
 						<Radio label="0">库存</Radio>
-						<Radio label="6">测试</Radio>
+						<!-- <Radio label="6">测试</Radio> -->
 					</RadioGroup>
 				</EVitemContainer>
 			</Row>
 
 			<Row v-if="formValidate.saleState!=0">
-				<EVitemContainer label="所属数据中心" prop="zoneId" :span="12">
+				<EVitemContainer label="数据中心" prop="zoneId" :span="12">
 
 					<Select v-model="formValidate.zoneId">
 						<Option :value="zoneOption.id" v-text="zoneOption.name" v-for="zoneOption in zoneOptions" :key="zoneOption.index"></Option>

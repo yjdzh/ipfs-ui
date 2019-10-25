@@ -110,27 +110,27 @@
                     },
                     {
                         align: 'center',
-                        title: '托管总库存',
+                        title: '托管总数量',
                         render: function (h, params) {
                             return h('span', [params.row.trusteeStock])
                         }
 
                     },
-                                       
+
                     {
                         align: 'center',
                         title: '托管已分配',
                         render: function (h, params) {
-                            return h('span', [params.row.trusteeStock])
-                        }                    
+                            return h('span', [params.row.useTrusteeNum])
+                        }
                     },
-                    
+
                     {
                         align: 'center',
                         title: '托管未分配',
                         render: function (h, params) {
-                            return h('span', [params.row.trusteeStock])
-                        }                    
+                            return h('span', [params.row.unUseTrusteeNum])
+                        }
                     },
 
 
