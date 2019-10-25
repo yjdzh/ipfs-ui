@@ -37,7 +37,7 @@
 
             <Form ref="formValidate"  v-if="uploads" :model="formValidate" :rules="ruleValidate" :label-width="80">
 
-                <FormItem label="所属数据中心" prop="zoneId">
+                <FormItem label="数据中心" prop="zoneId">
                     <Select v-model="formValidate.zoneId" @on-change="onchange">
                         <Option :value="zoneOption.id" v-text="zoneOption.name" v-for="zoneOption in zoneOptions"
                                 :key="zoneOption.index"></Option>
@@ -110,11 +110,27 @@
                     },
                     {
                         align: 'center',
-                        title: '托管库存',
+                        title: '托管总库存',
                         render: function (h, params) {
                             return h('span', [params.row.trusteeStock])
                         }
 
+                    },
+                                       
+                    {
+                        align: 'center',
+                        title: '托管已分配',
+                        render: function (h, params) {
+                            return h('span', [params.row.trusteeStock])
+                        }                    
+                    },
+                    
+                    {
+                        align: 'center',
+                        title: '托管未分配',
+                        render: function (h, params) {
+                            return h('span', [params.row.trusteeStock])
+                        }                    
                     },
 
 

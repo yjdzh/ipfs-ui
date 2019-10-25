@@ -81,6 +81,7 @@
 						align: 'left',
 						title: '生成厂商',
 						key: 'mfrs',
+                        width: 150
 
 					},
 					// {
@@ -91,16 +92,16 @@
 					// },
 					{
 						align: 'left',
-						title: '出厂日期',
+						title: '入库日期',
 						key: 'factoryDate',
-
+					    width: 100
 					},
-
 
 					{
 						align: 'center',
 						title: '销售类型',
 						key: 'saleState',
+                        width: 80,
 						render: function(h, params) {
 							return h('span', {
 								style: {
@@ -134,6 +135,7 @@
 						align: 'left',
 						title: '入库类型',
 						key: 'stockType',
+                        width: 90,
 						render: function(h, params) {
 							return h('span', {
 								style: {
@@ -162,11 +164,17 @@
 							}()])
 						},
 					},
+                    {
+                    	align: 'left',
+                    	title: '入库数量',
+                    	key: 'inboundNum',
+                        width: 100,
+                    },
 					{
 						align: 'left',
 						title: '入库流水',
 						key: 'inboundNum',
-
+                        width: 120,
 					},
 					{
 						title: '管理',

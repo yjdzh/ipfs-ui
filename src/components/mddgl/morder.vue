@@ -116,7 +116,7 @@
 					<span>托管</span>
 				</p>
 				<div>
-                    所属数据中心:
+                    数据中心:
                         <Select v-model="zoneId">
                             <Option :value="zoneOption.id" v-text="zoneOption.name"
                                     v-for="zoneOption in zoneOptions"

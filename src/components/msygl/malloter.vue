@@ -4,8 +4,8 @@
             <div slot="searchBox" class="serach">
 
 
-                数据中心钱包
-                <Select v-model="searchType" placeholder="请选择搜索数据中心钱包">
+                钱包
+                <Select v-model="searchType" placeholder="请选择搜索钱包">
                     <Option v-for="virOption in options" :value="virOption.id" :label="virOption.allName"
                             :key="virOption.index"></Option>
                 </Select>
@@ -41,7 +41,7 @@
 
 
                             <Col span="23">
-                                <FormItem label="数据中心钱包">
+                                <FormItem label="钱包">
 
                                     <Select v-model="formItem.search_EQ_zoneVirId">
                                                                                 <Option :value="zoneVirOption.id" :label="zoneVirOption.allName"

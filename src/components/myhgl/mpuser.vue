@@ -3,12 +3,11 @@
         <EVpageList :pageTitle="pageTitle">
             <div slot="searchBox" class="serach">
                 <Input v-model="searchValue" :class="selsctclass">
-                    <Select v-model="searchType" slot="prepend" style="width: 80px">
-                        <Option :value="option.value" :label="option.label" v-text="option.label"
-                                v-for="option in options"
-                                :key="option.index"></Option>
-                    </Select>
-                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+                <Select v-model="searchType" slot="prepend" style="width: 80px">
+                    <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
+                        :key="option.index"></Option>
+                </Select>
+                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
                 </Input>
             </div>
 
@@ -23,16 +22,14 @@
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
-                                <FormItem label="用户账号">
-                                    <Input v-model="formItem.search_LIKE_phone"
-                                           placeholder="请输入手机号码"></Input>
-                                </FormItem>
+                            <FormItem label="用户账号">
+                                <Input v-model="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>
+                            </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="用户昵称">
-                                    <Input v-model="formItem.search_LIKE_name"
-                                           placeholder="请输入用户昵称"></Input>
-                                </FormItem>
+                            <FormItem label="用户昵称">
+                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入用户昵称"></Input>
+                            </FormItem>
                             </Col>
 
                         </Form>
@@ -56,28 +53,24 @@
                         <span>设备分配</span>
                     </p>
                     <div>
-                        <Form ref="sbfpforms" :model="sbfpforms" :label-width="100" :rules="sbfpformRules"
-                              style="overflow: hidden">
+                        <Form ref="sbfpforms" :model="sbfpforms" :label-width="100" :rules="sbfpformRules" style="overflow: hidden">
                             <Col span="23">
-                                <FormItem label="所属数据中心" prop="zoneId">
-                                    <Select v-model="sbfpforms.zoneId">
-                                        <Option :value="zoneOption.id" v-text="zoneOption.name"
-                                                v-for="zoneOption in zoneOptions"
-                                                :key="zoneOption.index"></Option>
-                                    </Select>
-                                </FormItem>
+                            <FormItem label="所属数据中心" prop="zoneId">
+                                <Select v-model="sbfpforms.zoneId">
+                                    <Option :value="zoneOption.id" v-text="zoneOption.name" v-for="zoneOption in zoneOptions"
+                                        :key="zoneOption.index"></Option>
+                                </Select>
+                            </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="托管设备数量" prop="num">
-                                    <EVinputNumber v-model="sbfpforms.num" :min="1" :max="500"
-                                                   placeholder="请输入托管设备数量"></EVinputNumber>
-                                </FormItem>
+                            <FormItem label="托管设备数量" prop="num">
+                                <EVinputNumber v-model="sbfpforms.num" :min="1" :max="500" placeholder="请输入托管设备数量"></EVinputNumber>
+                            </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="托管时长" prop="monthNum">
-                                    <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="20"
-                                                   placeholder="请输入托管时长(月)"></EVinputNumber>
-                                </FormItem>
+                            <FormItem label="托管时长" prop="monthNum">
+                                <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="20" placeholder="请输入托管时长(月)"></EVinputNumber>
+                            </FormItem>
                             </Col>
 
                         </Form>
@@ -92,14 +85,12 @@
                         <span>托管服务</span>
                     </p>
                     <div>
-                        <Form ref="tgfwforms" :model="tgfwforms" :label-width="100" :rules="tgfwformRules"
-                              style="overflow: hidden">
+                        <Form ref="tgfwforms" :model="tgfwforms" :label-width="100" :rules="tgfwformRules" style="overflow: hidden">
 
                             <Col span="23">
-                                <FormItem label="托管时长" prop="monthNum">
-                                    <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="20"
-                                                   placeholder="请输入托管时长(月)"></EVinputNumber>
-                                </FormItem>
+                            <FormItem label="托管时长" prop="monthNum">
+                                <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="20" placeholder="请输入托管时长(月)"></EVinputNumber>
+                            </FormItem>
                             </Col>
 
                         </Form>
@@ -113,8 +104,7 @@
                 </Table>
             </div>
             <div slot="pagePage">
-                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges"
-                      :current="current">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
                 </Page>
             </div>
 
@@ -122,10 +112,7 @@
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
-        <Modal
-            v-model="modal"
-            title="默认配置"
-            class-name="hideenfooter">
+        <Modal v-model="modal" title="默认配置" class-name="hideenfooter">
             <Form ref="formV" :model="formV" :rules="ruleV" :label-width="0">
                 <EVdivider orientation="right">
                     <span class="dividertit">编辑配置</span>
@@ -135,8 +122,7 @@
                     </i-switch>
                 </EVdivider>
                 <FormItem label="" prop="hardInfo" :span="12" v-if="this.switch">
-                    <Input type="textarea" :autosize="{minRows: 4,maxRows: 10}" v-model="formV.hardInfo"
-                           placeholder="请输入配置信息">
+                    <Input type="textarea" :autosize="{minRows: 4,maxRows: 10}" v-model="formV.hardInfo" placeholder="请输入配置信息">
 
                     </Input>
                 </FormItem>
@@ -144,8 +130,8 @@
                     <pre v-if="!this.switch" v-text="hardInfo"></pre>
                 </div>
                 <FormItem>
-                    <Button v-if="this.switch" type="primary" size="large" class="submitbbox"
-                            @click="handleSubmit('formV')" :loading="load">提交
+                    <Button v-if="this.switch" type="primary" size="large" class="submitbbox" @click="handleSubmit('formV')"
+                        :loading="load">提交
                     </Button>
                 </FormItem>
             </Form>
@@ -154,14 +140,12 @@
 </template>
 
 <script>
-
-
     export default {
         name: "mpuser",
 
         data() {
             var _this = this;
-            const coderhardInfo = function (coder, value, callback) {
+            const coderhardInfo = function(coder, value, callback) {
 
                 if ((_this.formV.hardInfo !== '')) {
                     const str = _this.formV.hardInfo
@@ -194,11 +178,11 @@
 
 
                 api: {
-                    base: '/mpuser',//请求部分
+                    base: '/mpuser', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
 
-                pageTitle: 'APP用户',//页面标题
+                pageTitle: 'APP用户', //页面标题
                 totalpage: 0,
                 pagesize: this.Global.pagesize,
                 current: 1,
@@ -212,9 +196,13 @@
                 id: null,
                 ruleV: {
 
-                    hardInfo: [{required: true, validator: coderhardInfo, trigger: 'blur'}],
+                    hardInfo: [{
+                        required: true,
+                        validator: coderhardInfo,
+                        trigger: 'blur'
+                    }],
                 },
-                options: [//下拉选项
+                options: [ //下拉选项
                     {
                         label: '用户账号',
                         value: 'search_LIKE_phone',
@@ -231,28 +219,28 @@
                         align: 'left',
                         title: '账号',
                         key: 'phone',
-                        width: 150,
+                        width: 100,
 
                     },
                     {
                         align: 'left',
                         title: '姓名',
                         key: 'surname',
-                        width: 110,
+                        width: 90,
 
                     },
                     {
                         align: 'left',
                         title: '身份证',
                         key: 'idcard',
-                        width: 150,
+                        width: 145,
 
                     },
                     {
                         align: 'left',
                         title: '注册时间',
                         key: 'createDate',
-                        width: 150,
+                        width: 140,
                     },
                     {
                         align: 'left',
@@ -263,100 +251,118 @@
                     {
                         title: '管理',
                         key: 'action',
-                        width: 270,
+                        width: 360,
                         align: 'center',
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('div', [
 
-                                    h('Button', {
-                                        props: {
-                                            type: 'primary',
-                                            size: 'small',
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
 
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        },
-                                        on: {
-                                            click: function () {
-                                                _this.sbfp(params)
-                                            }
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.sbfp(params)
                                         }
-                                    }, '设备分配'),
-                                    h('Button', {
-                                        props: {
-                                            type: 'primary',
-                                            size: 'small',
+                                    }
+                                }, '设备分配'),
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
 
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        },
-                                        on: {
-                                            click: function () {
-                                                _this.tgfw(params)
-                                            }
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.tgfw(params)
                                         }
-                                    }, '托管服务'),
+                                    }
+                                }, '托管服务'),
 
-                                    h('Button', {
-                                        props: {
-                                            type: 'primary',
-                                            size: 'small',
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
 
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        },
-                                        on: {
-                                            click: function () {
-                                                _this.guanliang(params)
-                                            }
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.guanliang(params)
                                         }
-                                    }, '关联设备'),
+                                    }
+                                }, '关联设备'),
 
-                                    h('Button', {
-                                        props: {
-                                            type: 'error',
-                                            size: 'small',
-                                            // disabled: params.row.? == 0 ? true : false,
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        },
-                                        on: {
-                                            click: function () {
-                                                _this.$Modal.confirm({
-                                                    title: '操作确认',
-                                                    content: '<p>确认要删除吗？</p>',
-                                                    loading: true,
-                                                    closable: true,
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
 
-                                                    onOk: function () {
-                                                        _this.Global.fun(
-                                                            _this,
-                                                            'delete', {
-                                                                base: _this.api.base,
-                                                                other: '/' + params.row.id + '?',
-                                                                access_token: _this.api.access_token
-                                                            }, {}, c)
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
 
-                                                        function c(res, that) {
-                                                            that.$Message.destroy();
-                                                            that.$Message.info(res.data.msg);
-
-                                                            that.$Modal.remove();
-                                                            that.refresh()
-                                                        }
-
-                                                    },
-                                                });
-                                            }
                                         }
-                                    }, '删除'),
+                                    }
+                                }, '到期提醒设置'),
 
-                                ]
-                            )
+                                h('Button', {
+                                    props: {
+                                        type: 'error',
+                                        size: 'small',
+                                        // disabled: params.row.? == 0 ? true : false,
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.$Modal.confirm({
+                                                title: '操作确认',
+                                                content: '<p>确认要删除吗？</p>',
+                                                loading: true,
+                                                closable: true,
+
+                                                onOk: function() {
+                                                    _this.Global.fun(
+                                                        _this,
+                                                        'delete', {
+                                                            base: _this.api.base,
+                                                            other: '/' + params
+                                                                .row.id + '?',
+                                                            access_token: _this
+                                                                .api.access_token
+                                                        }, {}, c)
+
+                                                    function c(res, that) {
+                                                        that.$Message.destroy();
+                                                        that.$Message.info(res.data
+                                                            .msg);
+
+                                                        that.$Modal.remove();
+                                                        that.refresh()
+                                                    }
+
+                                                },
+                                            });
+                                        }
+                                    }
+                                }, '删除'),
+
+                            ])
                         }
                     }
                 ],
@@ -375,29 +381,43 @@
                     num: null,
                     monthNum: null,
 
-                }
-                , tgfwforms: {
+                },
+                tgfwforms: {
                     monthNum: null,
 
                 },
 
 
-                sbfpformRules:
-                    {
-                        zoneId: [{type: 'number', required: true, message: "所属数据中心不能为空", trigger: "change"}],
-                        num:
-                            [{type: 'number', required: true, message: "托管数量不能为空", trigger: "change"}],
-                        monthNum:
-                            [{type: 'number', required: true, message: "托管时长不能为空", trigger: "change"}]
-                    },
-                tgfwformRules:
-                    {
-                        monthNum:
-                            [{type: 'number', required: true, message: "托管时长不能为空", trigger: "change"}]
-                    }
+                sbfpformRules: {
+                    zoneId: [{
+                        type: 'number',
+                        required: true,
+                        message: "所属数据中心不能为空",
+                        trigger: "change"
+                    }],
+                    num: [{
+                        type: 'number',
+                        required: true,
+                        message: "托管数量不能为空",
+                        trigger: "change"
+                    }],
+                    monthNum: [{
+                        type: 'number',
+                        required: true,
+                        message: "托管时长不能为空",
+                        trigger: "change"
+                    }]
+                },
+                tgfwformRules: {
+                    monthNum: [{
+                        type: 'number',
+                        required: true,
+                        message: "托管时长不能为空",
+                        trigger: "change"
+                    }]
+                }
 
-            }
-                ;
+            };
         },
         computed: {
             disabledadd() {
@@ -424,14 +444,13 @@
                                 base: '/mpuser/tgsb',
                                 other: '?',
                                 access_token: this.api.access_token,
-                            },
-                            {
+                            }, {
                                 zoneId: this.sbfpforms.zoneId,
                                 num: this.sbfpforms.num,
                                 monthNum: this.sbfpforms.monthNum,
                                 pubUserId: this.pubUserId
                             },
-                            function (res, that) {
+                            function(res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('分配成功');
@@ -440,7 +459,7 @@
 
                                 } else {
                                     that.$Message.destroy();
-                                    that.$Message.error('保存失败'+res.data.msg);
+                                    that.$Message.error('保存失败' + res.data.msg);
 
                                 }
 
@@ -469,19 +488,18 @@
                                 base: '/mpuser/tgfw',
                                 other: '?',
                                 access_token: this.api.access_token,
-                            },
-                            {
+                            }, {
                                 monthNum: this.tgfwforms.monthNum,
                                 pubUserId: this.pubUserId
                             },
-                            function (res, that) {
+                            function(res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('托管成功');
                                     that.closemodal()
                                 } else {
                                     that.$Message.destroy();
-                                    that.$Message.error('保存失败'+res.data.msg);
+                                    that.$Message.error('保存失败' + res.data.msg);
 
                                 }
 
@@ -531,11 +549,12 @@
                                 base: this.api.base,
                                 other: '/cfg/' + this.id + '?',
                                 access_token: this.api.access_token,
+                            }, {
+                                cfg: (this.formV.hardInfo.replace(/\\/g, "")).replace(/ \s*/g, "")
                             },
-                            {cfg: (this.formV.hardInfo.replace(/\\/g, "")).replace(/ \s*/g, "")},
 
 
-                            function (res, that) {
+                            function(res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('保存成功');
@@ -556,16 +575,16 @@
                 })
 
             },
-            refresh: function () {
+            refresh: function() {
                 this.loading = true
                 this.search = {}
                 this.searchType = 'search_LIKE_phone'
-//                 this.searchValue = ''
+                //                 this.searchValue = ''
 
-//                 this.current = 1
+                //                 this.current = 1
                 this.onchanges(this.current)
             },
-            guanliang: function (params) {
+            guanliang: function(params) {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -577,7 +596,7 @@
                 })
 
             },
-            added: function () {
+            added: function() {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -589,7 +608,7 @@
                 })
 
             },
-            onchanges: function (e) {
+            onchanges: function(e) {
                 var that = this
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
@@ -598,7 +617,7 @@
                     base: this.api.base,
                     other: '/page?',
                     access_token: this.api.access_token
-                }, function () {
+                }, function() {
                     that.search.page = e - 1
                     that.search.size = 10
                     return that.search
@@ -622,11 +641,10 @@
                     }
                 }
             },
-            oprahfun: function (e) {
+            oprahfun: function(e) {
                 this.Global.oprahfun(this)
-            }
-            ,
-            dosearch: function () {
+            },
+            dosearch: function() {
                 this.loading = true
 
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
@@ -641,13 +659,14 @@
                     this.$Message.error('输入条件不合法');
                     this.loading = false;
                 }
-            }, getoptions() {
+            },
+            getoptions() {
                 this.Global.fun(this, 'get', {
                         base: '/mzone',
                         other: '/allwithTgNum?',
                         access_token: this.api.access_token,
                     }, {},
-                    function (res, that) {
+                    function(res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.zoneOptions = res.data.data
@@ -658,24 +677,22 @@
 
                     })
             }
-        }
-        ,
-        created: function () {
+        },
+        created: function() {
             this.searchType = 'search_LIKE_phone',
                 this.getoptions()
             this.refresh()
-        }
-        ,
+        },
     }
 </script>
 <style lang="less">
-
     .evinputnumber {
         .evaninline {
-            > .ivu-input-group-append, > .ivu-input-group-prepend {
+
+            >.ivu-input-group-append,
+            >.ivu-input-group-prepend {
                 display: none;
             }
         }
     }
-
 </style>

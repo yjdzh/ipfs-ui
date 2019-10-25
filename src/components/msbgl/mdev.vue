@@ -33,7 +33,7 @@
 
                             </Col>
                             <Col span="23">
-                                <FormItem label="所属数据中心" prop="zoneId">
+                                <FormItem label="数据中心" prop="zoneId">
                                     <Select v-model="formItem.search_EQ_zoneId">
                                         <Option :value="zoneOption.id" v-text="zoneOption.name"
                                                 v-for="zoneOption in zoneOptions"
@@ -355,13 +355,15 @@
                             }
                         })
                     }
-                }, {
-                    align: 'left',
-                    title: '产品名称',
-                    render: function (h, params) {
-                        return h('span', [params.row.productEntity.name])
-                    }
-                }, {
+                },
+                // {
+                //     align: 'left',
+                //     title: '产品名称',
+                //     render: function (h, params) {
+                //         return h('span', [params.row.productEntity.name])
+                //     }
+                // },
+                {
                     align: 'left',
                     title: 'mac',
                     key: 'mac',
@@ -735,7 +737,15 @@
                                                     _this.readDev(params, 4)
                                                 }
                                             }
-                                        }, "查看日志")
+                                        }, "查看日志"),
+                                        h('DropdownItem', {
+                                            nativeOn: {
+                                                click: (name) => {
+                                                    _this.editDev(params)
+                                                }
+                                            }
+                                        }, "编辑设备"),
+
                                     ])
                                 ]),
 
@@ -914,6 +924,10 @@
                         }
                     }
                 }
+            },
+            
+            editDev: function (params) {
+            alert('编辑设备');
             },
             // added: function () {
             //     this.Global.value = '';

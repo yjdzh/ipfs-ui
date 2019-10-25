@@ -22,13 +22,13 @@
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
-                                <FormItem label="数据中心名称">
+                                <FormItem label="名称">
                                     <Input v-model="formItem.search_LIKE_name"
                                            placeholder="请输入数据中心名称"></Input>
                                 </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="数据中心地址">
+                                <FormItem label="地址">
                                     <Input v-model="formItem.search_LIKE_addr"
                                            placeholder="请输入数据中心地址"></Input>
                                 </FormItem>
@@ -146,14 +146,14 @@
                 },
                 options: [ //下拉选项
                     {
-                        label: '数据中心名称',
+                        label: '名称',
                         value: 'search_LIKE_name',
                     },
                 ],
                 datahead: [
                     {
                         align: 'left',
-                        title: '数据中心名称',
+                        title: '名称',
                         key: 'name'
                     },
 					{
