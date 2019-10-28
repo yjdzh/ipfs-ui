@@ -263,7 +263,7 @@
                     grid: {
                         top: "5%",
                         right: "3%",
-                        left: "20%",
+                        left: "40%",
                         bottom: "10%"
                     },
                     tooltip: {

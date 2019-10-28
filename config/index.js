@@ -10,16 +10,17 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: ' http://10.18.17.228:8080/',
+        // target: ' http://10.18.17.228:8080/',
+
+          target: '  http://47.92.51.100:8080/',
+
         changeOrigin: true,
         pathRewrite: {
           '^/api': '/'
         }
       }
     },
-    //host: '10.18.13.228',
-    //  host: '10.18.133.208',
-    // host: '47.92.51.100',
+
     host: '127.0.0.1',
     port: 8091, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,
