@@ -739,8 +739,14 @@
                                             }
                                         }, "查看日志"),
                                         h('DropdownItem', {
+                                            props: {
+                                                disabled: params.row.bussState != 0 ? true : false,
+                                            },
                                             nativeOn: {
                                                 click: (name) => {
+                                                    if (params.row.bussState != 0) {
+                                                        return;
+                                                    }
                                                     _this.editDev(params)
                                                 }
                                             }
@@ -925,7 +931,7 @@
                     }
                 }
             },
-            
+
             editDev: function (params) {
             alert('编辑设备');
             },
