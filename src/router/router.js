@@ -558,6 +558,36 @@ export const appRouter = {
 				'msygl-mtbvir')
 		}
 
+		,{
+            path: '/mbzgl-mlog',
+            name: 'mbzgl-mlog',
+            meta: {
+                title: '日志管理',
+                hierarchy: [{
+                    base: 'formDemo',
+                    app: 'formDemo',
+                    fristclass: 'formDemo',
+                    floor: 2
+                }]
+            },
+            component: r => require.ensure([], () => r(require('@/components/mbzgl/mlog')),
+                'mbzgl-mlog')
+        },{
+            path: '/mbzgl-mloginfo',
+            name: 'mbzgl-mloginfo',
+            meta: {
+                title: '日志详情',
+                hierarchy: [{
+                    base: 'formDemo',
+                    app: 'formDemo',
+                    fristclass: 'formDemo',
+                    floor: 2
+                }]
+            },
+            component: r => require.ensure([], () => r(require('@/components/mbzgl/mloginfo')),
+                'mbzgl-mloginfo')
+        }
+
 
 	]
 }

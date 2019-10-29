@@ -931,7 +931,7 @@ right: "50px",
             .screenHlogo {
                 left: -25px;
                 width: 130px;
-                background-image: url("../../static/img/screen/logo.png");
+                background-image: url("../../static/img/screen/logo2.jpg");
                 background-repeat: no-repeat;
                 background-size: 100% auto;
                 background-position: center;
