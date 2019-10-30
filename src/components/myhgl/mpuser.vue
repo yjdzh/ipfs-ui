@@ -3,11 +3,12 @@
         <EVpageList :pageTitle="pageTitle">
             <div slot="searchBox" class="serach">
                 <Input v-model="searchValue" :class="selsctclass">
-                <Select v-model="searchType" slot="prepend" style="width: 80px">
-                    <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
-                        :key="option.index"></Option>
-                </Select>
-                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+                    <Select v-model="searchType" slot="prepend" style="width: 80px">
+                        <Option :value="option.value" :label="option.label" v-text="option.label"
+                                v-for="option in options"
+                                :key="option.index"></Option>
+                    </Select>
+                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>
                 </Input>
             </div>
 
@@ -22,14 +23,14 @@
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
-                            <FormItem label="用户账号">
-                                <Input v-model="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>
-                            </FormItem>
+                                <FormItem label="用户账号">
+                                    <Input v-model="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>
+                                </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="用户昵称">
-                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入用户昵称"></Input>
-                            </FormItem>
+                                <FormItem label="用户昵称">
+                                    <Input v-model="formItem.search_LIKE_name" placeholder="请输入用户昵称"></Input>
+                                </FormItem>
                             </Col>
 
                         </Form>
@@ -48,30 +49,52 @@
             </div>
             <div slot="table">
 
-                <Modal v-model="sbfpO" class="evinputnumber" width="500" @on-cancel="closemodal">
+                <Modal v-model="sbfpO" class="evinputnumber" width="500" >
                     <p slot="header">
                         <span>设备分配</span>
                     </p>
                     <div>
-                        <Form ref="sbfpforms" :model="sbfpforms" :label-width="100" :rules="sbfpformRules" style="overflow: hidden">
+                        <Form ref="sbfpforms" :model="sbfpforms" :label-width="100" :rules="sbfpformRules"
+                              style="overflow: hidden">
                             <Col span="23">
-                            <FormItem label="所属数据中心" prop="zoneId">
-                                <Select v-model="sbfpforms.zoneId">
-                                    <Option :value="zoneOption.id" v-text="zoneOption.name" v-for="zoneOption in zoneOptions"
-                                        :key="zoneOption.index"></Option>
-                                </Select>
-                            </FormItem>
+                                <FormItem label="所属数据中心" prop="zoneId">
+                                    <Select v-model="sbfpforms.zoneId" @on-change="changezone" :label-in-value="true">
+                                        <Option :value="zoneOption.zoneId" :label="zoneOption.name"
+                                                v-for="zoneOption in zoneOptions"
+                                                :key="zoneOption.index"></Option>
+                                    </Select>
+
+                                </FormItem>
+                            </Col>
+
+
+                            <Col span="23">
+                                <FormItem label="库存数量">
+                                    <span>{{hasnum}}</span>
+                                </FormItem>
+                            </Col>
+
+
+                            <Col span="23">
+                                <FormItem label="托管设备数量" prop="num">
+                                    <EVinputNumber v-model="sbfpforms.num" :min="1" :max="500"
+                                                   placeholder="请输入托管设备数量"></EVinputNumber>
+                                </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="托管设备数量" prop="num">
-                                <EVinputNumber v-model="sbfpforms.num" :min="1" :max="500" placeholder="请输入托管设备数量"></EVinputNumber>
-                            </FormItem>
+                                <FormItem label="托管时长" prop="monthNum">
+                                    <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="20"
+                                                   placeholder="请输入托管时长(月)"></EVinputNumber>
+                                </FormItem>
                             </Col>
+
+
                             <Col span="23">
-                            <FormItem label="托管时长" prop="monthNum">
-                                <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="20" placeholder="请输入托管时长(月)"></EVinputNumber>
-                            </FormItem>
+                                <FormItem label="设备mac" prop="macs">
+                                    <Input v-model="sbfpforms.macs" placeholder="请输入分配设备的mac，多个设备使用','分割"></Input>
+                                </FormItem>
                             </Col>
+
 
                         </Form>
                     </div>
@@ -80,17 +103,19 @@
                         <i-button type="primary" size="large" @click="sbfpS">确认</i-button>
                     </div>
                 </Modal>
-                <Modal v-model="tgfwO" class="evinputnumber" width="500" @on-cancel="closemodal">
+                <Modal v-model="tgfwO" class="evinputnumber" width="500" >
                     <p slot="header">
                         <span>托管服务</span>
                     </p>
                     <div>
-                        <Form ref="tgfwforms" :model="tgfwforms" :label-width="100" :rules="tgfwformRules" style="overflow: hidden">
+                        <Form ref="tgfwforms" :model="tgfwforms" :label-width="100" :rules="tgfwformRules"
+                              style="overflow: hidden">
 
                             <Col span="23">
-                            <FormItem label="托管时长" prop="monthNum">
-                                <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="20" placeholder="请输入托管时长(月)"></EVinputNumber>
-                            </FormItem>
+                                <FormItem label="托管时长" prop="monthNum">
+                                    <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="20"
+                                                   placeholder="请输入托管时长(月)"></EVinputNumber>
+                                </FormItem>
                             </Col>
 
                         </Form>
@@ -104,7 +129,8 @@
                 </Table>
             </div>
             <div slot="pagePage">
-                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges"
+                      :current="current">
                 </Page>
             </div>
 
@@ -122,7 +148,8 @@
                     </i-switch>
                 </EVdivider>
                 <FormItem label="" prop="hardInfo" :span="12" v-if="this.switch">
-                    <Input type="textarea" :autosize="{minRows: 4,maxRows: 10}" v-model="formV.hardInfo" placeholder="请输入配置信息">
+                    <Input type="textarea" :autosize="{minRows: 4,maxRows: 10}" v-model="formV.hardInfo"
+                           placeholder="请输入配置信息">
 
                     </Input>
                 </FormItem>
@@ -130,8 +157,9 @@
                     <pre v-if="!this.switch" v-text="hardInfo"></pre>
                 </div>
                 <FormItem>
-                    <Button v-if="this.switch" type="primary" size="large" class="submitbbox" @click="handleSubmit('formV')"
-                        :loading="load">提交
+                    <Button v-if="this.switch" type="primary" size="large" class="submitbbox"
+                            @click="handleSubmit('formV')"
+                            :loading="load">提交
                     </Button>
                 </FormItem>
             </Form>
@@ -145,7 +173,7 @@
 
         data() {
             var _this = this;
-            const coderhardInfo = function(coder, value, callback) {
+            const coderhardInfo = function (coder, value, callback) {
 
                 if ((_this.formV.hardInfo !== '')) {
                     const str = _this.formV.hardInfo
@@ -168,6 +196,10 @@
 
             }
             return {
+
+                hasnum: '请选择数据中心',
+
+
                 search: {},
                 Hsearch: false,
 
@@ -253,7 +285,7 @@
                         key: 'action',
                         width: 360,
                         align: 'center',
-                        render: function(h, params) {
+                        render: function (h, params) {
                             return h('div', [
 
                                 h('Button', {
@@ -266,7 +298,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.sbfp(params)
                                         }
                                     }
@@ -281,7 +313,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.tgfw(params)
                                         }
                                     }
@@ -297,7 +329,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.guanliang(params)
                                         }
                                     }
@@ -313,7 +345,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
 
                                         }
                                     }
@@ -329,14 +361,14 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.$Modal.confirm({
                                                 title: '操作确认',
                                                 content: '<p>确认要删除吗？</p>',
                                                 loading: true,
                                                 closable: true,
 
-                                                onOk: function() {
+                                                onOk: function () {
                                                     _this.Global.fun(
                                                         _this,
                                                         'delete', {
@@ -377,6 +409,7 @@
                 sbfpO: false,
                 tgfwO: false,
                 sbfpforms: {
+                    macs: '',
                     zoneId: '',
                     num: null,
                     monthNum: null,
@@ -406,7 +439,15 @@
                         required: true,
                         message: "托管时长不能为空",
                         trigger: "change"
-                    }]
+                    }],
+                    macs: [{
+
+                        required: true,
+                        message: "mac地址不能为空",
+                        trigger: "change"
+                    }],
+
+
                 },
                 tgfwformRules: {
                     monthNum: [{
@@ -438,19 +479,27 @@
                 this.sbfpO = true
             },
             sbfpS() {
+                var th=this
+                th.sbfpforms.macs=th.sbfpforms.macs.replace('，/g', ',')
                 this.$refs['sbfpforms'].validate((valid) => {
                     if (valid) {
-                        this.Global.fun(this, 'post', {
+                        debugger
+
+
+
+
+                        th.Global.fun(th, 'post', {
                                 base: '/mpuser/tgsb',
                                 other: '?',
-                                access_token: this.api.access_token,
+                                access_token: th.api.access_token,
                             }, {
-                                zoneId: this.sbfpforms.zoneId,
-                                num: this.sbfpforms.num,
-                                monthNum: this.sbfpforms.monthNum,
-                                pubUserId: this.pubUserId
+                                zoneId: th.sbfpforms.zoneId,
+                                num: th.sbfpforms.num,
+                                monthNum: th.sbfpforms.monthNum,
+                                pubUserId: th.pubUserId,
+                                macs: th.sbfpforms.macs,
                             },
-                            function(res, that) {
+                            function (res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('分配成功');
@@ -460,7 +509,7 @@
                                 } else {
                                     that.$Message.destroy();
                                     that.$Message.error('保存失败' + res.data.msg);
-
+                                    that.closemodal()
                                 }
 
 
@@ -477,7 +526,10 @@
                     this.sbfpforms.zoneId = '',
                     this.sbfpforms.num = null,
                     this.sbfpforms.monthNum = null,
+                    this.sbfpforms.macs = null,
+                    this.hasnum= '请选择数据中心',
                     this.tgfwforms.monthNum = null
+
                 this.refresh()
             },
 
@@ -492,7 +544,7 @@
                                 monthNum: this.tgfwforms.monthNum,
                                 pubUserId: this.pubUserId
                             },
-                            function(res, that) {
+                            function (res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('托管成功');
@@ -500,7 +552,7 @@
                                 } else {
                                     that.$Message.destroy();
                                     that.$Message.error('保存失败' + res.data.msg);
-
+                                    that.closemodal()
                                 }
 
 
@@ -554,7 +606,7 @@
                             },
 
 
-                            function(res, that) {
+                            function (res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('保存成功');
@@ -575,7 +627,7 @@
                 })
 
             },
-            refresh: function() {
+            refresh: function () {
                 this.loading = true
                 this.search = {}
                 this.searchType = 'search_LIKE_phone'
@@ -584,7 +636,7 @@
                 //                 this.current = 1
                 this.onchanges(this.current)
             },
-            guanliang: function(params) {
+            guanliang: function (params) {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -596,7 +648,7 @@
                 })
 
             },
-            added: function() {
+            added: function () {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -608,7 +660,7 @@
                 })
 
             },
-            onchanges: function(e) {
+            onchanges: function (e) {
                 var that = this
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
@@ -617,7 +669,7 @@
                     base: this.api.base,
                     other: '/page?',
                     access_token: this.api.access_token
-                }, function() {
+                }, function () {
                     that.search.page = e - 1
                     that.search.size = 10
                     return that.search
@@ -641,10 +693,10 @@
                     }
                 }
             },
-            oprahfun: function(e) {
+            oprahfun: function (e) {
                 this.Global.oprahfun(this)
             },
-            dosearch: function() {
+            dosearch: function () {
                 this.loading = true
 
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
@@ -666,7 +718,7 @@
                         other: '/allwithTgNum?',
                         access_token: this.api.access_token,
                     }, {},
-                    function(res, that) {
+                    function (res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.zoneOptions = res.data.data
@@ -676,9 +728,43 @@
                         }
 
                     })
+            },
+
+
+            optionchange() {
+                this.Global.fun(this, 'get', {
+                        base: '/mpuser',
+                        other: '/tgsb?',
+                        access_token: this.api.access_token,
+                    }, {},
+                    function (res, that) {
+                        if (res.data.status == 1) {
+                            that.$Message.destroy();
+
+                        } else {
+                            that.$Message.destroy();
+                            that.$Message.error(res.data.msg);
+                        }
+
+                    })
+            },
+
+            changezone(e) {
+
+                if (e!= undefined) {
+                    for (let k in this.zoneOptions) {
+                        if (this.zoneOptions[k].zoneId == e.value) {
+                            this.hasnum = this.zoneOptions[k].tgNum
+                        }
+                    }
+                }
+
+
             }
+
+
         },
-        created: function() {
+        created: function () {
             this.searchType = 'search_LIKE_phone',
                 this.getoptions()
             this.refresh()
@@ -689,8 +775,8 @@
     .evinputnumber {
         .evaninline {
 
-            >.ivu-input-group-append,
-            >.ivu-input-group-prepend {
+            > .ivu-input-group-append,
+            > .ivu-input-group-prepend {
                 display: none;
             }
         }

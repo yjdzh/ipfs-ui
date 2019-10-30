@@ -60,18 +60,66 @@
         name: "mlog",
         data() {
             return {
-                datas:{
+                api: {
+                    base: '/mpuser', //请求部分
+                    access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
+                },
+                openType: '',
+                datas: {
 
-                moduleName: '',
-                methodName: '',
-                level: '',
-                operateUser: '',
-                types: '',
-                createdTime: '',
-                content: '',
-                success: ''
+                    moduleName: '',
+                    methodName: '',
+                    level: '',
+                    operateUser: '',
+                    types: '',
+                    createdTime: '',
+                    content: '',
+                    success: ''
                 }
             }
+        },
+        methods:{
+            dataget() {
+                debugger
+                this.Global.fun(this, 'get', {
+                        base: '/mlogs',
+                        other: '/'+this.openType+'?',
+                        access_token: this.api.access_token,
+                    }, {},
+                    function (res, that) {
+                    debugger
+                        if (res.data.status == 1) {
+                            that.$Message.destroy();
+
+
+                            that.datas.moduleName=res.data.data.moduleName,
+                                that.datas.methodName=res.data.data.methodName,
+                                that.datas.level=res.data.data.level,
+                                that.datas.operateUser=res.data.data.operateUser,
+                                that.datas.types=res.data.data.types,
+                                that.datas.createdTime=res.data.data.createdTime,
+                                that.datas.content=res.data.data.content,
+                                that.datas.success=res.data.data.success
+
+
+
+
+
+
+
+                        } else {
+                            that.$Message.destroy();
+                            that.$Message.error(res.data.msg);
+                        }
+
+                    })
+            },
+        },
+
+        created() {
+            debugger
+            this.openType = parseInt(this.$route.query.id)
+            this.dataget()
         }
     }
 </script>

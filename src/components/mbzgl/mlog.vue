@@ -1,10 +1,10 @@
 <template>
     <div>
-        <EVpageList :pageTitle="pageTitle">
+        <EVpageList :pageTitle="pageTitle" class="logs">
             <div slot="searchBox" class="serach">
                 <Input v-model="searchValue" :class="selsctclass">
                     <Select v-model="searchType" slot="prepend" style="width: 80px">
-                        <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
+                        <Option :value="option.value" :label="option.label"  v-for="option in options"
                                 :key="option.index"></Option>
                     </Select>
                     <Button slot="append" icon="ios-search" @click="dosearch"></Button>
@@ -20,19 +20,44 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-<!--                        <Form :model="formItem" :label-width="80" style="overflow: hidden">-->
-<!--                            <Col span="23">-->
-<!--                                <FormItem label="用户账号">-->
-<!--                                    <Input v-model="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>-->
-<!--                                </FormItem>-->
-<!--                            </Col>-->
-<!--                            <Col span="23">-->
-<!--                                <FormItem label="用户昵称">-->
-<!--                                    <Input v-model="formItem.search_LIKE_name" placeholder="请输入用户昵称"></Input>-->
-<!--                                </FormItem>-->
-<!--                            </Col>-->
+                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+<!--                            search_LIKE_level: '',-->
+<!--                            search_LIKE_operateUse: '',-->
+<!--                            search_LIKE_types: ''-->
 
-<!--                        </Form>-->
+                            <Col span="23">
+                                <FormItem label="级别">
+
+
+                                    <Select v-model="formItem.search_LIKE_level" >
+                                        <Option label="错误" value="错误" ></Option>
+                                        <Option label="信息" value="信息" ></Option>
+                                    </Select>
+
+
+                                </FormItem>
+                            </Col>
+                            <Col span="23">
+                                <FormItem label="日志类型">
+                                    <Select v-model="formItem.search_LIKE_types" >
+                                        <Option label="app日志" value="0" ></Option>
+                                        <Option label="运营日志" value="1" ></Option>
+                                    </Select>
+                                </FormItem>
+                            </Col>
+                            <Col span="23">
+                                <FormItem label="操作用户">
+                                    <Input v-model="formItem.search_LIKE_operateUse" placeholder="请输入操作用户"></Input>
+                                </FormItem>
+                            </Col>
+
+
+
+
+
+
+
+                        </Form>
                     </div>
                     <div slot="footer">
                         <i-button type="ghost" size="large" @click="HsearchC">取消搜索</i-button>
@@ -76,13 +101,14 @@
                 Hsearch: false,
 
                 formItem: {
-                    search_LIKE_phone: '',
-                    search_LIKE_name: ''
+                    search_LIKE_level: '',
+                    search_LIKE_operateUse: '',
+                    search_LIKE_types: ''
                 },
 
 
                 api: {
-                    base: '/mlogs/page', //请求部分
+                    base: '/mlogs', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
 
@@ -131,39 +157,66 @@
                         align: 'left',
                         title: '业务',
                         key: 'methodName',
-                        width: 100,
+
 
                     },
                     {
                         align: 'left',
                         title: '级别',
                         key: 'level',
-                        width: 90,
+
 
                     },
                     {
                         align: 'left',
                         title: '操作用户',
                         key: 'operateUser',
-                        width: 145,
+
 
                     },
                     {
                         align: 'left',
                         title: '日志类型',
                         key: 'types',
-                        width: 140,
+
+                        render: function(h, params) {
+                            return h('span', {
+                                style: {
+                                    color: function() {
+                                        switch (params.row.types) {
+                                            case 0:
+                                                return '#333';
+                                                break;
+                                            case 1:
+                                                return '#333';
+                                                break;
+
+                                        }
+                                    }()
+                                }
+                            }, [function() {
+                                switch (params.row.types) {
+                                    case 0:
+                                        return 'App日志';
+                                        break;
+                                    case 1:
+                                        return '运营日志';
+                                        break;
+
+                                }
+                            }()])
+                        },
                     },
                     {
                         align: 'left',
                         title: '操作时间',
                         key: 'createdTime',
-                        width: 90,
+
                     },
                     {
                         title: '管理',
                         key: 'action',
-                        width: 360,
+                        width: 100,
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [
@@ -179,7 +232,7 @@
                                     },
                                     on: {
                                         click: function() {
-                                            _this.sbfp(params)
+                                            _this.edit(params)
                                         }
                                     }
                                 }, '查看'),
@@ -193,7 +246,7 @@
                 loading: true,
 
                 oprah: {},
-                searchType: 'search_LIKE_phone',
+                searchType: 'search_EQ_types=1',
                 searchValue: '',
                 zoneOptions: [],
                 pubUserId: null,
@@ -224,6 +277,19 @@
             }
         },
         methods: {
+
+            edit: function (params) {
+                this.Global.value = '';
+                this.Global.type = '';
+                this.$router.push({
+                    name: 'mbzgl-mloginfo',
+                    query: {
+                        id: params.row.id,
+
+                    }
+                })
+
+            },
 
             closemodal() {
                 this.sbfpO = false,
@@ -302,7 +368,7 @@
             refresh: function() {
                 this.loading = true
                 this.search = {}
-                this.searchType = 'search_LIKE_phone'
+                this.searchType = 'search_EQ_types=1'
                 //                 this.searchValue = ''
 
                 //                 this.current = 1
@@ -410,6 +476,7 @@
     }
 </script>
 
-<style scoped>
+<style  lang="less">
+    .logs .topTool{overflow: unset !important;}
 
 </style>

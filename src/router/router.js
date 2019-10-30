@@ -559,8 +559,8 @@ export const appRouter = {
 		}
 
 		,{
-            path: '/mbzgl-mlog',
-            name: 'mbzgl-mlog',
+            path: '/mbzgl-mlogs',
+            name: 'mbzgl-mlogs',
             meta: {
                 title: '日志管理',
                 hierarchy: [{

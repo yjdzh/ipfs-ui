@@ -73,13 +73,13 @@
                                     <Input v-model="formItem.search_LIKE_mac" placeholder="请输入设备mac"></Input>
                                 </FormItem>
                             </Col>
-                             <Col span="11">
+                            <Col span="11">
                                 <FormItem label="销售类型">
-                                  <RadioGroup v-model="formItem.search_EQ_saleState" type="button">
-                                      <Radio :label="0">自维</Radio>
-                                      <Radio :label="1">托管</Radio>
-                                  </RadioGroup>
-                              </FormItem>
+                                    <RadioGroup v-model="formItem.search_EQ_saleState" type="button">
+                                        <Radio :label="0">自维</Radio>
+                                        <Radio :label="1">托管</Radio>
+                                    </RadioGroup>
+                                </FormItem>
                             </Col>
 
 
@@ -171,6 +171,53 @@
                 </FormItem>
             </Form>
         </Modal>
+
+
+        <Modal v-model="editsb" class="evinputnumber" width="500">
+            <p slot="header">
+                <span>编辑设备</span>
+            </p>
+            <div>
+                <Form ref="editsbforms" :model="editsbforms" :label-width="100" :rules="editsbformRules"
+                      style="overflow: hidden">
+
+                    <Col span="23">
+                        <FormItem label="设备mac">
+                            <span>{{editsbforms.mac}}</span>
+                        </FormItem>
+                    </Col>
+
+
+                    <Col span="23">
+                        <FormItem label="销售类型" prop="saleType">
+
+                            <RadioGroup v-model="editsbforms.saleType" type="button" size="large">
+                                <Radio label="自维"></Radio>
+                                <Radio label="托管"></Radio>
+                            </RadioGroup>
+                        </FormItem>
+                    </Col>
+                    <Col span="23">
+                        <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='托管'">
+                            <Select v-model="editsbforms.zoneId" :label-in-value="true">
+                                <Option :value="zoneOption.zoneId" :label="zoneOption.name"
+                                        v-for="zoneOption in zoneOptions"
+                                        :key="zoneOption.index"></Option>
+                            </Select>
+
+                        </FormItem>
+                    </Col>
+
+
+                </Form>
+            </div>
+            <div slot="footer">
+                <i-button type="ghost" size="large" @click="closemodal">取消</i-button>
+                <i-button type="primary" size="large" @click="editsbsubmit">确认</i-button>
+            </div>
+        </Modal>
+
+
     </div>
 </template>
 
@@ -207,6 +254,26 @@
 
             }
             return {
+
+                editsb: false,
+
+                editsbforms: {
+                    saleType: '托管',
+                    id: '',
+                    zoneId: '',
+                    mac: '',
+                },
+
+                editsbformRules: {
+                    saleType: [{
+                        // type: 'number',
+                        required: true,
+                        message: "请选择销售类型",
+                        trigger: "change"
+                    }]
+                },
+
+
                 selects: [],
                 json: {},
                 allline: 0,
@@ -342,58 +409,59 @@
                     },
 
                 ],
-                datahead: [{
-                    type: 'selection',
-                    width: 50,
-                }, {
-                    type: 'expand',
-                    width: 50,
-                    render: function (h, params) {
-                        return h(dev, {
-                            props: {
-                                row: params.row
-                            }
-                        })
-                    }
-                },
-                // {
-                //     align: 'left',
-                //     title: '产品名称',
-                //     render: function (h, params) {
-                //         return h('span', [params.row.productEntity.name])
-                //     }
-                // },
-                {
-                    align: 'left',
-                    title: 'mac',
-                    key: 'mac',
-                    width: 120,
-                }, {
-                    align: 'left',
-                    title: '序列号',
-                    key: 'sn',
-                    width: 100,
-                }, {
-                    align: 'left',
-                    title: 'IP',
-                    key: 'ip',
-                    width: 100,
-                }, {
-                    align: 'left',
-                    title: '软件版本',
-                    key: 'softVer',
-                    width: 80,
-                }, {
-                    align: 'left',
-                    title: '姓名',
-                    key: 'buyUserName',
-                    width: 70,
-                },
+                datahead: [
+                    {
+                        type: 'selection',
+                        width: 50,
+                    }, {
+                        type: 'expand',
+                        width: 50,
+                        render: function (h, params) {
+                            return h(dev, {
+                                props: {
+                                    row: params.row
+                                }
+                            })
+                        }
+                    },
+                    // {
+                    //     align: 'left',
+                    //     title: '产品名称',
+                    //     render: function (h, params) {
+                    //         return h('span', [params.row.productEntity.name])
+                    //     }
+                    // },
+                    {
+                        align: 'left',
+                        title: 'mac',
+                        key: 'mac',
+
+                    }, {
+                        align: 'left',
+                        title: '序列号',
+                        key: 'sn',
+
+                    }, {
+                        align: 'left',
+                        title: 'IP',
+                        key: 'ip',
+                        width: 100,
+                    }, {
+                        align: 'left',
+                        title: '软件版本',
+                        key: 'softVer',
+
+                    }, {
+                        align: 'left',
+                        title: '姓名',
+                        key: 'buyUserName',
+                        width: 70,
+                    },
                     {
                         align: 'center',
                         title: '电话',
                         key: 'buyUserTel',
-                        width: 80,
+
                     },
                     {
                         align: 'center',
@@ -777,6 +845,48 @@
             }
         },
         methods: {
+            closemodal() {
+                this.editsb=false
+
+                this.editsbforms.saleType = '',
+                    this.editsbforms.id = '',
+                    this.editsbforms.zoneId = ''
+                this.editsbforms.mac = ''
+            },
+
+
+            editsbsubmit() {
+                this.$refs['editsbforms'].validate((valid) => {
+                    if (valid) {
+                        this.Global.fun(this, 'put', {
+                                base: '/mdev',
+                                other: '?',
+                                access_token: this.api.access_token,
+                            }, {
+                                saleType: this.editsbforms.saleType,
+                                zoneId: this.editsbforms.zoneId,
+                                id: this.editsbforms.id
+                            },
+                            function (res, that) {
+                                if (res.data.status == 1) {
+                                    that.$Message.destroy();
+                                    that.$Message.success('设置成功');
+                                    that.closemodal()
+                                } else {
+                                    that.$Message.destroy();
+                                    that.$Message.error('设置失败' + res.data.msg);
+                                    that.closemodal()
+                                }
+
+
+                            });
+                    } else {
+                        this.$Message.error('请完整填写表单');
+                    }
+                })
+            },
+
+
             dobtns(e) {
                 const el = []
 
@@ -933,7 +1043,10 @@
             },
 
             editDev: function (params) {
-            alert('编辑设备');
+                debugger
+                this.editsbforms.zoneId=params.row.id
+                this.editsbforms.mac=params.row.mac
+                this.editsb=true
             },
             // added: function () {
             //     this.Global.value = '';
@@ -1052,7 +1165,7 @@
                             const muns = res.data.data.split(',')
                             that.online = muns[0]
                             that.outline = muns[1]
-                            that.allline== muns[2]
+                            that.allline == muns[2]
 
                         } else {
                             that.$Message.destroy();
@@ -1080,14 +1193,16 @@
                     })
             }
 
-        },
+        }
+        ,
         created: function () {
             this.searchType = 'search_LIKE_mac',
                 this.loading = true,
                 this.onnout()
             this.refresh()
             this.getoptions()
-        },
+        }
+        ,
     }
 </script>
 
