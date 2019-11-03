@@ -2,13 +2,19 @@
     <div>
         <EVpageList :pageTitle="pageTitle" class="logs">
             <div slot="searchBox" class="serach">
-                <Input v-model="searchValue" :class="selsctclass">
-                    <Select v-model="searchType" slot="prepend" style="width: 80px">
-                        <Option :value="option.value" :label="option.label"  v-for="option in options"
-                                :key="option.index"></Option>
-                    </Select>
-                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>
-                </Input>
+<!--                <Input v-model="searchValue" :class="selsctclass">-->
+<!--                    <Select v-model="searchType" slot="prepend" style="width: 80px">-->
+<!--                        <Option :value="option.value" :label="option.label"  v-for="option in options"-->
+<!--                                :key="option.index"></Option>-->
+<!--                    </Select>-->
+<!--                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>-->
+<!--                </Input>-->
+                <Button  type="primary" @click="type1sh" style="display: inline-block">运营日志
+                </Button>
+                <Button  type="primary" @click="type0sh" style="display: inline-block">app日志
+                </Button>
+                <Button  type="primary" @click="refresh1sh" style="display: inline-block">全部
+                </Button>
             </div>
 
 
@@ -39,7 +45,7 @@
                             </Col>
                             <Col span="23">
                                 <FormItem label="日志类型">
-                                    <Select v-model="formItem.search_LIKE_types" >
+                                    <Select v-model="formItem.search_EQ_types" >
                                         <Option label="app日志" value="0" ></Option>
                                         <Option label="运营日志" value="1" ></Option>
                                     </Select>
@@ -372,6 +378,33 @@
                 //                 this.searchValue = ''
 
                 //                 this.current = 1
+                this.onchanges(this.current)
+            },
+            refresh1sh: function() {
+                this.loading = true
+                this.search = {}
+                this.searchType = ''
+                //                 this.searchValue = ''
+
+                                this.current = 1
+                this.onchanges(this.current)
+            },
+            type1sh: function() {
+                this.loading = true
+                this.search = {search_EQ_types:1}
+                this.searchType = 'search_EQ_types'
+                //                 this.searchValue = ''
+
+                                this.current = 1
+                this.onchanges(this.current)
+            },
+            type0sh: function() {
+                this.loading = true
+                this.search = {search_EQ_types:0}
+                this.searchType = 'search_EQ_types'
+                //                 this.searchValue = ''
+
+                                this.current = 1
                 this.onchanges(this.current)
             },
             guanliang: function(params) {

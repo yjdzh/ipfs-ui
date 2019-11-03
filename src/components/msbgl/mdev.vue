@@ -173,17 +173,17 @@
         </Modal>
 
 
-        <Modal v-model="editsb" class="evinputnumber" width="500">
+        <Modal v-model="editsb" class="evinputnumber editbox" width="500" >
             <p slot="header">
                 <span>编辑设备</span>
             </p>
             <div>
                 <Form ref="editsbforms" :model="editsbforms" :label-width="100" :rules="editsbformRules"
-                      style="overflow: hidden">
+                      >
 
                     <Col span="23">
                         <FormItem label="设备mac">
-                            <span>{{editsbforms.mac}}</span>
+                            <span style="height: 38px;line-height: 38px;display: inline-block">{{editsbforms.mac}}</span>
                         </FormItem>
                     </Col>
 
@@ -192,17 +192,17 @@
                         <FormItem label="销售类型" prop="saleType">
 
                             <RadioGroup v-model="editsbforms.saleType" type="button" size="large">
-                                <Radio label="自维"></Radio>
-                                <Radio label="托管"></Radio>
+                                <Radio label="0" >自维</Radio>
+                                <Radio label="1" >托管</Radio>
                             </RadioGroup>
                         </FormItem>
                     </Col>
                     <Col span="23">
-                        <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='托管'">
-                            <Select v-model="editsbforms.zoneId" :label-in-value="true">
-                                <Option :value="zoneOption.zoneId" :label="zoneOption.name"
-                                        v-for="zoneOption in zoneOptions"
-                                        :key="zoneOption.index"></Option>
+                        <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='1'">
+                            <Select v-model="editsbforms.zoneId" >
+                                <Option v-for="zoneOpt in zoneOptions" :value="zoneOpt.id" :label="zoneOpt.name"
+
+                                        :key="zoneOpt.index"></Option>
                             </Select>
 
                         </FormItem>
@@ -258,7 +258,7 @@
                 editsb: false,
 
                 editsbforms: {
-                    saleType: '托管',
+                    saleType: '0',
                     id: '',
                     zoneId: '',
                     mac: '',
@@ -417,7 +417,7 @@
                         type: 'expand',
                         width: 50,
                         render: function (h, params) {
-                            return h(dev, {
+                            return h(span, {
                                 props: {
                                     row: params.row
                                 }
@@ -435,32 +435,74 @@
                         align: 'left',
                         title: 'mac',
                         key: 'mac',
+                        render: function (h, params) {
+                            return h('span', {
+                                attrs:{
+                                    title:params.row.mac,
+                                },
+                            }, [params.row.mac])
+                        },
 
                     }, {
                         align: 'left',
                         title: '序列号',
                         key: 'sn',
+                        render: function (h, params) {
+                            return h('span', {
+                                attrs:{
+                                    title:params.row.sn,
+                                },
+                            }, [params.row.sn])
+                        },
 
                     }, {
                         align: 'left',
                         title: 'IP',
                         key: 'ip',
                         width: 100,
+                        render: function (h, params) {
+                            return h('span', {
+                                attrs:{
+                                    title:params.row.ip,
+                                },
+                            }, [params.row.ip])
+                        },
                     }, {
                         align: 'left',
                         title: '软件版本',
                         key: 'softVer',
+                        render: function (h, params) {
+                            return h('span', {
+                                attrs:{
+                                    title:params.row.softVer,
+                                },
+                            }, [params.row.softVer])
+                        },
 
                     }, {
                         align: 'left',
                         title: '姓名',
                         key: 'buyUserName',
                         width: 70,
+                        render: function (h, params) {
+                            return h('span', {
+                                attrs:{
+                                    title:params.row.buyUserName,
+                                },
+                            }, [params.row.buyUserName])
+                        },
                     },
                     {
                         align: 'center',
                         title: '电话',
                         key: 'buyUserTel',
+                        render: function (h, params) {
+                            return h('span', {
+                                attrs:{
+                                    title:params.row.buyUserTel,
+                                },
+                            }, [params.row.buyUserTel])
+                        },
 
                     },
                     {
@@ -631,7 +673,8 @@
                                 }
                             }()])
                         },
-                    }, {
+                    },
+                    {
                         title: '管理',
                         key: 'action',
                         width: 150,
@@ -870,12 +913,14 @@
                             function (res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
-                                    that.$Message.success('设置成功');
+                                    that.$Message.success(res.data.msg);
                                     that.closemodal()
+                                    that.refresh()
                                 } else {
                                     that.$Message.destroy();
                                     that.$Message.error('设置失败' + res.data.msg);
                                     that.closemodal()
+                                    that.refresh()
                                 }
 
 
@@ -1044,7 +1089,7 @@
 
             editDev: function (params) {
                 debugger
-                this.editsbforms.zoneId=params.row.id
+                this.editsbforms.id=params.row.id
                 this.editsbforms.mac=params.row.mac
                 this.editsb=true
             },
@@ -1217,4 +1262,9 @@
     .inline .ivu-alert.ivu-alert-with-icon {
         padding: 8px 15px 8px 36px;
     }
+
+</style>
+<style>
+    .editbox .ivu-modal-footer {
+        border-top: 0px solid #e9eaec;}
 </style>

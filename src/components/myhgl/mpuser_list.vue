@@ -16,7 +16,8 @@
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
-                <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="qxgl">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading"
+                       @on-selection-change="qxglchange">
                 </Table>
             </div>
             <div slot="pagePage">
@@ -87,6 +88,9 @@
 
             }
             return {
+
+
+                selectlist:[],
                 api: {
                     base: '/mpuser', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
@@ -267,8 +271,64 @@
         },
         methods: {
             qxglALL() {
+                this.loading = true
+                this.Global.fun(this, 'post', {
+                    base: '/mpuser',
+                    other: '/multis?',
+                    access_token: this.api.access_token
+                }, {
+                    userId: this.openType,
+                    devMacs:  this.selectlist.join(',')
+                }, c)
+
+                function c(res, that) {
+                    if (res.data.status === 1) {
+                        that.loading = false;
+                        that.$Message.success(res.data.msg);
+                        that.refresh()
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.loading = false;
+                        that.refresh()
+                    }
+                }
+
             },
-            qxgl() {
+            qxglchange(e){
+                this.selectlist=[]
+                for(let k in e){
+                    this.selectlist.push(e[k].id)
+                }
+                console.log(this.selectlist)
+
+            },
+            qxgl(e) {
+
+                this.loading = true
+                this.Global.fun(this, 'post', {
+                    base: '/mpuser',
+                    other: '/singles?',
+                    access_token: this.api.access_token
+                }, {
+                    userId: this.openType,
+                    devMac: e.row.mac
+                }, c)
+
+                function c(res, that) {
+                    if (res.data.status === 1) {
+                        that.loading = false;
+                        that.$Message.success(res.data.msg);
+                        that.refresh()
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.loading = false;
+                        that.refresh()
+                    }
+                }
+
+
             },
             switchfunction(e) {
                 this.switch = e
