@@ -335,22 +335,22 @@
                                     }
                                 }, '关联设备'),
 
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small',
-
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: function () {
-
-                                        }
-                                    }
-                                }, '到期提醒设置'),
-
+//                                 h('Button', {
+//                                     props: {
+//                                         type: 'primary',
+//                                         size: 'small',
+// 
+//                                     },
+//                                     style: {
+//                                         marginRight: '5px'
+//                                     },
+//                                     on: {
+//                                         click: function () {
+// 
+//                                         }
+//                                     }
+//                                 }, '到期提醒设置'),
+// 
                                 h('Button', {
                                     props: {
                                         type: 'error',

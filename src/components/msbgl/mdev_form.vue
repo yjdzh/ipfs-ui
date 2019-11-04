@@ -2,8 +2,6 @@
 	<EVpageForm :pageTitle="pageTitle+title" :model="formValidate" :rules="ruleValidate" :labelWidth="120" :doSubmitBefor="doSubmitBefor"
 	 :submitUrl="submitUrl" :submitType="submitType" :doReset="creat" :doCancal="doCancal" :pageload="pageload">
 		<div slot="form">
-
-
 			<Row>
 				<EVitemContainer label="所属产品名称" prop="productId" :span="12">
 					<Select v-model="formValidate.productId">
@@ -216,12 +214,6 @@
 							required: true,
 							message: '请选择销售类型',
 							trigger: 'blur'
-						},
-						{
-							type: 'string',
-							max: 50,
-							message: '输入字符不得多于50个',
-							trigger: 'change'
 						}
 					],
 					orderaudit: [{

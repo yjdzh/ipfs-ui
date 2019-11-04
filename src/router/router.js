@@ -354,6 +354,35 @@ export const appRouter = {
 			component: r => require.ensure([], () => r(require('@/components/mddgl/morder')),
 				'mddgl-morder')
 		}, {
+			path: '/msygl-mwallet',
+			name: 'msygl-mwallet',
+			meta: {
+				title: '中心钱包',
+				hierarchy: [{
+					base: 'formDemo',
+					app: 'formDemo',
+					fristclass: 'formDemo',
+					floor: 2
+				}]
+			},
+			component: r => require.ensure([], () => r(require('@/components/msygl/mwallet')),
+				'msygl-mwallet')
+		},
+		{
+			path: '/msygl-mwallet-form',
+			name: 'mwallet-form',
+			meta: {
+				title: '数据中心钱包',
+				hierarchy: [{
+					base: 'formDemo',
+					app: 'formDemo',
+					fristclass: 'formDemo',
+					floor: 2
+				}]
+			},
+			component: r => require.ensure([], () => r(require('@/components/msygl/mwallet_form')),
+				'mwallet-form')
+		}, {
 			path: '/msygl-mzonevir',
 			name: 'msygl-mzonevir',
 			meta: {
