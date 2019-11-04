@@ -298,7 +298,7 @@
             qxglchange(e){
                 this.selectlist=[]
                 for(let k in e){
-                    this.selectlist.push(e[k].id)
+                    this.selectlist.push(e[k].mac)
                 }
                 console.log(this.selectlist)
 
