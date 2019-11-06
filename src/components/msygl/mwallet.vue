@@ -143,7 +143,7 @@
                 powerOperaListInit: {},
                 oprah: {},
 
-                pageTitle: '数据中心钱包', //页面标题
+                pageTitle: '钱包管理', //页面标题
                 totalpage: 0,
                 pagesize: this.Global.pagesize,
                 current: 1,

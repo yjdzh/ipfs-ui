@@ -35,7 +35,7 @@
             getdata() {
                 var th = this
                 this.Global.fun(this, 'get', {
-                        base: '/mkcsy/total/',
+                        base: '/mwalletprofit/total/',
                         other: '1561610222429?',
                         // access_token: this.api.access_token,
                         access_token: 'access_token=3e784d9d-76b3-4543-b60f-898f5121ca73',

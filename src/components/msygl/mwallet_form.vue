@@ -228,7 +228,7 @@
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
 
-                pageTitle: '数据中心钱包-',
+                pageTitle: '钱包管理-',
                 pageload: true,
                 search: '111',
                 current: 1,

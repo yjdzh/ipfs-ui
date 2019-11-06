@@ -1,39 +1,46 @@
 <template>
     <div>
-        <EVpageList :pageTitle="pageTitle">
+        <EVpageList :pageTitle="pageTitle" class="nohidden">
             <div slot="searchBox" class="serach">
-                <Input v-model="searchValue" :class="selsctclass">
-                <Select v-model="searchType" slot="prepend" style="width: 80px">
-                    <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
-                        :key="option.index"></Option>
+                钱包
+                <Select v-model="searchType" placeholder="请选择搜索钱包">
+                    <Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in options" :key="walletOption.index"></Option>
                 </Select>
                 <Button slot="append" icon="ios-search" @click="dosearch"></Button>
-                </Input>
+
             </div>
 
 
             <div slot="Hsearch" class="Hserach">
-                <!-- <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">高级查询
-                </Button> -->
+                <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">高级查询
+                </Button>
                 <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
                     <p slot="header">
-                        <!-- <span>高级查询</span> -->
+                        <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="90" style="overflow: hidden">
+
                             <Col span="23">
-                            <FormItem label="中心名称">
-                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>
+                            <FormItem label="钱包">
+                                <Select v-model="formItem.search_EQ_walletId">
+                                    <Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in walletOptions"
+                                        :key="walletOption.index"></Option>
+                                </Select>
                             </FormItem>
                             </Col>
+
                             <Col span="23">
-                            <FormItem label="中心地址">
-                                <Input v-model="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>
+                            <FormItem label="开始日期">
+                                <DatePicker type="date" placeholder="请选择开始日期" v-model="formItem.search_LIKE_startDate"
+                                    :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
+
                             <Col span="23">
-                            <FormItem label="联系人">
-                                <Input v-model="formItem.search_LIKE_contactor" placeholder="请输入联系人"></Input>
+                            <FormItem label="结束日期">
+                                <DatePicker type="date" placeholder="请选择结束日期" v-model="formItem.search_LIKE_endDate"
+                                    :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
 
@@ -48,6 +55,7 @@
 
 
             <div slot="btnBox" class="btn">
+                <!--   <Button @click="added" type="success">新增</Button> -->
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
@@ -63,48 +71,27 @@
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
-        <Modal v-model="modal1" :title="activename +' 的收益统计'" width="720px" footer-hide>
-            <div id="chart1"></div>
 
-        </Modal>
     </div>
 </template>
 
 <script>
-    import echarts from 'echarts'
     export default {
-        name: "mpusevir",
+        name: "mwallet",
+
         data() {
             var _this = this;
-            const coderhardInfo = function(coder, value, callback) {
-                if ((_this.formV.hardInfo !== '')) {
-                    const str = _this.formV.hardInfo
-                    if (typeof str == 'string') {
-                        try {
-                            var obj = JSON.parse(str);
-                            if (typeof obj == 'object' && obj) {
-                                callback();
-                            } else {
-                                callback(new Error('JSON格式异常'));
-                            }
-                        } catch (e) {
-                            callback(new Error('JSON格式异常'));
-                        }
-                    }
-                }
-            }
             return {
                 search: {},
                 Hsearch: false,
                 formItem: {
-                    search_LIKE_name: '',
-                    search_LIKE_contactor: '',
-                    search_LIKE_addr: ''
+                    search_EQ_walletId: '',
+                    search_LIKE_startDate: '',
+                    search_LIKE_endDate: '',
                 },
 
-
                 api: {
-                    base: '/mkcsy', //请求部分
+                    base: '/mwalletprofit', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
                 defaults: {
@@ -114,52 +101,79 @@
                     opera: ['opera'],
                     appName: ''
                 },
-                powerListInit: [],
-                powerOperaListInit: {},
                 oprah: {},
-                pageTitle: '数据中心收益', //页面标题
+                pageTitle: '中心收益', //页面标题
                 totalpage: 0,
                 pagesize: this.Global.pagesize,
                 current: 1,
-                formV: {
-                    hardInfo: '',
-                },
                 modal: false,
                 switch: false,
-                hardInfo: {},
                 load: false,
                 id: null,
-                ruleV: {
-                    hardInfo: [{
-                        required: true,
-                        validator: coderhardInfo,
-                        trigger: 'blur'
-                    }],
-                },
                 options: [ //下拉选项
                     {
-                        label: '名称',
-                        value: 'search_LIKE_name',
-                    },
+                        id: '0',
+                        allName: '不限'
+                    }
                 ],
                 datahead: [{
                         align: 'left',
-                        title: '名称',
-                        key: 'zoneName'
+                        title: '币种',
+                        // render: function(h, params) {
+                        //     return h('span', [params.row.virDictEntity.name])
+                        // },
+                        key: 'virName',
+                        width: 60
                     },
                     {
                         align: 'left',
-                        title: 'FN',
-                        key: 'fn',
-                        width: 200,
-                        render: function (h, params) {
-                            return h('span', [parseFloat(params.row.fn)/1000000000])
-                        }
+                        title: '数据中心',
+                        key: 'zoneName',
                     },
                     {
-                        title: '管理',
+                        align: 'left',
+                        title: '单台日收',
+                        key: 'devIncome',
+                        width: 100,
+                    },
+                    {
+                        align: 'left',
+                        title: '日总收',
+                        key: 'dayIncome',
+                        width: 100
+                    },
+                    {
+                        align: 'left',
+                        title: '托管支出',
+                        key: 'trusteePay',
+                        width: 100
+                    },
+                    {
+                        align: 'left',
+                        title: '自维支出',
+                        key: 'maintainPay',
+                        width: 100
+                    }, {
+                        align: 'left',
+                        title: '奖励支出',
+                        key: 'playPay',
+                        width: 100
+                    }, {
+                        align: 'left',
+                        title: '收益余额',
+                        key: 'balance',
+                        width: 100
+                    },
+                    {
+                        align: 'left',
+                        title: '日期',
+                        key: 'profitDate',
+                        width: 100
+                    },
+                    {
+                        title: '统计',
                         key: 'action',
-                        width: 150,
+                        width: 80,
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [
@@ -175,7 +189,7 @@
                                     },
                                     on: {
                                         click: function() {
-                                            _this.sytj(params)
+                                            // _this.sytj(params)
                                         }
                                     }
                                 }, '收益统计')
@@ -186,15 +200,11 @@
                 databody: [],
                 loading: true,
                 oprah: {},
-                searchType: 'search_LIKE_name',
+                searchType: '',
                 searchValue: '',
                 id: null,
+                walletOptions: []
 
-                modal1: false,
-                activeid: null,
-                activename: '',
-                xdata: [],
-                ydata: [],
             };
         },
         computed: {
@@ -206,93 +216,24 @@
             }
         },
         methods: {
-            sytj(e) {
-                this.activeid = e.row.zoneId
-                this.activename = e.row.zoneName
-
-                this.modal1 = true
-                this.getdata()
-            },
-            getdata() {
-                var th = this
+            getoptions() {
                 this.Global.fun(this, 'get', {
-                        base: '/mkcsy/total/',
-                        other: this.activeid + '?',
+                        base: '/mwallet',
+                        other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
                     function(res, that) {
-                        const st = res.data.status
-                        if (st === 1) {
-                            debugger
-                            const da = res.data.data
-                            th.xdata = da.data;
-                            const l = da.items.length
-                            const label = {
-                                normal: {
-                                    show: true,
-                                    position: 'top'
-                                }
-
-                            };
-                            const names = []
-                            const type = 'line';
-                            const areaStyle = {}
-                            for (var i = 0; i < l; i++) {
-                                names.push(da.items[i].name)
-                                da.items[i]['label'] = label
-                                da.items[i]['type'] = type
-                                da.items[i]['areaStyle'] = areaStyle
-                            }
-
-                            th.ydata = da.items;
-                            th.line1('chart1', th.xdata, th.ydata)
+                        if (res.data.status == 1) {
+                            that.$Message.destroy();
+                            that.walletOptions = res.data.data
+                            that.options = [...res.data.data, ...that.options]
 
                         } else {
                             that.$Message.destroy();
-                            that.$Message.info(res.data.msg);
+                            that.$Message.error(res.data.msg);
                         }
 
-
                     })
-            },
-
-
-            line1: function(id, x, y, names) {
-                var th = this
-                this.chart = echarts.init(document.getElementById(id));
-                this.chart.clear();
-
-                const optionData = {
-                    title: {
-                        text: '近七日收益'
-                    },
-                    grid: {
-                        left: '3%',
-                        right: '10%',
-                        bottom: '3%',
-                        containLabel: true
-                    },
-                    tooltip: {
-                        trigger: 'axis',
-
-                    },
-                    legend: {
-                        data: names
-                    },
-                    xAxis: {
-                        type: 'category',
-                        boundaryGap: false,
-                        data: x
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: y
-
-
-                };
-
-                this.chart.setOption(optionData);
             },
             openHsearch() {
                 this.formItem.search_LIKE_name = ''
@@ -321,14 +262,38 @@
             refresh: function() {
                 this.loading = true
                 this.search = {}
-                this.searchType = 'search_LIKE_name'
+                // this.searchType = 'search_LIKE_username'
                 // this.searchValue = ''
                 // this.search = ''
                 // this.current = 1
                 this.onchanges(this.current)
             },
+            edit: function(params) {
+                this.Global.value = '';
+                this.Global.type = '';
+                this.$router.push({
+                    name: 'mwallet-form',
+                    query: {
+                        id: params.row.id,
+                        current: this.current,
+                        search: this.search,
+                    }
+                })
 
+            },
+            added: function() {
+                this.Global.value = '';
+                this.Global.type = '';
+                this.$router.push({
+                    name: 'mwallet-form',
+                    query: {
+                        id: -1,
+                        current: 1,
+                        search: '',
+                    }
+                })
 
+            },
             onchanges: function(e) {
                 var that = this
                 this.loading = true
@@ -367,36 +332,58 @@
             },
             dosearch: function() {
                 this.loading = true
-
-                if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
-                    this.search = {}
-                    this.search[this.searchType] = this.searchValue
-                    this.onchanges(1)
-
-                } else if (this.searchValue === '') {
-                    this.search = {}
-                    this.onchanges(1)
+                if (this.searchType != 0) {
+                    this.search = {
+                        search_EQ_walletId: this.searchType
+                    }
                 } else {
-                    this.$Message.destroy();
-                    this.$Message.error('输入条件不合法');
-                    this.loading = false;
+                    this.search = {}
                 }
-            }
+                this.onchanges(1)
+
+
+            },
         },
         created: function() {
             this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
             this.search = this.$route.query.search ? this.$route.query.search : {}
-            this.searchType = 'search_LIKE_name',
-                this.loading = true,
+
+            this.loading = true,
                 this.onchanges(1)
             this.defaults.powerShow = this.show
+
+            this.getoptions()
         },
     }
 </script>
 
-<style scoped>
-    #chart1 {
-        width: 700px;
-        height: 400px;
+<style lang="less">
+    .overappend {
+        .evaninline {
+
+            >.ivu-input-group-append,
+            >.ivu-input-group-prepend {
+                display: none;
+            }
+        }
+    }
+
+    .nohidden {
+
+        .topTool,
+        .overhidden {
+            overflow: unset !important;
+        }
+
+        .overhidden .ivu-select-selection .ivu-select-arrow {
+            display: unset;
+        }
+
+        .EVsearch {
+            .ivu-select {
+                display: inline-block;
+                width: 150px;
+            }
+        }
     }
 </style>

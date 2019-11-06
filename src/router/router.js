@@ -70,22 +70,6 @@ export const appRouter = {
 			},
 			component: r => require.ensure([], () => r(require('../pages/welcome')), 'welcome-0')
 		},
-
-		{
-			path: '/mxtgl-msetups',
-			name: 'mxtgl-msetups',
-			meta: {
-				title: '参数设置',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/mxtgl/msetups')),
-				'mxtgl-msetups')
-		},
 		{
 			path: '/mcpgl-mproduct',
 			name: 'mcpgl-mproduct',
@@ -382,66 +366,8 @@ export const appRouter = {
 			},
 			component: r => require.ensure([], () => r(require('@/components/msygl/mwallet_form')),
 				'mwallet-form')
-		}, {
-			path: '/msygl-mzonevir',
-			name: 'msygl-mzonevir',
-			meta: {
-				title: '数据中心钱包',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/msygl/mzonevir')),
-				'msygl-mzonevir')
 		},
-		{
-			path: '/msygl-mzonevir-form',
-			name: 'mzonevir-form',
-			meta: {
-				title: '数据中心钱包',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/msygl/mzonevir_form')),
-				'mzonevir-form')
-		},
-		{
-			path: '/msygl-malloter',
-			name: 'msygl-malloter',
-			meta: {
-				title: '收益分配',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/msygl/malloter')),
-				'msygl-malloter')
-		},
-		{
-			path: '/msygl-malloter-form',
-			name: 'malloter-form',
-			meta: {
-				title: '收益分配',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/msygl/malloter_form')),
-				'malloter-form')
-		},
+
 		{
 			path: '/msygl-mplayrule',
 			name: 'msygl-mplayrule',
@@ -486,20 +412,6 @@ export const appRouter = {
             component: r => require.ensure([], () => r(require('@/components/msygl/mplayrule_seeForm')),
                 'mplayrule-form')
         }, {
-			path: '/msygl-mmoney',
-			name: 'msygl-mmoney',
-			meta: {
-				title: '收益管理',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/msygl/mmoney')),
-				'msygl-mmoney')
-		}, {
 			path: '/mbzgl-mquestion',
 			name: 'mbzgl-mquestion',
 			meta: {
@@ -544,8 +456,8 @@ export const appRouter = {
 			component: r => require.ensure([], () => r(require('@/components/mtjgl/mstatistic')),
 				'mtjgl-mcptj')
 		},{
-			path: '/mtjgl-mpuservir',
-			name: 'mtjgl-mpuservir',
+			path: '/mtjgl-mpuserprofit',
+			name: 'mtjgl-mpuserprofit',
 			meta: {
 				title: '客户收益',
 				hierarchy: [{
@@ -555,13 +467,13 @@ export const appRouter = {
 					floor: 2
 				}]
 			},
-			component: r => require.ensure([], () => r(require('@/components/mtjgl/mpuservir')),
-				'mtjgl-mpuservir')
+			component: r => require.ensure([], () => r(require('@/components/mtjgl/mpuserprofit')),
+				'mtjgl-mpuserprofit')
 		},{
-			path: '/mtjgl-mkcsy',
-			name: 'mtjgl-mkcsy',
+			path: '/mtjgl-mwalletprofit',
+			name: 'mtjgl-mwalletprofit',
 			meta: {
-				title: '数据中心收益',
+				title: '中心收益',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -569,8 +481,8 @@ export const appRouter = {
 					floor: 2
 				}]
 			},
-			component: r => require.ensure([], () => r(require('@/components/mtjgl/mkcsy')),
-				'mtjgl-mkcsy')
+			component: r => require.ensure([], () => r(require('@/components/mtjgl/mwalletprofit')),
+				'mtjgl-mwalletprofit')
 		},{
 			path: '/msygl-mtbvir',
 			name: 'msygl-mtbvir',

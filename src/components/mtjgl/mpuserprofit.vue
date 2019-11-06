@@ -77,7 +77,7 @@
 <script>
     import echarts from 'echarts'
     export default {
-        name: "mpusevir",
+        name: "mpuserprofit",
         data() {
             var _this = this;
             const coderhardInfo = function(coder, value, callback) {
@@ -108,7 +108,7 @@
 
 
                 api: {
-                    base: '/mpuservir', //请求部分
+                    base: '/mpuserprofit', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
                 defaults: {
@@ -260,7 +260,7 @@
             getdata() {
                 var th = this
                 this.Global.fun(this, 'get', {
-                        base: '/mpuservir/total/',
+                        base: '/mpuserprofit/total/',
                         other: this.activeid + '?',
                         access_token: this.api.access_token,
 
