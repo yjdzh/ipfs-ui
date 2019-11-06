@@ -51,8 +51,6 @@
                             </Col>
                             <Col span="23">
                             <FormItem label="办结时长" class="overappend">
-
-
                                 <EVinputNumber v-model="formItem.search_EQ_transactTime" :min="1" :max="168"
                                     placeholder="请输入办结时长(小时)"></EVinputNumber>
 
@@ -169,18 +167,17 @@
                     }
 
                 ],
-                datahead: [
-                   {
-                       type: 'expand',
-                       width: 50,
-                       render: function (h, params) {
-                           return h(mwallet, {
-                               props: {
-                                   row: params.row
-                               }
-                           })
-                       }
-                   }, {
+                datahead: [{
+                        type: 'expand',
+                        width: 50,
+                        render: function(h, params) {
+                            return h(mwallet, {
+                                props: {
+                                    row: params.row
+                                }
+                            })
+                        }
+                    }, {
                         align: 'left',
                         title: '币种',
                         render: function(h, params) {
@@ -192,7 +189,7 @@
                         align: 'left',
                         title: '所属数据中心',
                         key: 'zoneEntity.name',
-                        width: 180,
+                        width: 120,
                         render: function(h, params) {
                             return h('span', [params.row.zoneEntity.name])
                         }
@@ -206,28 +203,27 @@
                         align: 'left',
                         title: '最小提币额',
                         key: 'minQuota',
-                        width: 150
+                        width: 80
                     },
                     {
                         align: 'left',
                         title: '提币倍数',
                         key: 'multipleNum',
-                        width: 120
+                        width: 80
                     },
-                    //                     {
-                    //                         align: 'left',
-                    //                         title: '当前总收益',
-                    //                         key: 'totalMoney',
-                    //                         width: 150,
-                    //                         render: function (h, params) {
-                    //                             return h('span', [parseFloat(params.row.totalMoney)/1000000000])
-                    //                         }
-                    //
-                    //                     },
+                    {
+                        align: 'left',
+                        title: '钱包余额',
+                        key: 'walletBalance',
+                        width: 100,
+                        render: function(h, params) {
+                            return h('span', [parseFloat(params.row.walletBalance) / 1000000000])
+                        }
+                    },
                     {
                         title: '管理',
                         key: 'action',
-                        width: 150,
+                        width: 120,
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [
@@ -481,6 +477,7 @@
 <style lang="less">
     .overappend {
         .evaninline {
+
             >.ivu-input-group-append,
             >.ivu-input-group-prepend {
                 display: none;
@@ -489,6 +486,7 @@
     }
 
     .nohidden {
+
         .topTool,
         .overhidden {
             overflow: unset !important;

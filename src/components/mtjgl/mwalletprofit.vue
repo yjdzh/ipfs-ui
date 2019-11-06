@@ -7,7 +7,6 @@
                     <Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in options" :key="walletOption.index"></Option>
                 </Select>
                 <Button slot="append" icon="ios-search" @click="dosearch"></Button>
-
             </div>
 
 
@@ -20,7 +19,6 @@
                     </p>
                     <div>
                         <Form :model="formItem" :label-width="90" style="overflow: hidden">
-
                             <Col span="23">
                             <FormItem label="钱包">
                                 <Select v-model="formItem.search_EQ_walletId">
@@ -43,7 +41,6 @@
                                     :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
-
                         </Form>
                     </div>
                     <div slot="footer">
@@ -236,9 +233,9 @@
                     })
             },
             openHsearch() {
-                this.formItem.search_LIKE_name = ''
-                this.formItem.search_LIKE_addr = ''
-                this.formItem.search_LIKE_contactor = ''
+                this.formItem.search_EQ_walletId = ''
+                this.formItem.search_LIKE_startDate = ''
+                this.formItem.search_LIKE_endDate = ''
                 this.Hsearch = true
             },
             HsearchC() {
@@ -268,32 +265,8 @@
                 // this.current = 1
                 this.onchanges(this.current)
             },
-            edit: function(params) {
-                this.Global.value = '';
-                this.Global.type = '';
-                this.$router.push({
-                    name: 'mwallet-form',
-                    query: {
-                        id: params.row.id,
-                        current: this.current,
-                        search: this.search,
-                    }
-                })
+           
 
-            },
-            added: function() {
-                this.Global.value = '';
-                this.Global.type = '';
-                this.$router.push({
-                    name: 'mwallet-form',
-                    query: {
-                        id: -1,
-                        current: 1,
-                        search: '',
-                    }
-                })
-
-            },
             onchanges: function(e) {
                 var that = this
                 this.loading = true
