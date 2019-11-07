@@ -4,34 +4,32 @@
         <div slot="table">
             <Row>
                 <Col span="12" style="padding: 5px">
-                    <Card dis-hover>
-                        <b>数据中心钱包：</b>
-                        <span>{{zoneVirId}}</span>
-                    </Card>
-
-
+                <Card dis-hover>
+                    <b>数据中心钱包：</b>
+                    <span>{{walletId}}</span>
+                </Card>
                 </Col>
 
                 <Col span="12" style="padding: 5px">
-                    <Card dis-hover>
-                        <b>奖励时间：</b>
-                        <span>{{playTime}}</span>
-                    </Card>
+                <Card dis-hover>
+                    <b>奖励时间：</b>
+                    <span>{{playTime}}</span>
+                </Card>
                 </Col>
 
             </Row>
             <Row>
                 <Col span="12" style="padding: 5px">
-                    <Card dis-hover>
-                        <b>奖励总数：</b>
-                        <span>{{formValidate.playMoney}}</span>
-                    </Card>
+                <Card dis-hover>
+                    <b>奖励总数：</b>
+                    <span>{{formValidate.playMoney}}</span>
+                </Card>
                 </Col>
                 <Col span="12" style="padding: 5px">
-                    <Card dis-hover>
-                        <b>奖励方式：</b>
-                        <span>{{formValidate.playType?'指定客户':'所有客户平均分配'}}</span>
-                    </Card>
+                <Card dis-hover>
+                    <b>奖励方式：</b>
+                    <span>{{formValidate.playType?'指定客户':'所有客户平均分配'}}</span>
+                </Card>
 
                 </Col>
             </Row>
@@ -39,11 +37,11 @@
 
             <Row>
                 <Col span="12" style="padding: 5px" v-if="formValidate.playType==1">
-                    <Card dis-hover>
-                        <b>奖励客户：</b>
-                        <span>{{funpuserId}}
+                <Card dis-hover>
+                    <b>奖励客户：</b>
+                    <span>{{funpuserId}}
                     </span>
-                    </Card>
+                </Card>
 
                 </Col>
             </Row>
@@ -77,12 +75,12 @@
                 search: '111',
                 current: 1,
                 openType: -1,
-                zoneVirOptions: [ //下拉选项
+                walletOptions: [ //下拉选项
 
                 ],
 
                 formValidate: {
-                    zoneVirId: '',
+                    walletId: '',
                     playType: 0,
                     playMoney: '',
                     playTime: '',
@@ -90,7 +88,7 @@
                 },
 
                 infoChangeRules: {
-                    zoneVirId: [{
+                    walletId: [{
                         type: 'number',
                         required: true,
                         message: '请选择数据中心钱包',
@@ -138,52 +136,44 @@
 
             },
             funpuserId() {
-                var th=this
-                var da=""
+                var th = this
+                var da = ""
                 th.mpuserOptions.forEach(myFunction)
-                function myFunction (key, index){
 
-                    if(th.formValidate.puserId == key.id){da=key.name}
-
-
+                function myFunction(key, index) {
+                    if (th.formValidate.puserId == key.id) {
+                        da = key.name
+                    }
                 }
                 return da
-            }
+            },
+            walletId() {
+                var th = this
+                var da2 = ""
+                th.walletOptions.forEach(myFunction)
 
-            ,
-            zoneVirId() {
-
-                var th=this
-                var da2=""
-                th.zoneVirOptions.forEach(myFunction)
-                function myFunction (key, index){
-
-                    if(th.formValidate.zoneVirId == key.id){da2=key.allName}
-
-
+                function myFunction(key, index) {
+                    if (th.formValidate.walletId == key.id) {
+                        da2 = key.allName
+                    }
                 }
                 return da2
-            }
-            ,
+            },
             playTime() {
-                var th=this
+                var th = this
 
- return this.Global.getDate(th.formValidate.playTime,'year')
+                return this.Global.getDate(th.formValidate.playTime, 'year')
 
-            }
-            ,
+            },
             title() {
                 return '查看'
-            }
-            ,
+            },
             submitType() {
                 return this.openType
-            }
-            ,
+            },
             submitUrl() {
                 return this.openType === -1 ? this.api.base + '?' : this.api.base + '/' + this.openType + '?'
-            }
-            ,
+            },
 
 
         },
@@ -194,7 +184,7 @@
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function (res, that) {
+                    function(res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.mpuserOptions = res.data.data
@@ -205,28 +195,23 @@
 
                     })
             },
-            doSubmitBefor: function (data, e) {
-
+            doSubmitBefor: function(data, e) {
                 data.playTime = Date.parse(data.playTime)
-
             },
             creat() {
                 this.Global.fun(this, 'get', {
-                        base: '/mzonevir',
+                        base: '/mwallet',
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function (res, that) {
+                    function(res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
-
-
-                            that.zoneVirOptions = res.data.data
+                            that.walletOptions = res.data.data
                         } else {
                             that.$Message.destroy();
                             that.$Message.error(res.data.msg);
                         }
-
                     })
 
 
@@ -238,7 +223,7 @@
                             other: '/' + this.openType + '?',
                             access_token: this.api.access_token,
                         }, {},
-                        function (res, that) {
+                        function(res, that) {
                             const st = res.data.status
                             if (st === 1) {
                                 res.data.data.playTime = new Date(res.data.data.playTime)
@@ -249,7 +234,7 @@
                                 }
 
                                 var back = res.data.data;
-                                Object.keys(that.formValidate).forEach(function (key) {
+                                Object.keys(that.formValidate).forEach(function(key) {
                                     that.formValidate[key] = back[key];
 
                                 });
@@ -258,24 +243,16 @@
                                 that.$Message.info(res.data.msg);
                             }
                             that.pageload = false;
-
-
                         })
                 }
             }
         },
         created() {
-
-
             this.openType = parseInt(this.$route.query.id)
-
             this.current = parseInt(this.$route.query.current)
             this.search = this.$route.query.search
             this.getmpuser()
             this.creat()
-
-
-
         }
     }
 </script>
