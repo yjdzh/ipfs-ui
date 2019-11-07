@@ -4,13 +4,10 @@
             <div slot="searchBox" class="serach">
                 钱包
                 <Select v-model="searchType" placeholder="请选择钱包">
-                    <Option v-for="virOption in options" :value="virOption.id" :label="virOption.allName"
-                            :key="virOption.index"></Option>
+                    <Option v-for="walletOption in options" :value="walletOption.id" :label="walletOption.allName" :key="walletOption.index"></Option>
                 </Select>
                 <Button slot="append" icon="ios-search" @click="dosearch"></Button>
-
             </div>
-
 
             <div slot="Hsearch" class="Hserach">
                 <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">高级查询
@@ -21,37 +18,23 @@
                     </p>
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
-<!--                            <Col span="23">-->
-<!--                                <FormItem label="数据中心名称">-->
-<!--                                    <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>-->
-<!--                                </FormItem>-->
-<!--                            </Col>-->
-<!--                            <Col span="23">-->
-<!--                                <FormItem label="数据中心地址">-->
-<!--                                    <Input v-model="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>-->
-<!--                                </FormItem>-->
-<!--                            </Col>-->
-<!--                            <Col span="23">-->
-<!--                                <FormItem label="联系人">-->
-<!--                                    <Input v-model="formItem.search_LIKE_contactor" placeholder="请输入联系人"></Input>-->
-<!--                                </FormItem>-->
-<!--                            </Col>-->
+
                             <Col span="23">
-                                <FormItem label="钱包">
-                                    <Select v-model="formItem.search_EQ_zoneVirId">
-                                        <Option :value="zoneVirOption.id" :label="zoneVirOption.allName"
-                                                v-for="zoneVirOption in this.virOptions" :key="zoneVirOption.index"></Option>
-                                    </Select>
-                                </FormItem>
+                            <FormItem label="钱包">
+                                <Select v-model="formItem.search_EQ_walletId">
+                                    <Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in this.walletOptions"
+                                        :key="walletOption.index"></Option>
+                                </Select>
+                            </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="分配方式">
-                                    <RadioGroup v-model="formItem.search_EQ_playType" type="button">
-                                        <Radio label="0">所有客户平均分配</Radio>
-                                        <Radio label="1">指定客户</Radio>
+                            <FormItem label="分配方式">
+                                <RadioGroup v-model="formItem.search_EQ_playType" type="button">
+                                    <Radio label="0">所有客户平均分配</Radio>
+                                    <Radio label="1">指定客户</Radio>
 
-                                    </RadioGroup>
-                                </FormItem>
+                                </RadioGroup>
+                            </FormItem>
                             </Col>
 
                         </Form>
@@ -73,8 +56,7 @@
                 </Table>
             </div>
             <div slot="pagePage">
-                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges"
-                      :current="current">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
                 </Page>
             </div>
 
@@ -94,16 +76,12 @@
             var _this = this;
 
             return {
-                times:0,
+                times: 0,
                 search: {},
                 Hsearch: false,
                 formItem: {
-                    // search_LIKE_name: '',
-                    // search_LIKE_contactor: '',
-                    // search_LIKE_addr: '',
-
-             search_LIKE_zoneVirId: '',
-                 search_LIKE_alloteType: ''
+                    search_LIKE_walletId: '',
+                    search_LIKE_alloteType: ''
                 },
 
 
@@ -138,84 +116,74 @@
                     },
                 ],
                 datahead: [{
-                    align: 'left',
-                    title: '币种',
-                    render: function (h, params) {
-                        return h('span', [params.row.zoneVirModel.virName])
+                        align: 'left',
+                        title: '币种',
+                        render: function(h, params) {
+                            return h('span', [params.row.walletModel.virName])
+                        },
+                        width: 80
                     },
-                    width: 80
-                },
                     {
                         align: 'left',
                         title: '所属数据中心',
-                        key: 'zoneEntity.name',
-                        render: function (h, params) {
-                            return h('span', [params.row.zoneVirModel.zoneName])
+                        render: function(h, params) {
+                            return h('span', [params.row.walletModel.zoneName])
                         }
                     },
                     {
                         align: 'left',
                         title: '奖励时间',
                         key: 'playTime',
-
-                        render: function (h, params) {
+                        render: function(h, params) {
                             debugger
-                            return h('span', [_this.Global.getDate(params.row.playTime, 'year')] )
+                            return h('span', [_this.Global.getDate(params.row.playTime, 'year')])
                         },
                         width: 180
                     },
-
-
                     {
                         align: 'left',
                         title: '活动状态',
                         width: 120,
-                        render: function (h, params) {
+                        render: function(h, params) {
                             debugger
                             return h('span', {
                                 style: {
-                                    color: function () {
+                                    color: function() {
                                         if (params.row.playTime > _this.times) {
 
                                             return '#19be6b';
                                         } else {
-
                                             return '#ed3f14';
-
                                         }
                                     }()
                                 }
-                            }, [function () {
+                            }, [function() {
                                 if (params.row.playTime > _this.times) {
 
                                     return '未开始';
                                 } else {
                                     return '已完成';
-
-
                                 }
                             }()])
                         }
                     },
-
-
                     {
                         align: 'left',
                         title: '奖励总数',
                         key: 'playMoney',
                         width: 120,
-                        render: function (h, params) {
-                            return h('span', [parseFloat(params.row.playMoney)/1000000000])
+                        render: function(h, params) {
+                            return h('span', [parseFloat(params.row.playMoney) / 1000000000])
                         }
                     },
                     {
                         align: 'left',
                         title: '奖励方式',
                         width: 120,
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('span', {
                                 style: {
-                                    color: function () {
+                                    color: function() {
                                         switch (params.row.playType) {
                                             case 1:
                                                 return '#333';
@@ -226,7 +194,7 @@
                                         }
                                     }()
                                 }
-                            }, [function () {
+                            }, [function() {
                                 switch (params.row.playType) {
                                     case 1:
                                         return '指定客户';
@@ -244,19 +212,19 @@
                         key: 'action',
                         width: 150,
                         align: 'center',
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('div', [
                                 h('Button', {
                                     props: {
                                         type: 'primary',
                                         size: 'small',
-                                        disabled:params.row.playTime < _this.times?true:false
+                                        disabled: params.row.playTime < _this.times ? true : false
                                     },
                                     style: {
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.edit(params)
                                         }
                                     }
@@ -265,13 +233,13 @@
                                     props: {
                                         type: 'primary',
                                         size: 'small',
-                                        disabled:false
+                                        disabled: false
                                     },
                                     style: {
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.see(params)
                                         }
                                     }
@@ -280,44 +248,47 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        disabled:params.row.playTime < _this.times?true:false
+                                        disabled: params.row.playTime < _this.times ? true : false
                                     },
                                     style: {
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.$Modal.confirm({
                                                 title: '操作确认',
                                                 content: '<p>确认要删除吗？</p>',
                                                 loading: true,
                                                 closable: true,
-                                                disabled:function(){
-                                                    if(params.row.playType > this.times){
+                                                disabled: function() {
+                                                    if (params.row.playType > this.times) {
                                                         return false
-                                                    }
-                                                    else {
+                                                    } else {
                                                         return true
                                                     }
                                                 },
-                                                onOk: function () {
+                                                onOk: function() {
                                                     _this.Global.fun(
                                                         _this,
                                                         'delete', {
                                                             base: _this.api.base,
-                                                            other: '/' + params.row.id + '?',
-                                                            access_token: _this.api.access_token
+                                                            other: '/' + params
+                                                                .row.id + '?',
+                                                            access_token: _this
+                                                                .api.access_token
                                                         }, {}, c)
 
                                                     function c(res, that) {
                                                         if (res.data.status == 1) {
                                                             that.$Message.destroy();
-                                                            that.$Message.info(res.data.msg);
+                                                            that.$Message.info(res.data
+                                                                .msg);
                                                             that.$Modal.remove();
                                                             that.refresh()
                                                         } else {
                                                             that.$Message.destroy();
-                                                            that.$Message.error(res.data.msg);
+                                                            that.$Message.error(res
+                                                                .data.msg);
                                                             that.$Modal.remove();
 
                                                         }
@@ -338,7 +309,7 @@
                 searchType: '0',
                 searchValue: '',
                 id: null,
-                virOptions: [],
+                walletOptions: [],
             };
         },
         computed: {
@@ -374,7 +345,7 @@
                 this.HsearchC()
             },
 
-            refresh: function () {
+            refresh: function() {
                 this.loading = true
                 this.search = {}
                 // this.searchType = 'search_LIKE_username'
@@ -383,7 +354,7 @@
                 // this.current = 1
                 this.onchanges(this.current)
             },
-            edit: function (params) {
+            edit: function(params) {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -396,7 +367,7 @@
                 })
 
             },
-            see: function (params) {
+            see: function(params) {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -411,7 +382,7 @@
                 })
 
             },
-            added: function () {
+            added: function() {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -424,7 +395,7 @@
                 })
 
             },
-            onchanges: function (e) {
+            onchanges: function(e) {
                 var that = this
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
@@ -433,7 +404,7 @@
                     base: this.api.base,
                     other: '/page?',
                     access_token: this.api.access_token
-                }, function () {
+                }, function() {
                     that.search.page = e - 1
                     that.search.size = 10
                     return that.search
@@ -457,30 +428,14 @@
                     }
                 }
             },
-            oprahfun: function (e) {
+            oprahfun: function(e) {
                 this.Global.oprahfun(this)
             },
-            // dosearch: function () {
-            //     this.loading = true
-            //     if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
-            //         this.search = {}
-            //         this.search[this.searchType] = this.searchValue
-            //         this.onchanges(1)
-            //
-            //     } else if (this.searchValue === '') {
-            //         this.search = {}
-            //         this.onchanges(1)
-            //     } else {
-            //         this.$Message.destroy();
-            //         this.$Message.error('输入条件不合法');
-            //         this.loading = false;
-            //     }
-            // }
-            dosearch: function () {
+            dosearch: function() {
                 this.loading = true
-                if (this.searchType!=0) {
+                if (this.searchType != 0) {
                     this.search = {
-                        search_EQ_zoneVirId: this.searchType
+                        search_EQ_walletId: this.searchType
                     }
                 } else {
                     this.search = {}
@@ -494,15 +449,14 @@
             getoptions() {
                 debugger
                 this.Global.fun(this, 'get', {
-                        base: '/mzonevir',
+                        base: '/mwallet',
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function (res, that) {
-                        debugger
+                    function(res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
-                            that.virOptions = res.data.data
+                            that.walletOptions = res.data.data
                             that.options = [...res.data.data, ...that.options]
                         } else {
                             that.$Message.destroy();
@@ -512,14 +466,14 @@
                     })
             },
         },
-        created: function () {
+        created: function() {
             this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
             this.search = this.$route.query.search ? this.$route.query.search : {}
             this.getoptions()
-                this.loading = true,
+            this.loading = true,
                 this.onchanges(1)
 
-            this.times=Date.parse(new Date())
+            this.times = Date.parse(new Date())
 
         },
     }
@@ -534,6 +488,4 @@
             }
         }
     }
-
-
 </style>
