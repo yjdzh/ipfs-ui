@@ -484,8 +484,8 @@ export const appRouter = {
 			component: r => require.ensure([], () => r(require('@/components/mtjgl/mwalletprofit')),
 				'mtjgl-mwalletprofit')
 		},{
-			path: '/msygl-mtbvir',
-			name: 'msygl-mtbvir',
+			path: '/msygl-mpickvir',
+			name: 'msygl-mpickvir',
 			meta: {
 				title: '提币管理',
 				hierarchy: [{
@@ -495,8 +495,8 @@ export const appRouter = {
 					floor: 2
 				}]
 			},
-			component: r => require.ensure([], () => r(require('@/components/msygl/mtbvir')),
-				'msygl-mtbvir')
+			component: r => require.ensure([], () => r(require('@/components/msygl/mpickvir')),
+				'msygl-mpickvir')
 		}
 
 		,{
