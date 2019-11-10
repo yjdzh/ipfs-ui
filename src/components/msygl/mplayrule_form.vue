@@ -6,8 +6,8 @@
 
 			<Row>
 				<EVitemContainer label="数据中心钱包" prop="zoneVirId" :span="12">
-					<Select v-model="formValidate.zoneVirId" >
-						<Option :value="zoneVirOption.id" :label="zoneVirOption.allName" v-for="zoneVirOption in zoneVirOptions" :key="zoneVirOption.index"></Option>
+					<Select v-model="formValidate.walletId" >
+						<Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in walletOptions" :key="walletOption.index"></Option>
 					</Select>
 				</EVitemContainer>
 
@@ -33,7 +33,7 @@
 
 			<Row >
 				<EVitemContainer label="奖励客户" prop="puserId" :span="12" v-if="formValidate.playType==1">
-                    <Select v-model="formValidate.puserId" filterable>
+                    <Select v-model="formValidate.puserId">
                         <Option :value="item.id" :label="item.name" v-for="item in mpuserOptions" :key="item.index"></Option>
                     </Select>
 				</EVitemContainer>
@@ -47,7 +47,6 @@
 		name: "mplayrule",
 		data() {
 			var _this = this
-
 			return {
                 seetype:false,
                 options3: {
@@ -66,12 +65,12 @@
 				search: '111',
 				current: 1,
 				openType: -1,
-				zoneVirOptions: [ //下拉选项
+				walletOptions: [ //下拉选项
 
 				],
 
 				formValidate: {
-					zoneVirId: '',
+					walletId: '',
 					playType: 0,
 					playMoney: '',
 					playTime: '',
@@ -79,7 +78,7 @@
 				},
 
 				infoChangeRules: {
-					zoneVirId: [{
+					walletId: [{
 						type: 'number',
 						required: true,
 						message: '请选择数据中心钱包',
@@ -162,24 +161,20 @@
 
 			},
 			creat() {
-				// this.Global.fun(this, 'get', {
-				// 		base: '/mzonevir',
-				// 		other: '/all?',
-				// 		access_token: this.api.access_token,
-				// 	}, {},
-				// 	function(res, that) {
-				// 		if (res.data.status == 1) {
-				// 			that.$Message.destroy();
-                //
-                //
-                //
-				// 			that.zoneVirOptions = res.data.data
-				// 		} else {
-				// 			that.$Message.destroy();
-				// 			that.$Message.error(res.data.msg);
-				// 		}
-                //
-				// 	})
+				this.Global.fun(this, 'get', {
+						base: '/mwallet',
+						other: '/all?',
+						access_token: this.api.access_token,
+					}, {},
+					function(res, that) {
+						if (res.data.status == 1) {
+							that.$Message.destroy();
+							that.walletOptions = res.data.data
+						} else {
+							that.$Message.destroy();
+							that.$Message.error(res.data.msg);
+						}
+					})
 
 
 

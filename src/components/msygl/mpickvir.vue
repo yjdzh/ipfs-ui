@@ -1,0 +1,461 @@
+<template>
+    <div>
+        <EVpageList :pageTitle="pageTitle">
+            <div slot="searchBox" class="serach">
+                <Input v-model="searchValue" :class="selsctclass">
+                <Select v-model="searchType" slot="prepend" style="width: 80px">
+                    <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
+                        :key="option.index"></Option>
+                </Select>
+                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+                </Input>
+            </div>
+
+
+            <div slot="Hsearch" class="Hserach">
+                <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">高级查询
+                </Button>
+                <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
+                    <p slot="header">
+                        <span>高级查询</span>
+                    </p>
+                    <div>
+                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                            <Col span="23">
+                            <FormItem label="id">
+                                <Input v-model="formItem.search_EQ_id" placeholder="请输入id"></Input>
+                            </FormItem>
+                            </Col>
+                            <Col span="23">
+                            <FormItem label="用户名称">
+                                <Input v-model="formItem.search_LIKE_userName" placeholder="请输入用户名称"></Input>
+                            </FormItem>
+                            </Col>
+                            <Col span="23">
+                            <FormItem label="审核状态">
+                                <RadioGroup v-model="formItem.search_EQ_auditState" type="button" size="large">
+                                    <Radio label="0">未审核</Radio>
+                                    <Radio label="1">审核通过</Radio>
+                                    <Radio label="2">审核驳回</Radio>
+                                </RadioGroup>
+                            </FormItem>
+                            </Col>
+
+
+                            <Col span="23">
+                            <FormItem label="转账状态">
+                                <RadioGroup v-model="formItem.search_EQ_transferState" type="button" size="large">
+                                    <Radio label="0">未转账</Radio>
+                                    <Radio label="1">转账完成</Radio>
+                                </RadioGroup>
+                            </FormItem>
+                            </Col>
+                        </Form>
+                    </div>
+                    <div slot="footer">
+                        <i-button type="ghost" size="large" @click="HsearchC">取消搜索</i-button>
+                        <i-button type="primary" size="large" @click="HsearchS">确认搜索</i-button>
+                    </div>
+                </Modal>
+            </div>
+
+
+            <div slot="btnBox" class="btn">
+                <Button @click="refresh" type="info">刷新</Button>
+            </div>
+            <div slot="table">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
+                </Table>
+            </div>
+            <div slot="pagePage">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
+                </Page>
+            </div>
+
+            <div slot="moreBtn">
+                <!--拓展按钮1-->
+            </div>
+        </EVpageList>
+
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "mplayrule",
+
+        data() {
+            var _this = this;
+
+            return {
+                search: {},
+                Hsearch: false,
+                formItem: {
+                    search_LIKE_userName: '',
+                    search_EQ_auditState: '',
+                    search_EQ_transferState: '',
+                    search_EQ_id: ''
+                },
+
+
+                api: {
+                    base: '/mpickvir', //请求部分
+                    access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
+                },
+                defaults: {
+                    spinShow: true,
+                    powerShow: false,
+                    powerFormTitle: '',
+                    opera: ['opera'],
+                    appName: ''
+                },
+                powerListInit: [],
+                powerOperaListInit: {},
+                oprah: {},
+
+                pageTitle: '提币管理', //页面标题
+                totalpage: 0,
+                pagesize: this.Global.pagesize,
+                current: 1,
+                modal: false,
+                switch: false,
+                load: false,
+                id: null,
+
+                options: [ //下拉选项
+                    {
+                        label: '用户名称',
+                        value: 'search_LIKE_userName',
+                    },
+                ],
+                datahead: [{
+                        type: 'selection',
+                        width: 50,
+                    }, {
+                        align: 'left',
+                        title: 'id',
+                        key: 'id',
+                        width: 110
+                    }, {
+                        align: 'left',
+                        title: '用户名称',
+                        key: 'userName',
+                        width: 100
+                    }, {
+                        align: 'left',
+                        title: '币种',
+                        key: 'virName',
+                        width: 60
+                    }, {
+                        align: 'left',
+                        title: '真实钱包',
+                        key: 'virAddress',
+                    },
+                    {
+                        align: 'left',
+                        title: '提币数量',
+                        key: 'pickMoney',
+                        width: 80
+                    },
+                    {
+                        align: 'left',
+                        title: '发起时间',
+                        key: 'createTime',
+                        render: function(h, params) {
+                            return h('span', [_this.Global.getDate(params.row.createTime, 'year')])
+                        },
+                        width: 140
+                    },
+                    {
+                        align: 'left',
+                        title: '剩余时间',
+                        key: 'offTime',
+                        width: 100
+                    },
+                    {
+                        align: 'left',
+                        title: '审核状态',
+                        key: 'auditState',
+                        width: 80,
+                        render: function(h, params) {
+                            return h('span', {
+                                style: {
+                                    color: function() {
+                                        switch (params.row.auditState) {
+                                            case 0:
+                                                return '#0061be';
+                                                break;
+                                            case 1:
+                                                return '#00ed03';
+                                                break;
+                                            case 2:
+                                                return '#00ed03';
+                                                break;
+
+                                        }
+                                    }()
+                                }
+                            }, [function() {
+                                switch (params.row.auditState) {
+                                    case 0:
+                                        return '未审核';
+                                        break;
+                                    case 1:
+                                        return '审核通过';
+                                        break;
+                                    case 2:
+                                        return '审核驳回';
+                                        break;
+                                }
+                            }()])
+                        },
+                    },
+                    {
+                        align: 'left',
+                        title: '转账状态',
+                        key: 'transferState',
+                        width: 80,
+                        render: function(h, params) {
+                            return h('span', {
+                                style: {
+                                    color: function() {
+                                        switch (params.row.transferState) {
+                                            case 0:
+                                                return '#0061be';
+                                                break;
+                                            case 1:
+                                                return '#00ed03';
+                                                break;
+                                        }
+                                    }()
+                                }
+                            }, [function() {
+                                switch (params.row.transferState) {
+                                    case 0:
+                                        return '未转账';
+                                        break;
+                                    case 1:
+                                        return '转账完成';
+                                        break;
+                                }
+                            }()])
+                        },
+                    },
+                    {
+                        title: '管理',
+                        key: 'action',
+                        width: 150,
+                        align: 'center',
+                        render: function(h, params) {
+                            return h('div', [
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.downExcel(params)
+                                        }
+                                    }
+                                }, '下载'),
+                                h('Button', {
+                                    props: {
+                                        type: 'warning',
+                                        size: 'small',
+                                        disabled: params.row.auditState == 0 ? false : true
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.doAudit(params)
+                                        }
+                                    }
+                                }, '审核'),
+                                h('Button', {
+                                    props: {
+                                        type: 'warning',
+                                        size: 'small',
+                                        disabled: params.row.auditState == 1 ? (params.row.transferState == 1?true:false) : true
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.doTransfer(params)
+                                        }
+                                    }
+                                }, '转账'),
+                            ])
+                        }
+                    }
+                ],
+                databody: [],
+                loading: true,
+                oprah: {},
+                searchType: 'search_LIKE_userName',
+                searchValue: '',
+                id: null,
+            };
+        },
+        computed: {
+            disabledadd() {
+                return false
+            },
+            selsctclass() {
+                return this.options.length === 1 ? 'overhidden' : ''
+            }
+        },
+        methods: {
+            openHsearch() {
+                this.formItem.search_LIKE_userName = ''
+                this.formItem.search_EQ_auditState = ''
+                this.formItem.search_EQ_transferState = ''
+                this.formItem.search_EQ_id = ''
+                this.Hsearch = true
+            },
+            HsearchC() {
+                this.Hsearch = false
+            },
+            HsearchS() {
+                this.search = {}
+                this.search = this.formItem
+                if (this.search) {
+                    for (var k in this.search) {
+                        if (this.search[k] === '') {
+                            delete this.search[k]
+                        }
+                    }
+                }
+                this.search = this.search
+                this.onchanges(1)
+                this.HsearchC()
+            },
+
+            refresh: function() {
+                this.loading = true
+                this.search = {}
+                // this.searchType = 'search_LIKE_username'
+                // this.searchValue = ''
+                // this.search = ''
+                // this.current = 1
+                this.onchanges(this.current)
+            },
+            downExcel: function(params) {
+                this.Global.fun(this, 'get', {
+                    base: '/mpickvir/export/',
+                    other: params.row.id + '/?',
+                    access_token: this.api.access_token
+                }, {}, c)
+
+                function c(res, that) {
+                    if (res.data.status == 1) {
+                        window.open(res.data.data);
+                        that.loading = false;
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.loading = false;
+                    }
+                }
+
+            },
+            doAudit: function(params) {
+                this.Global.fun(this, 'get', {
+                    base: '/mpickvir/audit/',
+                    other: params.row.id + '/2/?',
+                    access_token: this.api.access_token
+                }, {}, c)
+
+                function c(res, that) {
+                    if (res.data.status == 1) {
+                        that.$Message.destroy();
+                        that.$Message.success(res.data.msg);
+                        //that.$Modal.remove();
+                        that.refresh()
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.refresh()
+                    }
+                }
+            },
+
+
+            doTransfer: function(params) {
+               
+            },
+
+            onchanges: function(e) {
+                var that = this
+                this.loading = true
+                this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
+                this.current = e;
+                this.Global.fun(this, 'get', {
+                    base: this.api.base,
+                    other: '/page?',
+                    access_token: this.api.access_token
+                }, function() {
+                    that.search.page = e - 1
+                    that.search.size = 10
+                    return that.search
+                }(), c)
+
+                function c(res, that) {
+                    if (res.data.status === 1) {
+                        for (var key in res.data.data) {
+                            if (res.data.data[key] === null) {
+                                res.data.data[key] = '暂无数据'
+                            }
+                        }
+                        that.totalpage = res.data.data.totalElements;
+                        that.current = res.data.data.number + 1;
+                        that.databody = res.data.data.content;
+                        that.loading = false;
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.loading = false;
+                    }
+                }
+            },
+            oprahfun: function(e) {
+                this.Global.oprahfun(this)
+            },
+            dosearch: function() {
+                this.loading = true
+                if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
+                    this.search = {}
+                    this.search[this.searchType] = this.searchValue
+                    this.onchanges(1)
+
+                } else if (this.searchValue === '') {
+                    this.search = {}
+                    this.onchanges(1)
+                } else {
+                    this.$Message.destroy();
+                    this.$Message.error('输入条件不合法');
+                    this.loading = false;
+                }
+            }
+        },
+        created: function() {
+            this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
+            this.search = this.$route.query.search ? this.$route.query.search : {}
+            this.searchType = 'search_LIKE_userName',
+                this.loading = true,
+                this.onchanges(1)
+            this.defaults.powerShow = this.show
+        },
+    }
+</script>
+
+<style scoped>
+
+</style>
