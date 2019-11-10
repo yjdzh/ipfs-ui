@@ -981,9 +981,13 @@
 				this.value1 = ''
 			},
 			cancel2: function() {
+			    debugger
 				this.totalpage2 = 0,
 					this.current2 = 0,
 					this.databody2 = []
+                this.loading2 = false;
+                this.loading = false;
+
 			},
 
 			handleReachBottom2() {
@@ -1028,8 +1032,9 @@
 					} else {
 						that.$Message.destroy();
 						that.$Message.error(res.data.msg);
-						that.loading = false;
+
 					}
+                    this.loading = false
 				}
 			},
 			getlist2: function(e) {

@@ -33,7 +33,7 @@
 
 			<Row >
 				<EVitemContainer label="奖励客户" prop="puserId" :span="12" v-if="formValidate.playType==1">
-                    <Select v-model="formValidate.puserId">
+                    <Select v-model="formValidate.puserId" filterable>
                         <Option :value="item.id" :label="item.name" v-for="item in mpuserOptions" :key="item.index"></Option>
                     </Select>
 				</EVitemContainer>
@@ -162,24 +162,24 @@
 
 			},
 			creat() {
-				this.Global.fun(this, 'get', {
-						base: '/mzonevir',
-						other: '/all?',
-						access_token: this.api.access_token,
-					}, {},
-					function(res, that) {
-						if (res.data.status == 1) {
-							that.$Message.destroy();
-
-
-
-							that.zoneVirOptions = res.data.data
-						} else {
-							that.$Message.destroy();
-							that.$Message.error(res.data.msg);
-						}
-
-					})
+				// this.Global.fun(this, 'get', {
+				// 		base: '/mzonevir',
+				// 		other: '/all?',
+				// 		access_token: this.api.access_token,
+				// 	}, {},
+				// 	function(res, that) {
+				// 		if (res.data.status == 1) {
+				// 			that.$Message.destroy();
+                //
+                //
+                //
+				// 			that.zoneVirOptions = res.data.data
+				// 		} else {
+				// 			that.$Message.destroy();
+				// 			that.$Message.error(res.data.msg);
+				// 		}
+                //
+				// 	})
 
 
 

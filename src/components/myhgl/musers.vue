@@ -19,7 +19,7 @@
 						<span>高级查询</span>
 					</p>
 					<div>
-						<Form :model="formItem" :label-width="80" style="overflow: hidden">
+						<Form :model="formItem" :label-width="80" >
 							<Col span="23">
 							<FormItem label="用户账号">
 								<Input v-model="formItem.search_LIKE_username" placeholder="请输入用户账号"></Input>

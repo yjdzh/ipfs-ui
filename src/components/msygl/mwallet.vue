@@ -19,7 +19,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="90" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="90" >
 
                             <Col span="23">
                             <FormItem label="数据中心">

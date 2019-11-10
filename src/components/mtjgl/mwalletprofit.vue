@@ -18,7 +18,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="90" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="90" >
                             <Col span="23">
                             <FormItem label="钱包">
                                 <Select v-model="formItem.search_EQ_walletId">
@@ -30,14 +30,14 @@
 
                             <Col span="23">
                             <FormItem label="开始日期">
-                                <DatePicker type="date" placeholder="请选择开始日期" v-model="formItem.search_LIKE_startDate"
+                                <DatePicker type="date" style="    width: 100%;" placeholder="请选择开始日期" v-model="formItem.search_LIKE_startDate"
                                     :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
 
                             <Col span="23">
                             <FormItem label="结束日期">
-                                <DatePicker type="date" placeholder="请选择结束日期" v-model="formItem.search_LIKE_endDate"
+                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择结束日期" v-model="formItem.search_LIKE_endDate"
                                     :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
@@ -265,7 +265,7 @@
                 // this.current = 1
                 this.onchanges(this.current)
             },
-           
+
 
             onchanges: function(e) {
                 var that = this

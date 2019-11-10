@@ -20,7 +20,7 @@
                         <!-- <span>高级查询</span> -->
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="80" >
                             <Col span="23">
                             <FormItem label="中心名称">
                                 <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>

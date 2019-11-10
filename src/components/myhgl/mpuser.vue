@@ -21,7 +21,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="80" >
                             <Col span="23">
                                 <FormItem label="用户账号">
                                     <Input v-model="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>
@@ -55,7 +55,7 @@
                     </p>
                     <div>
                         <Form ref="sbfpforms" :model="sbfpforms" :label-width="100" :rules="sbfpformRules"
-                              style="overflow: hidden">
+                              >
                             <Col span="23">
                                 <FormItem label="所属数据中心" prop="zoneId">
                                     <Select v-model="sbfpforms.zoneId" @on-change="changezone" :label-in-value="true">
@@ -109,7 +109,7 @@
                     </p>
                     <div>
                         <Form ref="tgfwforms" :model="tgfwforms" :label-width="100" :rules="tgfwformRules"
-                              style="overflow: hidden">
+                              >
 
                             <Col span="23">
                                 <FormItem label="托管时长" prop="monthNum">
@@ -339,18 +339,18 @@
 //                                     props: {
 //                                         type: 'primary',
 //                                         size: 'small',
-// 
+//
 //                                     },
 //                                     style: {
 //                                         marginRight: '5px'
 //                                     },
 //                                     on: {
 //                                         click: function () {
-// 
+//
 //                                         }
 //                                     }
 //                                 }, '到期提醒设置'),
-// 
+//
                                 h('Button', {
                                     props: {
                                         type: 'error',

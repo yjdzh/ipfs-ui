@@ -17,7 +17,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="80" >
 
                             <Col span="23">
                             <FormItem label="钱包">

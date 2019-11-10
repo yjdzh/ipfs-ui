@@ -1208,9 +1208,10 @@
                         if (res.data.status == 1) {
 
                             const muns = res.data.data.split(',')
+                            debugger
                             that.online = muns[0]
                             that.outline = muns[1]
-                            that.allline == muns[2]
+                            that.allline = muns[2]
 
                         } else {
                             that.$Message.destroy();

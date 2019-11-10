@@ -7,7 +7,7 @@
                     <span>统计条件</span>
                 </p>
                 <div>
-                    <Form :model="formItem" :label-width="80" style="overflow: hidden;height: 120px;padding: 0">
+                    <Form :model="formItem" :label-width="80" style="height: 120px;padding: 0">
                         <Col span="23">
                             <FormItem label="请选择时间">
                                 <Col span="8">
@@ -232,7 +232,7 @@
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
                 this.current = e;
-				
+
                 this.Global.fun(this, 'get', {
                     base: this.api.base,
                     other: '/mcptj?',

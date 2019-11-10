@@ -1,4 +1,8 @@
 <style lang="less">
+    .ivu-modal-footer {
+        border-top: 0px solid #e9eaec;
+
+    }
     /*新菜单使用样式*/
     .ant-theme {
         min-height: 450px;

@@ -1,9 +1,9 @@
 <template>
     <div>
-        <EVpageList :pageTitle="pageTitle" class="nohidden">
+        <EVpageList :pageTitle="pageTitle" ass="nohidden">
             <div slot="searchBox" class="serach">
                 <Input v-model="searchValue" :class="selsctclass">
-                <Select v-model="searchType" slot="prepend" style="width: 80px">
+                <Select v-model="searchType" slot="prepend" style="width: 90px">
                     <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
                         :key="option.index"></Option>
                 </Select>
@@ -20,7 +20,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="90" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="90" >
 
                             <Col span="23">
                             <FormItem label="客户名称">
@@ -39,14 +39,14 @@
 
                             <Col span="23">
                             <FormItem label="开始日期">
-                                <DatePicker type="date" placeholder="请选择开始日期" v-model="formItem.search_LIKE_startDate"
+                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择开始日期" v-model="formItem.search_LIKE_startDate"
                                     :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
 
                             <Col span="23">
                             <FormItem label="结束日期">
-                                <DatePicker type="date" placeholder="请选择结束日期" v-model="formItem.search_LIKE_endDate"
+                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择结束日期" v-model="formItem.search_LIKE_endDate"
                                     :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
@@ -123,7 +123,8 @@
                         value: 'search_LIKE_userName',
                     }
                 ],
-                datahead: [{
+                datahead: [
+                    {
                         align: 'left',
                         title: '币种',
                         key: 'virName',
@@ -216,7 +217,7 @@
                 databody: [],
                 loading: true,
                 oprah: {},
-                searchType: '',
+                searchType: 'search_LIKE_userName',
                 searchValue: '',
                 id: null,
                 walletOptions: []
@@ -278,7 +279,7 @@
             refresh: function() {
                 this.loading = true
                 this.search = {}
-                // this.searchType = 'search_LIKE_username'
+                this.searchType = 'search_LIKE_userName'
                 // this.searchValue = ''
                 // this.search = ''
                 // this.current = 1
@@ -295,7 +296,7 @@
                     base: this.api.base,
                     other: '/page?',
                     access_token: this.api.access_token
-                }, function() {
+                }, function () {
                     that.search.page = e - 1
                     that.search.size = 10
                     return that.search
@@ -324,27 +325,32 @@
             },
             dosearch: function() {
                 this.loading = true
-                if (this.searchType != 0) {
-                    this.search = {
-                        search_EQ_walletId: this.searchType
-                    }
-                } else {
+                if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
+                    this.search[this.searchType] = this.searchValue
+                    this.onchanges(1)
+                } else if (this.searchValue === '') {
+                    this.search = {}
+                    this.onchanges(1)
+                } else {
+                    this.$Message.destroy();
+                    this.$Message.error('输入条件不合法');
+                    this.loading = false;
                 }
-                this.onchanges(1)
 
 
             },
         },
         created: function() {
-            this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
-            this.search = this.$route.query.search ? this.$route.query.search : {}
 
-            this.loading = true,
-                this.onchanges(1)
-            this.defaults.powerShow = this.show
+                this.searchType = 'search_LIKE_userName',
+                this.loading = true,
 
+            this.refresh()
             this.getoptions()
+            this.defaults.powerShow = this.show
+            this.onchanges(1)
+
         },
     }
 </script>

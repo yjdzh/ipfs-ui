@@ -20,7 +20,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="80" >
                             <Col span="23">
                             <FormItem label="id">
                                 <Input v-model="formItem.search_EQ_id" placeholder="请输入id"></Input>

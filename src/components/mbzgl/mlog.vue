@@ -26,7 +26,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="80" style="overflow: hidden">
+                        <Form :model="formItem" :label-width="80" >
 <!--                            search_LIKE_level: '',-->
 <!--                            search_LIKE_operateUse: '',-->
 <!--                            search_LIKE_types: ''-->
