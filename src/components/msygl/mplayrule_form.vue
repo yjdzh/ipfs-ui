@@ -33,7 +33,7 @@
 
 			<Row >
 				<EVitemContainer label="奖励客户" prop="puserId" :span="12" v-if="formValidate.playType==1">
-                    <Select v-model="formValidate.puserId">
+                    <Select v-model="formValidate.puserId" filterable>
                         <Option :value="item.id" :label="item.name" v-for="item in mpuserOptions" :key="item.index"></Option>
                     </Select>
 				</EVitemContainer>
