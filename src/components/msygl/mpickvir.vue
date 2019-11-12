@@ -273,7 +273,7 @@
                                     },
                                     on: {
                                         click: function() {
-                                            _this.doAudit(params)
+                                            // _this.doAudit(params)
                                         }
                                     }
                                 }, '审核'),
@@ -389,7 +389,7 @@
 
 
             doTransfer: function(params) {
-               
+
             },
 
             onchanges: function(e) {
@@ -409,6 +409,7 @@
 
                 function c(res, that) {
                     if (res.data.status === 1) {
+                        debugger
                         for (var key in res.data.data) {
                             if (res.data.data[key] === null) {
                                 res.data.data[key] = '暂无数据'
