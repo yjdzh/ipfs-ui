@@ -440,6 +440,35 @@ export const appRouter = {
 			},
 			component: r => require.ensure([], () => r(require('@/components/mbzgl/mquestion_form')),
 				'mquestion_form')
+		}, {
+			path: '/mbzgl-mad',
+			name: 'mbzgl-mad',
+			meta: {
+				title: '公告管理',
+				hierarchy: [{
+					base: 'formDemo',
+					app: 'formDemo',
+					fristclass: 'formDemo',
+					floor: 2
+				}]
+			},
+			component: r => require.ensure([], () => r(require('@/components/mbzgl/mad')),
+				'mbzgl-mad')
+		},
+		{
+			path: '/mbzgl-mad-form',
+			name: 'mad_form',
+			meta: {
+				title: '公告管理',
+				hierarchy: [{
+					base: 'formDemo',
+					app: 'formDemo',
+					fristclass: 'formDemo',
+					floor: 2
+				}]
+			},
+			component: r => require.ensure([], () => r(require('@/components/mbzgl/mad_form')),
+				'mad_form')
 		},
 		{
 			path: '/mtjgl-mcptj',
