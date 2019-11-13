@@ -20,7 +20,7 @@
 			</Row>
 			<Row>
 				<EVitemContainer label="奖励总数" prop="playMoney" :span="12">
-					<EVinputNumber v-model="formValidate.playMoney" :min="1" :max="100000" placeholder="请输入奖励总数"></EVinputNumber>
+					<EVinputNumber v-model="formValidate.playMoney" :min="-100000" :max="100000" placeholder="请输入奖励总数"></EVinputNumber>
 				</EVitemContainer>
 				<EVitemContainer label="奖励方式" prop="playType" :span="12">
 					<RadioGroup v-model="formValidate.playType" type="button">
