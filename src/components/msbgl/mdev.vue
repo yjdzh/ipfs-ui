@@ -178,8 +178,7 @@
                 <span>编辑设备</span>
             </p>
             <div>
-                <Form ref="editsbforms" :model="editsbforms" :label-width="100" :rules="editsbformRules"
-                      >
+                <Form ref="editsbforms" :model="editsbforms" :label-width="100" :rules="editsbformRules">
 
                     <Col span="23">
                         <FormItem label="设备mac">
@@ -190,7 +189,6 @@
 
                     <Col span="23">
                         <FormItem label="销售类型" prop="saleType">
-
                             <RadioGroup v-model="editsbforms.saleType" type="button" size="large">
                                 <Radio label="0" >自维</Radio>
                                 <Radio label="1" >托管</Radio>
@@ -414,7 +412,7 @@
                         type: 'selection',
                         width: 50,
                     }, {
-                        type: 'expand',
+                        type: 'dev',
                         width: 50,
                         render: function (h, params) {
                             return h(span, {
@@ -424,13 +422,13 @@
                             })
                         }
                     },
-                    // {
-                    //     align: 'left',
-                    //     title: '产品名称',
-                    //     render: function (h, params) {
-                    //         return h('span', [params.row.productEntity.name])
-                    //     }
-                    // },
+                    {
+                        align: 'left',
+                        title: '产品名称',
+                        render: function (h, params) {
+                            return h('span', [params.row.productEntity.name])
+                        }
+                    },
                     {
                         align: 'left',
                         title: 'mac',
