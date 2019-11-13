@@ -289,7 +289,6 @@
                         }
                     ],
                     cycleTime: [{
-
                         required: true,
                         message: '请输入收益获取时间',
                         trigger: 'change'

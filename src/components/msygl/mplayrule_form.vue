@@ -37,6 +37,14 @@
                         <Option :value="item.id" :label="item.name" v-for="item in mpuserOptions" :key="item.index"></Option>
                     </Select>
 				</EVitemContainer>
+
+
+                <Row>
+                    <EVitemContainer label="奖励说明" prop="remark" :span="12">
+                        <Input v-model="formValidate.remark" placeholder="请输入奖励说明"></Input>
+                    </EVitemContainer>
+                </Row>
+
 			</Row>
 		</div>
 	</EVpageForm>
@@ -75,6 +83,7 @@
 					playMoney: '',
 					playTime: '',
 					puserId:'',
+                    remark:''
 				},
 
 				infoChangeRules: {
@@ -108,6 +117,14 @@
                         message: '请选择奖励客户',
                         trigger: 'blur'
                     }],
+                    remark: [
+                        {
+                            type: 'string',
+                            max: 512,
+                            message: '输入字符不得多于512个',
+                            trigger: 'change'
+                        }
+                    ],
 
 				},
                 mpuserOptions:[],

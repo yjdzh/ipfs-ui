@@ -36,6 +36,12 @@
 
 
             <Row>
+                <Col span="12" style="padding: 5px">
+                <Card dis-hover>
+                    <b>奖励说明：</b>
+                    <span>{{formValidate.remark}}</span>
+                </Card>
+                </Col>
                 <Col span="12" style="padding: 5px" v-if="formValidate.playType==1">
                 <Card dis-hover>
                     <b>奖励客户：</b>
