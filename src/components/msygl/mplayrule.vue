@@ -125,7 +125,7 @@
                     },
                     {
                         align: 'left',
-                        title: '所属数据中心',
+                        title: '所属钱包',
                         render: function(h, params) {
                             return h('span', [params.row.walletModel.zoneName])
                         }

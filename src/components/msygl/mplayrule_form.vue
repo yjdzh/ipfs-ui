@@ -5,7 +5,7 @@
 		<div slot="form">
 
 			<Row>
-				<EVitemContainer label="数据中心钱包" prop="zoneVirId" :span="12">
+				<EVitemContainer label="钱包" prop="zoneVirId" :span="12">
 					<Select v-model="formValidate.walletId" >
 						<Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in walletOptions" :key="walletOption.index"></Option>
 					</Select>
@@ -38,9 +38,7 @@
                     </Select>
 				</EVitemContainer>
 
-
-                <Row>
-                    <EVitemContainer label="奖励说明" prop="remark" :span="12">
+                <EVitemContainer label="奖励说明" prop="remark" :span="12">
                         <Input v-model="formValidate.remark" placeholder="请输入奖励说明"></Input>
                     </EVitemContainer>
                 </Row>
