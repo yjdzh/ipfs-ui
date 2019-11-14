@@ -6,7 +6,7 @@
                 <Select v-model="searchType" placeholder="请选择搜索币种">
                     <Option :value="virOption.id" :label="virOption.name" v-for="virOption in options" :key="virOption.index"></Option>
                 </Select>
-                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+
 
             </div>
 

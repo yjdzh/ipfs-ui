@@ -1248,7 +1248,7 @@
         created: function () {
             this.searchType = 'search_LIKE_mac',
                 this.loading = true,
-                this.onnout()
+
             this.refresh()
             this.getoptions()
         }

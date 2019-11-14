@@ -241,10 +241,26 @@
                                     },
                                     on: {
                                         click: function () {
+                                            _this.$Modal.confirm({
+                                                title: '操作确认',
+                                                content: '<p>确认要删除吗？</p>',
+                                                loading: true,
+                                                onOk: function() {
+                                                    _this.qxgl(params)
+                                                },
+                                            });
+
+
+
+
+
                                             _this.qxgl(params)
                                         }
                                     }
                                 }, '取消关联'),
+
+
+
 
 
                             ])

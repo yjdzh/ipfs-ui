@@ -6,7 +6,7 @@
 
 			<Row>
 				<EVitemContainer label="钱包" prop="zoneVirId" :span="12">
-					<Select v-model="formValidate.walletId" >
+					<Select v-model="formValidate.walletId" :disabled="openType!=-1">
 						<Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in walletOptions" :key="walletOption.index"></Option>
 					</Select>
 				</EVitemContainer>

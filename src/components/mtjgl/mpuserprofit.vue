@@ -20,7 +20,7 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="90" >
+                        <Form :model="formItem"  v-if="Hsearch" :label-width="90" >
 
                             <Col span="23">
                             <FormItem label="客户名称">
@@ -39,15 +39,15 @@
 
                             <Col span="23">
                             <FormItem label="开始日期">
-                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择开始日期" v-model="formItem.search_LIKE_startDate"
+                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择开始日期" @on-change="datechange($event,'search_LIKE_startDate')"
                                     :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
 
                             <Col span="23">
                             <FormItem label="结束日期">
-                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择结束日期" v-model="formItem.search_LIKE_endDate"
-                                    :editable="false" format="yyyy-MM-dd"></DatePicker>
+                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择结束日期"  @on-change="datechange($event,'search_LIKE_endDate')"
+                                            :editable="false" format="yyyy-MM-dd"></DatePicker>
                             </FormItem>
                             </Col>
                         </Form>
@@ -77,11 +77,17 @@
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
+        <Modal v-model="modal1" :title="activename +' 的收益统计'" width="720px" footer-hide>
 
+
+            <div id="chart1"></div>
+
+        </Modal>
     </div>
 </template>
 
 <script>
+    import echarts from 'echarts'
     export default {
         name: "mwallet",
 
@@ -206,7 +212,7 @@
                                     },
                                     on: {
                                         click: function() {
-                                            // _this.sytj(params)
+                                            _this.sytj(params)
                                         }
                                     }
                                 }, '收益统计')
@@ -220,7 +226,13 @@
                 searchType: 'search_LIKE_userName',
                 searchValue: '',
                 id: null,
-                walletOptions: []
+                walletOptions: [],
+
+                modal1: false,
+                activeid: null,
+                activename: '',
+                xdata: [],
+                ydata: [],
 
             };
         },
@@ -233,6 +245,105 @@
             }
         },
         methods: {
+            datechange(e,v){
+                debugger
+               this.formItem[v]=e
+            },
+
+
+
+            sytj(e) {
+                debugger
+                this.activeid = e.row.puserId
+                this.activename = e.row.puserName
+                this.modal1 = true,
+                    this.getdata()
+            },
+            getdata() {
+                var th = this
+                this.Global.fun(this, 'get', {
+                        base: '/mpuserprofit/total/',
+                        other: this.activeid + '?',
+                        access_token: this.api.access_token,
+
+                    }, {},
+                    function(res, that) {
+                        debugger
+                        const st = res.data.status
+                        if (st === 1) {
+                            const da = res.data.data
+                            th.xdata = da.data;
+                            const l = da.items.length
+                            const label = {
+
+                                normal: {
+                                    show: true,
+                                    position: 'top'
+                                }
+
+                            };
+                            const names = []
+
+                            const type = 'line';
+                            const areaStyle = {}
+                            for (var i = 0; i < l; i++) {
+                                names.push(da.items[i].name)
+                                da.items[i]['label'] = label
+                                da.items[i]['type'] = type
+                                da.items[i]['areaStyle'] = areaStyle
+                            }
+
+
+                            th.ydata = da.items;
+                            th.line1('chart1', th.xdata, th.ydata)
+
+                        } else {
+                            that.$Message.destroy();
+                            that.$Message.info(res.data.msg);
+                        }
+
+
+                    })
+            },
+
+
+            line1: function(id, x, y, names) {
+                var th = this
+                this.chart = echarts.init(document.getElementById(id));
+                this.chart.clear();
+
+                const optionData = {
+                    title: {
+                        text: '近七日收益'
+                    },
+                    grid: {
+                        left: '3%',
+                        right: '10%',
+                        bottom: '3%',
+                        containLabel: true
+                    },
+                    tooltip: {
+                        trigger: 'axis',
+
+                    },
+                    legend: {
+                        data: names
+                    },
+                    xAxis: {
+                        type: 'category',
+                        boundaryGap: false,
+                        data: x
+                    },
+                    yAxis: {
+                        type: 'value'
+                    },
+                    series: y
+
+
+                };
+
+                this.chart.setOption(optionData);
+            },
             getoptions() {
                 this.Global.fun(this, 'get', {
                         base: '/mwallet',
@@ -259,6 +370,7 @@
                 this.Hsearch = true
             },
             HsearchC() {
+                this.openHsearch()
                 this.Hsearch = false
             },
             HsearchS() {

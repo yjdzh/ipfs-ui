@@ -8,7 +8,9 @@
                         :key="option.index"></Option>
                 </Select>
                 <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+
                 </Input>
+
             </div>
 
 
@@ -62,9 +64,10 @@
 
             <div slot="btnBox" class="btn">
                 <Button @click="refresh" type="info">刷新</Button>
+                <Button @click="downpost">账单下载</Button>
             </div>
             <div slot="table">
-                <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="selectchange">
                 </Table>
             </div>
             <div slot="pagePage">
@@ -76,6 +79,16 @@
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
+
+
+
+
+
+
+
+
+
+
 
     </div>
 </template>
@@ -273,7 +286,7 @@
                                     },
                                     on: {
                                         click: function() {
-                                            // _this.doAudit(params)
+                                            _this.seedoAudit(params)
                                         }
                                     }
                                 }, '审核'),
@@ -302,6 +315,10 @@
                 searchType: 'search_LIKE_userName',
                 searchValue: '',
                 id: null,
+
+
+                selectlist:[]
+
             };
         },
         computed: {
@@ -313,6 +330,39 @@
             }
         },
         methods: {
+
+            downpost(){
+                this.Global.fun(this, 'post', {
+                    base: '/mpickvir/mulexport',
+                    other: '/?',
+                    access_token: this.api.access_token
+                }, {ids:this.selectlist.join(",")}, c)
+
+                function c(res, that) {
+                    if (res.data.status == 1) {
+                        window.open(res.data.data);
+                        that.loading = false;
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.loading = false;
+                    }
+                }
+            },
+
+
+
+            selectchange(e){
+                this.selectlist=[]
+                for(let k in e){
+                    this.selectlist.push(e[k].id)
+                }
+                console.log(this.selectlist)
+            },
+
+
+
+
             openHsearch() {
                 this.formItem.search_LIKE_userName = ''
                 this.formItem.search_EQ_auditState = ''
@@ -356,7 +406,7 @@
 
                 function c(res, that) {
                     if (res.data.status == 1) {
-                        window.open(res.data.data);
+
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -366,10 +416,10 @@
                 }
 
             },
-            doAudit: function(params) {
+            doAudit: function(params,type) {
                 this.Global.fun(this, 'get', {
                     base: '/mpickvir/audit/',
-                    other: params.row.id + '/2/?',
+                    other: params.row.id + '/'+type+'/?',
                     access_token: this.api.access_token
                 }, {}, c)
 
@@ -386,10 +436,58 @@
                     }
                 }
             },
+seedoAudit(params){
+    debugger
+    this.$Modal.confirm({
+        title: '审核',
+        content: '<p>ID:'+params.row.id+'</p>' +
+            '<p>用户名称:'+params.row.userName+'</p>' +
+            '<p>币种:'+params.row.virName+'</p>' +
+            '<p>真是钱包:'+params.row.virAddress+'</p>' +
+            '<p>提币数量:'+params.row.pickMoney+'</p>' +
+            '<p>发起时间:'+params.row.createTime+'</p>' +
+            '<p>剩余时间:'+params.row.offTime+'</p>' +
+            '<p>审核状态:'+params.row.auditState+'</p>' +
+            '<p>转账状态:'+params.row.transferState+'</p>' +
 
+
+            '<p>请审核以上信息</p>',
+        okText: '审核通过',
+        cancelText: '审核驳回',
+        onOk: () => {
+            this.doAudit(params,1)
+        },
+        onCancel: () => {
+            this.doAudit(params,2)
+        }
+    });
+},
 
             doTransfer: function(params) {
 
+                // this.$Modal.confirm({
+                //     title: '转账',
+                //     content: '<p>ID:'+params.row.id+'</p>' +
+                //         '<p>用户名称:'+params.row.userName+'</p>' +
+                //         '<p>币种:'+params.row.virName+'</p>' +
+                //         '<p>真是钱包:'+params.row.virAddress+'</p>' +
+                //         '<p>提币数量:'+params.row.pickMoney+'</p>' +
+                //         '<p>发起时间:'+params.row.createTime+'</p>' +
+                //         '<p>剩余时间:'+params.row.offTime+'</p>' +
+                //         '<p>审核状态:'+params.row.auditState+'</p>' +
+                //         '<>转账状态:'+params.row.transferState+'</>' +
+                //
+                //
+                //         '<p>请审核以上信息</p>',el-input
+                //     // okText: '审核通过',
+                //     // cancelText: '审核驳回',
+                //     onOk: () => {
+                //         this.doAudit(params,1)
+                //     },
+                //     onCancel: () => {
+                //         this.doAudit(params,2)
+                //     }
+                // });
             },
 
             onchanges: function(e) {
