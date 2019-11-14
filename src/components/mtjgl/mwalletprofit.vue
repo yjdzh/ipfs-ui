@@ -233,7 +233,7 @@
 
 
             sytj(e) {
-                this.activeid = e.row.zoneId
+                this.activeid = e.row.id
                 this.activename = e.row.zoneName
 
                 this.modal1 = true

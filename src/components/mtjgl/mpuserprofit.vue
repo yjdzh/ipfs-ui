@@ -254,7 +254,7 @@
 
             sytj(e) {
                 debugger
-                this.activeid = e.row.puserId
+                this.activeid = e.row.id
                 this.activename = e.row.puserName
                 this.modal1 = true,
                     this.getdata()
