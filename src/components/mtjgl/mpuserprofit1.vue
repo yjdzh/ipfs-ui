@@ -253,9 +253,17 @@
             sytj(e) {
                 debugger
                 this.activeid = e.row.puserId
-                this.activename = e.row.puserName
-                this.modal1 = true,
-                    this.getdata()
+                this.activename = '123'
+                this.modal1 = true
+                    // this.getdata()
+                const y=[1,2,3,4]
+
+                const x=[5,5,5,6]
+
+
+
+
+                this.line1('chart1', x,y)
             },
             getdata() {
                 var th = this
@@ -292,7 +300,7 @@
                             }
 
 
-                            th.ydata = da.items;
+                            th.ydata = da.items[0].data;
                             th.line1('chart1', th.xdata, th.ydata)
 
                         } else {

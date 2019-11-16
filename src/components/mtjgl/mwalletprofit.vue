@@ -494,3 +494,9 @@
         }
     }
 </style>
+<style scoped>
+    #chart1 {
+        width: 700px;
+        height: 400px;
+    }
+</style>

@@ -164,6 +164,25 @@
                 </FormItem>
             </Form>
         </Modal>
+
+
+        <Modal
+
+            v-model="dqtx"
+            title="到期提醒"
+            @on-ok="dqtxok"
+            @on-cancel="dqtxcancel">
+            <div class="dqtx"   v-if="dqtx">
+
+                <p><b>提前提醒天数:</b>
+
+                    <InputNumber class="dqtx_inputnum" :max="100" :min="0" v-model="dqtxval"></InputNumber>
+
+
+                </p>
+            </div>
+
+        </Modal>
     </div>
 </template>
 
@@ -196,7 +215,9 @@
 
             }
             return {
-
+                dqtx:false,
+                dqtxval:null,
+                dqtxid:-1,
                 hasnum: '请选择数据中心',
 
 
@@ -318,7 +339,7 @@
                                         }
                                     }
                                 }, '托管服务'),
-                                
+
                                 h('Button', {
                                     props: {
                                         type: 'primary',
@@ -329,7 +350,7 @@
                                     },
                                     on: {
                                         click: function () {
-                                            // _this.tgfw(params)
+                                            _this.opendqtx(params)
                                         }
                                     }
                                 }, '到期提醒'),
@@ -484,6 +505,50 @@
             }
         },
         methods: {
+            opendqtx(e){
+                this.Global.fun(this, 'get', {
+                    base: 'mpuser/dqtx/',
+                    other: e.row.id+'/?',
+                    access_token: this.api.access_token
+                }, {}, c)
+
+                function c(res, that) {
+                    debugger
+                    if (res.data.status == 1) {
+                        that.dqtxval=res.data.data==''?null:res.data.data;
+                        that.dqtxid=e.row.id;
+
+                        that.dqtx=true
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.dqtx=false
+                    }
+                }
+
+            },
+            dqtxcancel(){
+                debugger
+                this.dqtx=false
+            },
+            dqtxok(){
+                this.Global.fun(this, 'post', {
+                    base: 'mpuser/dqtx/',
+                    other: '?',
+                    access_token: this.api.access_token
+                }, {id:this.dqtxid,num:this.dqtxval}, c)
+
+                function c(res, that) {
+                    if (res.data.status == 1) {
+                        that.$Message.success(res.data.msg);
+                        that.dqtx=false
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.dqtx=false
+                    }
+                }
+            },
             tgfw(e) {
                 debugger
                 this.pubUserId = e.row.id
@@ -796,4 +861,23 @@
             }
         }
     }
+    .dqtx {
+        p {
+            padding-left: 100px;
+            position: relative;
+            margin-bottom: 10px;
+            line-height: 32px;
+            b {
+                position: absolute;
+                left: 0;
+                width: 90px;
+                text-align: right;
+            }
+            .dqtx_inputnum{
+                line-height: 32px;
+
+            }
+        }
+    }
 </style>
+

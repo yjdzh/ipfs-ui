@@ -5,7 +5,7 @@
 		<div slot="form">
 
 			<Row>
-				<EVitemContainer label="钱包" prop="zoneVirId" :span="12">
+				<EVitemContainer label="钱包" prop="walletId" :span="12">
 					<Select v-model="formValidate.walletId" :disabled="openType!=-1">
 						<Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in walletOptions" :key="walletOption.index"></Option>
 					</Select>
@@ -85,9 +85,9 @@
 				},
 
 				infoChangeRules: {
-					walletId: [{
+                    walletId: [{
 						type: 'number',
-						required: true,
+                        required: true,
 						message: '请选择数据中心钱包',
 						trigger: 'change'
 					}],

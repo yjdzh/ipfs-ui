@@ -77,17 +77,17 @@
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
-        <Modal v-model="modal1" :title="activename +' 的收益统计'" width="720px" footer-hide>
+        <Modal v-model="modal1" :title="activename +' 的收益统计'" width="720px" footer-hide style="height: 300px;">
 
 
-            <div id="chart1"></div>
+            <div id="chart1" ></div>
 
         </Modal>
     </div>
 </template>
 
 <script>
-    import echarts from 'echarts'
+    import echarts from "echarts";
     export default {
         name: "mwallet",
 
@@ -279,9 +279,17 @@
             sytj(e) {
                 debugger
                 this.activeid = e.row.id
-                this.activename = e.row.puserName
-                this.modal1 = true,
+                this.activename = e.row.pubUserName
+                this.modal1 = true
                     this.getdata()
+                // const y=[1,2,3,4]
+                //
+                // const x=[5,5,5,6]
+                //
+                //
+                //
+                //
+                // this.line1('chart1', x,y)
             },
             getdata() {
                 var th = this
@@ -524,5 +532,11 @@
                 width: 150px;
             }
         }
+    }
+</style>
+<style scoped>
+    #chart1 {
+        width: 700px;
+        height: 400px;
     }
 </style>

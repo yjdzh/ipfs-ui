@@ -190,6 +190,7 @@
                             type: "pie",
                             radius: [60, 65],
                             center: ["50%", "50%"],
+
                             data: [
                                 {
                                     value: x,
@@ -207,10 +208,10 @@
                                         ])
                                     },
 
-                                    "label": {
-                                        "normal": {
-                                            "show": true,
-                                            "formatter": '{c|' + names + '}',
+                                    label: {
+                                        normal: {
+                                            show: true,
+                                            formatter: '{c|' + names + '}',
                                             rich: {
                                                 c: {
                                                     color: '#7ec9e9',
@@ -220,14 +221,19 @@
                                                 },
 
                                             },
-                                            "textStyle": {
-                                                "fontSize": 28,
-                                                "fontWeight": "bold"
+                                            textStyle: {
+                                                fontSize: 28,
+                                                fontWeight: "bold"
                                             },
-                                            "position": "center"
+                                            position: "center"
 
                                         }
-                                    }
+                                    },
+                                    labelLine: {
+                                        normal: {
+                                            show: false
+                                        }
+                                    },
                                 },
                                 {
                                     value: y,
@@ -243,6 +249,11 @@
                                                 color: "#393f52"
                                             }
                                         ])
+                                    },
+                                    labelLine: {
+                                        normal: {
+                                            show: false
+                                        }
                                     },
 
                                 }
@@ -263,7 +274,7 @@
                     grid: {
                         top: "5%",
                         right: "3%",
-                        left: "40%",
+                        left: "25%",
                         bottom: "10%"
                     },
                     tooltip: {
