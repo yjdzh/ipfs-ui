@@ -1,6 +1,6 @@
 <style lang="less">
     .ivu-modal-footer {
-        border-top: 0px solid #e9eaec;
+        border-top: 0px solid #e9eaec !important;
 
     }
     /*新菜单使用样式*/

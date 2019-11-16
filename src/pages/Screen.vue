@@ -287,10 +287,9 @@
                             type: "category",
                             color: "#fff",
                             data: x,
+                            axisTick: 'none',
+                            axisLine: 'none',
 
-                            axisLine: {
-                                show: false
-                            },
                             axisLabel: {
                                 margin: 20,
                                 color: "#fff",
@@ -304,12 +303,12 @@
                         {
                             min: 0,
                             max: 100,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 show: false
                             },
-                            axisLine: {
-                                show: false
-                            },
+
                             splitLine: {
                                 show: false
                             }
@@ -369,13 +368,16 @@
                     //     formatter: x + " 存储使用率：{c}%"
                     // },
                     xAxis: {
-                        show: false
+                        show: false,
+
                     },
                     yAxis: [
                         {
                             show: true,
                             data: y,
                             inverse: false,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 textStyle: {
                                     fontSize: 14,
@@ -387,6 +389,8 @@
                             show: true,
                             inverse: false,
                             data: x,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 color: "#7981e8",
                                 formatter: x+'%',
@@ -484,6 +488,8 @@
                             show: true,
                             data: y,
                             inverse: false,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 textStyle: {
                                     fontSize: 14,
@@ -495,6 +501,8 @@
                             show: true,
                             inverse: false,
                             data: x,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 color: "#7981e8",
                                 formatter: x+'%',
@@ -592,6 +600,8 @@ right: "50px",
                             show: true,
                             data: y,
                             inverse: false,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 textStyle: {
                                     fontSize: 14,
@@ -603,6 +613,8 @@ right: "50px",
                             show: true,
                             inverse: false,
                             data: x,
+                            axisTick: 'none',
+                            axisLine: 'none',
                             axisLabel: {
                                 color: "#7981e8",
                                 formatter: x+'%',

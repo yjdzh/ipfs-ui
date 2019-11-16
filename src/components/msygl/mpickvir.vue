@@ -92,23 +92,33 @@
 
             v-model="modal1"
             :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'转账'"
-            @on-ok="ok"
-            @on-cancel="cancel">
+
+            :mask-closable="false"
+        :loading="true">
+            <div slot="footer">
+                <Button type="text" size="large" @click="cancel">取消</Button>
+                <Button type="primary" size="large" @click="ok">确定</Button>
+            </div>
             <div class="tbzz"  v-if="modal1">
+
             <p><b>转出账户: </b>{{datadoTransfer.userName==undefined?'':datadoTransfer.userName}} </p>
             <p><b>转出钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
             <p><b>转入账户: </b>{{datadoTransfer.userName==undefined?'':datadoTransfer.userName}} </p>
             <p><b>转入钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
             <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
             <p><b>转账时间: </b>{{datadoTransfer.createTime==undefined?'':datadoTransfer.createTime}} </p>
-            <p><b>密码:</b>
+                <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
+                    <FormItem label="密码:" prop="password">
+                        <Input  :type="showtype ? 'text' : 'password'" placeholder="请输入密码"
+                                v-model="formValidate.password" >
+                        </Input>
+                        <Icon  class="tbzz_pwixon" :type="showtype ? 'eye' : 'eye-disabled'" @click="handleShowPassword"></Icon>
 
-                <Input  :type="showtype ? 'text' : 'password'" placeholder="请输入密码"
-                        v-model="password" >
-                </Input>
-                    <Icon  class="tbzz_pwixon" :type="showtype ? 'eye' : 'eye-disabled'" @click="handleShowPassword"></Icon>
+                    </FormItem>
+                </Form>
 
-                 </p>
+
+
     </div>
 
         </Modal>
@@ -126,10 +136,13 @@
 
             return {
 
-
+                ruleValidate: {
+                    password: [
+                        { required: true, message: '请输入密码', trigger: 'blur' }
+                    ],},
 
                 showtype:false,
-                password:'',
+                formValidate:{password:''},
                 search: {},
                 Hsearch: false,
                 formItem: {
@@ -323,7 +336,7 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
+                                        // disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -367,23 +380,31 @@
         },
         methods: {
             ok(e){
+                debugger
+                this.$refs['formValidate'].validate((valid) => {
+                    if (valid) {
+                        this.Global.fun(this, 'get', {
+                            base: 'mpickvir/transfer/',
+                            other: this.datadoTransfer.id+'/'+this.formValidate.password+'/?',
+                            access_token: this.api.access_token
+                        }, {}, c)
 
-                this.Global.fun(this, 'get', {
-                    base: 'mpickvir/transfer/',
-                    other: this.datadoTransfer.id+'/'+this.password+'/?',
-                    access_token: this.api.access_token
-                }, {}, c)
-
-                function c(res, that) {
-                    if (res.data.status == 1) {
-                        that.$Message.success(res.data.msg);
-                        that.modal1=false
+                        function c(res, that) {
+                            if (res.data.status == 1) {
+                                that.$Message.success(res.data.msg);
+                                that.modal1=false
+                            } else {
+                                that.$Message.destroy();
+                                that.$Message.error(res.data.msg);
+                                that.modal1=false
+                            }
+                        }
                     } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-                        that.modal1=false
+                        debugger
+                        this.modal1=true
                     }
-                }
+                })
+
 
             },
             cancel(){
@@ -391,7 +412,7 @@
 
 
                 this.datadoTransfer={}
-                this.password=''
+                this.formValidate.password=''
 
 
 
@@ -472,7 +493,7 @@
 
                 function c(res, that) {
                     if (res.data.status == 1) {
-
+                        window.open(res.data.data);
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -626,6 +647,7 @@
             padding-left: 100px;
             position: relative;
             margin-bottom: 10px;
+            word-break: break-all;
             b {
                 position: absolute;
                 left: 0;
@@ -640,22 +662,26 @@
             position: relative;
             margin-bottom: 10px;
             line-height: 32px;
+            word-break: break-all;
             b {
                 position: absolute;
                 left: 0;
                 width: 90px;
                 text-align: right;
             }
-            .tbzz_pwixon{
-                line-height: 32px;
-                position: absolute;
-                right: 10px;
-                top: 0px;
-                cursor: pointer;
-                z-index: 99;
-                font-size: 18px;
-                color: #999;
-            }
+
+        }.tbzz_pwixon{
+             line-height: 32px;
+             position: absolute;
+             right: 10px;
+             top: 0px;
+             cursor: pointer;
+             z-index: 99;
+             font-size: 18px;
+             color: #999;
+         }
+        .ivu-form-item-label{
+            font-weight: bold;
         }
     }
 

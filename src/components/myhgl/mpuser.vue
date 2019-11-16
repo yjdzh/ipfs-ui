@@ -169,18 +169,18 @@
         <Modal
 
             v-model="dqtx"
-            title="到期提醒"
-            @on-ok="dqtxok"
-            @on-cancel="dqtxcancel">
-            <div class="dqtx"   v-if="dqtx">
-
-                <p><b>提前提醒天数:</b>
-
-                    <InputNumber class="dqtx_inputnum" :max="100" :min="0" v-model="dqtxval"></InputNumber>
-
-
-                </p>
+            title="到期提醒123"
+           >
+            <div slot="footer">
+                <Button type="text" size="large" @click="dqtxcancel">取消</Button>
+                <Button type="primary" size="large" @click="dqtxok">确定</Button>
             </div>
+
+                <Form ref="formV"  class="dqtx"  :model="formsV" :rules="rulesV" :label-width="120">
+                    <FormItem label="提前提醒天数:" prop="dqtxval" >
+                        <InputNumber class="dqtx_inputnum" :max="100" :min="0" v-model="formsV.dqtxval"></InputNumber>
+                    </FormItem>
+                </Form>
 
         </Modal>
     </div>
@@ -216,10 +216,18 @@
             }
             return {
                 dqtx:false,
-                dqtxval:null,
+                formsV:{dqtxval:null},
                 dqtxid:-1,
                 hasnum: '请选择数据中心',
-
+                rulesV: {
+                    dqtxval: [
+                        {
+                        type: 'number',
+                required: true,
+                message: "请输入提前提醒天数",
+                trigger: "change"}
+                    ],
+                },
 
                 search: {},
                 Hsearch: false,
@@ -515,7 +523,7 @@
                 function c(res, that) {
                     debugger
                     if (res.data.status == 1) {
-                        that.dqtxval=res.data.data==''?null:res.data.data;
+                        that.formsV.dqtxval=res.data.data==''?null:res.data.data;
                         that.dqtxid=e.row.id;
 
                         that.dqtx=true
@@ -532,22 +540,26 @@
                 this.dqtx=false
             },
             dqtxok(){
-                this.Global.fun(this, 'post', {
-                    base: 'mpuser/dqtx/',
-                    other: '?',
-                    access_token: this.api.access_token
-                }, {id:this.dqtxid,num:this.dqtxval}, c)
+                debugger
+                this.$refs['formV'].validate((valid) => {
+                        if (valid) {
+                            this.Global.fun(this, 'post', {
+                                base: 'mpuser/dqtx/',
+                                other: '?',
+                                access_token: this.api.access_token
+                            }, {id: this.dqtxid, num: this.formsV.dqtxval}, c)
 
-                function c(res, that) {
-                    if (res.data.status == 1) {
-                        that.$Message.success(res.data.msg);
-                        that.dqtx=false
-                    } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-                        that.dqtx=false
-                    }
-                }
+                            function c(res, that) {
+                                if (res.data.status == 1) {
+                                    that.$Message.success(res.data.msg);
+                                    that.dqtx = false
+                                } else {
+                                    that.$Message.destroy();
+                                    that.$Message.error(res.data.msg);
+                                    that.dqtx = false
+                                }
+                            }
+                        }})
             },
             tgfw(e) {
                 debugger
@@ -752,6 +764,7 @@
                 }, function () {
                     that.search.page = e - 1
                     that.search.size = 10
+                    console.log(that.search)
                     return that.search
                 }(), c)
 

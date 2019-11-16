@@ -372,7 +372,7 @@
                 this.Hsearch = true
             },
             HsearchC() {
-                this.openHsearch()
+
                 this.Hsearch = false
             },
             HsearchS() {
@@ -465,6 +465,10 @@
 </script>
 
 <style lang="less">
+    .ivu-modal-footer {
+        border-top: 0px solid #e9eaec !important;
+
+    }
     .overappend {
         .evaninline {
 
