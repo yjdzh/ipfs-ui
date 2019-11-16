@@ -318,6 +318,21 @@
                                         }
                                     }
                                 }, '托管服务'),
+                                
+                                h('Button', {
+                                    props: {
+                                        type: 'primary',
+                                        size: 'small',
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function () {
+                                            // _this.tgfw(params)
+                                        }
+                                    }
+                                }, '到期提醒'),
 
                                 h('Button', {
                                     props: {
