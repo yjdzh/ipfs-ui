@@ -105,7 +105,6 @@
 
 <script>
     export default {
-        name: "msetups",
         data() {
             var _this = this
             return {
@@ -346,7 +345,6 @@
 
                             var back = res.data.data;
                             Object.keys(that.formValidate).forEach(function(key) {
-
                                 if (that.formValidate[key] == null) {
                                     that.formValidate[key] = '暂无数据';
                                 } else {

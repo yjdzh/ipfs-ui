@@ -52,11 +52,11 @@
 
 
             <div slot="btnBox" class="btn">
-                <!--   <Button @click="added" type="success">新增</Button> -->
+                <Button @click="dobtns()" type="info">批量导出</Button>
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
-                <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading"  @on-selection-change="selectionchange">
                 </Table>
             </div>
             <div slot="pagePage">
@@ -80,12 +80,12 @@
     import echarts from 'echarts'
     export default {
         name: "mwallet",
-
         data() {
             var _this = this;
             return {
                 search: {},
                 Hsearch: false,
+                selects: [],
                 formItem: {
                     search_EQ_walletId: '',
                     search_LIKE_startDate: '',
@@ -118,12 +118,13 @@
                         allName: '不限'
                     }
                 ],
-                datahead: [{
+                datahead: [
+                    {
+                        type: 'selection',
+                        width: 50,
+                    },{
                         align: 'left',
                         title: '币种',
-                        // render: function(h, params) {
-                        //     return h('span', [params.row.virDictEntity.name])
-                        // },
                         key: 'virName',
                         width: 60
                     },
@@ -229,7 +230,27 @@
                 this.formItem[v]=e
             },
 
-
+            dobtns() {
+                const el = []
+                for (var i = 0; i < this.selects.length; i++) {
+                    el.push(this.selects[i].id);
+                }
+                const sl = el.join(',')
+                this.Global.newfun(this, 'post', {
+                    base: '/mwalletprofit/mulexport?',
+                    other: '',
+                    access_token: this.api.access_token
+                }, {
+                    ids: sl
+                }, function (res, that) {
+                    if (res.data.status == 1) {
+                        window.open(res.data.data);
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                    }
+                })
+            },
 
 
             sytj(e) {
@@ -321,10 +342,10 @@
                 this.chart.setOption(optionData);
             },
 
-
-
-
-
+           selectionchange(e) {
+                this.selects = []
+                this.selects = e
+            },
             getoptions() {
                 this.Global.fun(this, 'get', {
                         base: '/mwallet',
