@@ -350,7 +350,7 @@
 
                                 h('Button', {
                                     props: {
-                                        type: 'primary',
+                                        type: params.row.txState== 0 ? 'primary' : 'error',
                                         size: 'small',
                                     },
                                     style: {
@@ -893,4 +893,3 @@
         }
     }
 </style>
-
