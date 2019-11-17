@@ -321,7 +321,7 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        disabled: params.row.auditState == 0 ? false:true
+                                        // disabled: params.row.auditState == 0 ? false:true
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -336,7 +336,7 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
+                                        // disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -392,7 +392,9 @@
                         function c(res, that) {
                             if (res.data.status == 1) {
                                 that.$Message.success(res.data.msg);
+                                that.refresh()
                                 that.modal1=false
+
                             } else {
                                 that.$Message.destroy();
                                 that.$Message.error(res.data.msg);
@@ -527,6 +529,7 @@
                 debugger
                 this.$Modal.confirm({
                     title: '审核',
+                    closable:true,
                     content: '<div class="tbsh">' +
                         '<p><b>用户名称: </b>' + params.row.userName + '</p>' +
                         '<p><b>用户账号: </b>' + params.row.userName + '</p>' +
@@ -539,9 +542,11 @@
                     cancelText: '审核驳回',
                     onOk: () => {
                         this.doAudit(params, 1)
+                        this.$Modal.remove();
                     },
                     onCancel: () => {
                         this.doAudit(params, 2)
+                        this.$Modal.remove();
                     }
                 });
             },

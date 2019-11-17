@@ -248,6 +248,11 @@
                                                 onOk: function() {
                                                     _this.qxgl(params)
                                                 },
+                                                // onCancel: () => {
+                                                //
+                                                // },
+                                                // okText: '确定',
+                                                // cancelText: '取消',
                                             });
 
                                         }
@@ -277,28 +282,39 @@
         },
         methods: {
             qxglALL() {
-                this.loading = true
-                this.Global.fun(this, 'post', {
-                    base: '/mpuser',
-                    other: '/multis?',
-                    access_token: this.api.access_token
-                }, {
-                    userId: this.openType,
-                    devMacs:  this.selectlist.join(',')
-                }, c)
+                if(this.selectlist.length==0){
+                    this.$Message.error('请选择要取消关联的设备');
+                }
+                else{
+                    this.loading = true
+                    this.Global.fun(this, 'post', {
+                        base: '/mpuser',
+                        other: '/multis?',
+                        access_token: this.api.access_token
+                    }, {
+                        userId: this.openType,
+                        devMacs:  this.selectlist.join(',')
+                    }, c)
 
-                function c(res, that) {
-                    if (res.data.status === 1) {
-                        that.loading = false;
-                        that.$Message.success(res.data.msg);
-                        that.refresh()
-                    } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-                        that.loading = false;
-                        that.refresh()
+                    function c(res, that) {
+                        if (res.data.status === 1) {
+                            that.loading = false;
+                            that.$Message.success(res.data.msg);
+                            that.refresh()
+                        } else {
+                            that.$Message.destroy();
+                            that.$Message.error(res.data.msg);
+                            that.loading = false;
+                            that.refresh()
+                        }
                     }
                 }
+
+
+
+
+
+
 
             },
             qxglchange(e){
@@ -324,11 +340,13 @@
                     if (res.data.status === 1) {
                         that.loading = false;
                         that.$Message.success(res.data.msg);
+                        that.$Modal.remove()
                         that.refresh()
                     } else {
                         that.$Message.destroy();
                         that.$Message.error(res.data.msg);
                         that.loading = false;
+                        that.$Modal.remove()
                         that.refresh()
                     }
                 }

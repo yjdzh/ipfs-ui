@@ -590,6 +590,7 @@
 
 
             watchMenu () {
+
                 this.$nextTick(() => {
                     this.$refs.menu.updateActiveName();
 
@@ -610,6 +611,8 @@
             // },
 
             selectClick (e, o) {
+
+                this.$Modal.remove()
                 // console.log(e + '-' + o)
                 let _self = this;
 
