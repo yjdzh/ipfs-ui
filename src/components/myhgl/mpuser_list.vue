@@ -253,11 +253,6 @@
                                         }
                                     }
                                 }, '取消关联'),
-
-
-
-
-
                             ])
                         }
                     }
@@ -315,7 +310,6 @@
 
             },
             qxgl(e) {
-
                 this.loading = true
                 this.Global.fun(this, 'post', {
                     base: '/mpuser',
@@ -338,8 +332,6 @@
                         that.refresh()
                     }
                 }
-
-
             },
             switchfunction(e) {
                 this.switch = e
@@ -460,7 +452,7 @@
         },
         created: function () {
             this.searchType = 'username',
-                this.openType = parseInt(this.$route.query.id)
+            this.openType = parseInt(this.$route.query.id)
             this.refresh()
         },
     }
