@@ -156,7 +156,7 @@
         </Modal>
 
 
-        <Modal v-model="dqtx" title="到期提醒123">
+        <Modal v-model="dqtx" title="到期提醒">
             <div slot="footer">
                 <Button type="text" size="large" @click="dqtxcancel">取消</Button>
                 <Button type="primary" size="large" @click="dqtxok">确定</Button>
@@ -512,7 +512,7 @@
                     if (res.data.status == 1) {
                         that.formsV.dqtxval = res.data.data == '' ? null : res.data.data;
                         that.dqtxid = e.row.id;
-                        that.dqtx = true
+                        that.dqtx = true;
                     } else {
                         that.$Message.destroy();
                         that.$Message.error(res.data.msg);
@@ -542,6 +542,7 @@
                             if (res.data.status == 1) {
                                 that.$Message.success(res.data.msg);
                                 that.dqtx = false
+                                 that.refresh();
                             } else {
                                 that.$Message.destroy();
                                 that.$Message.error(res.data.msg);
@@ -849,7 +850,7 @@
         },
         created: function() {
             this.searchType = 'search_LIKE_phone',
-                this.getoptions()
+            this.getoptions()
             this.refresh()
         },
     }
