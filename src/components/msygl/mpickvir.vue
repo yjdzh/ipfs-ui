@@ -3,12 +3,11 @@
         <EVpageList :pageTitle="pageTitle">
             <div slot="searchBox" class="serach">
                 <Input v-model="searchValue" :class="selsctclass">
-                    <Select v-model="searchType" slot="prepend" style="width: 80px">
-                        <Option :value="option.value" :label="option.label" v-text="option.label"
-                                v-for="option in options"
-                                :key="option.index"></Option>
-                    </Select>
-                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+                <Select v-model="searchType" slot="prepend" style="width: 80px">
+                    <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
+                        :key="option.index"></Option>
+                </Select>
+                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
 
                 </Input>
 
@@ -25,33 +24,33 @@
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
-                                <FormItem label="id">
-                                    <Input v-model="formItem.search_EQ_id" placeholder="请输入id"></Input>
-                                </FormItem>
+                            <FormItem label="id">
+                                <Input v-model="formItem.search_EQ_id" placeholder="请输入id"></Input>
+                            </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="用户名称">
-                                    <Input v-model="formItem.search_LIKE_userName" placeholder="请输入用户名称"></Input>
-                                </FormItem>
+                            <FormItem label="用户名称">
+                                <Input v-model="formItem.search_LIKE_userName" placeholder="请输入用户名称"></Input>
+                            </FormItem>
                             </Col>
                             <Col span="23">
-                                <FormItem label="审核状态">
-                                    <RadioGroup v-model="formItem.search_EQ_auditState" type="button" size="large">
-                                        <Radio label="0">未审核</Radio>
-                                        <Radio label="1">审核通过</Radio>
-                                        <Radio label="2">审核驳回</Radio>
-                                    </RadioGroup>
-                                </FormItem>
+                            <FormItem label="审核状态">
+                                <RadioGroup v-model="formItem.search_EQ_auditState" type="button" size="large">
+                                    <Radio label="0">未审核</Radio>
+                                    <Radio label="1">审核通过</Radio>
+                                    <Radio label="2">审核驳回</Radio>
+                                </RadioGroup>
+                            </FormItem>
                             </Col>
 
 
                             <Col span="23">
-                                <FormItem label="转账状态">
-                                    <RadioGroup v-model="formItem.search_EQ_transferState" type="button" size="large">
-                                        <Radio label="0">未转账</Radio>
-                                        <Radio label="1">转账完成</Radio>
-                                    </RadioGroup>
-                                </FormItem>
+                            <FormItem label="转账状态">
+                                <RadioGroup v-model="formItem.search_EQ_transferState" type="button" size="large">
+                                    <Radio label="0">未转账</Radio>
+                                    <Radio label="1">转账完成</Radio>
+                                </RadioGroup>
+                            </FormItem>
                             </Col>
                         </Form>
                     </div>
@@ -68,13 +67,11 @@
                 <Button @click="downpost">账单下载</Button>
             </div>
             <div slot="table">
-                <Table border :columns="datahead" :data="databody" size='small' :loading="loading"
-                       @on-selection-change="selectchange">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="selectchange">
                 </Table>
             </div>
             <div slot="pagePage">
-                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges"
-                      :current="current">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
                 </Page>
             </div>
 
@@ -83,43 +80,36 @@
             </div>
 
 
-
-
-
         </EVpageList>
 
-        <Modal
-
-            v-model="modal1"
-            :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'转账'"
-
-            :mask-closable="false"
-        :loading="true">
+        <Modal v-model="modal1" :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'转账'"
+            :mask-closable="false" :loading="true">
             <div slot="footer">
                 <Button type="text" size="large" @click="cancel">取消</Button>
                 <Button type="primary" size="large" @click="ok">确定</Button>
             </div>
-            <div class="tbzz"  v-if="modal1">
+            <div class="tbzz" v-if="modal1">
 
-            <p><b>转出账户: </b>{{datadoTransfer.userName==undefined?'':datadoTransfer.userName}} </p>
-            <p><b>转出钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
-            <p><b>转入账户: </b>{{datadoTransfer.userName==undefined?'':datadoTransfer.userName}} </p>
-            <p><b>转入钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
-            <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
-            <p><b>转账时间: </b>{{datadoTransfer.createTime==undefined?'':datadoTransfer.createTime}} </p>
+                <p><b>转出账户: </b>{{datadoTransfer.zoneName==undefined?'':datadoTransfer.zoneName+'-'+datadoTransfer.virName}}
+                </p>
+                <p><b>转出钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
+                <p><b>转入账户: </b>{{datadoTransfer.userPhone==undefined?'':datadoTransfer.userPhone}} </p>
+                <p><b>转入钱包地址: </b>{{datadoTransfer.virAddress==undefined?'':datadoTransfer.virAddress}} </p>
+                <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
+                <p><b>转账时间: </b>{{datadoTransfer.createTime==undefined?'':this.Global.getDate(datadoTransfer.createTime)}}
+                </p>
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
                     <FormItem label="密码:" prop="password">
-                        <Input  :type="showtype ? 'text' : 'password'" placeholder="请输入密码"
-                                v-model="formValidate.password" >
+                        <Input :type="showtype ? 'text' : 'password'" placeholder="请输入密码" v-model="formValidate.password">
                         </Input>
-                        <Icon  class="tbzz_pwixon" :type="showtype ? 'eye' : 'eye-disabled'" @click="handleShowPassword"></Icon>
+                        <Icon class="tbzz_pwixon" :type="showtype ? 'eye' : 'eye-disabled'" @click="handleShowPassword"></Icon>
 
                     </FormItem>
                 </Form>
 
 
 
-    </div>
+            </div>
 
         </Modal>
 
@@ -137,12 +127,17 @@
             return {
 
                 ruleValidate: {
-                    password: [
-                        { required: true, message: '请输入密码', trigger: 'blur' }
-                    ],},
+                    password: [{
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur'
+                    }],
+                },
 
-                showtype:false,
-                formValidate:{password:''},
+                showtype: false,
+                formValidate: {
+                    password: ''
+                },
                 search: {},
                 Hsearch: false,
                 formItem: {
@@ -184,28 +179,28 @@
                     },
                 ],
                 datahead: [{
-                    type: 'selection',
-                    width: 50,
-                }, {
-                    align: 'left',
-                    title: 'id',
-                    key: 'id',
-                    width: 110
-                }, {
-                    align: 'left',
-                    title: '用户名称',
-                    key: 'userName',
-                    width: 100
-                }, {
-                    align: 'left',
-                    title: '币种',
-                    key: 'virName',
-                    width: 60
-                }, {
-                    align: 'left',
-                    title: '真实钱包',
-                    key: 'virAddress',
-                },
+                        type: 'selection',
+                        width: 50,
+                    }, {
+                        align: 'left',
+                        title: 'id',
+                        key: 'id',
+                        width: 110
+                    }, {
+                        align: 'left',
+                        title: '用户名称',
+                        key: 'userName',
+                        width: 100
+                    }, {
+                        align: 'left',
+                        title: '币种',
+                        key: 'virName',
+                        width: 60
+                    }, {
+                        align: 'left',
+                        title: '真实钱包',
+                        key: 'virAddress',
+                    },
                     {
                         align: 'left',
                         title: '提币数量',
@@ -216,7 +211,7 @@
                         align: 'left',
                         title: '发起时间',
                         key: 'createTime',
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('span', [_this.Global.getDate(params.row.createTime, 'year')])
                         },
                         width: 140
@@ -232,10 +227,10 @@
                         title: '审核状态',
                         key: 'auditState',
                         width: 80,
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('span', {
                                 style: {
-                                    color: function () {
+                                    color: function() {
                                         switch (params.row.auditState) {
                                             case 0:
                                                 return '#19be6b';
@@ -250,7 +245,7 @@
                                         }
                                     }()
                                 }
-                            }, [function () {
+                            }, [function() {
                                 switch (params.row.auditState) {
                                     case 0:
                                         return '未审核';
@@ -270,10 +265,10 @@
                         title: '转账状态',
                         key: 'transferState',
                         width: 80,
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('span', {
                                 style: {
-                                    color: function () {
+                                    color: function() {
                                         switch (params.row.transferState) {
                                             case 0:
                                                 return '#19be6b';
@@ -284,7 +279,7 @@
                                         }
                                     }()
                                 }
-                            }, [function () {
+                            }, [function() {
                                 switch (params.row.transferState) {
                                     case 0:
                                         return '未转账';
@@ -301,7 +296,7 @@
                         key: 'action',
                         width: 150,
                         align: 'center',
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('div', [
                                 h('Button', {
                                     props: {
@@ -312,7 +307,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.downExcel(params)
                                         }
                                     }
@@ -321,13 +316,13 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        disabled: params.row.auditState == 0 ? false:true
+                                        disabled: params.row.auditState == 0 ? false : true
                                     },
                                     style: {
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.seedoAudit(params)
                                         }
                                     }
@@ -336,13 +331,14 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
+                                        disabled: params.row.auditState == 1 ? (params.row.transferState ==
+                                            1 ? true : false) : true
                                     },
                                     style: {
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.doTransfer(params)
                                         }
                                     }
@@ -358,8 +354,8 @@
                 searchValue: '',
                 id: null,
                 selectlist: [],
-                modal1:false,
-                datadoTransfer:{}
+                modal1: false,
+                datadoTransfer: {}
             };
         },
         computed: {
@@ -371,13 +367,13 @@
             }
         },
         methods: {
-            ok(e){
+            ok(e) {
                 debugger
                 this.$refs['formValidate'].validate((valid) => {
                     if (valid) {
                         this.Global.fun(this, 'get', {
                             base: 'mpickvir/transfer/',
-                            other: this.datadoTransfer.id+'/'+this.formValidate.password+'/?',
+                            other: this.datadoTransfer.id + '/' + this.formValidate.password + '/?',
                             access_token: this.api.access_token
                         }, {}, c)
 
@@ -385,34 +381,29 @@
                             if (res.data.status == 1) {
                                 that.$Message.success(res.data.msg);
                                 that.refresh()
-                                that.modal1=false
+                                that.modal1 = false
 
                             } else {
                                 that.$Message.destroy();
                                 that.$Message.error(res.data.msg);
-                                that.modal1=false
+                                that.modal1 = false
                             }
                         }
                     } else {
                         debugger
-                        this.modal1=true
+                        this.modal1 = true
                     }
                 })
 
 
             },
-            cancel(){
-                this.modal1=false
-
-
-                this.datadoTransfer={}
-                this.formValidate.password=''
-
-
-
+            cancel() {
+                this.modal1 = false
+                this.datadoTransfer = {}
+                this.formValidate.password = ''
             },
-            handleShowPassword(){
-                this.showtype=!this.showtype
+            handleShowPassword() {
+                this.showtype = !this.showtype
             },
 
             downpost() {
@@ -420,7 +411,9 @@
                     base: '/mpickvir/mulexport',
                     other: '/?',
                     access_token: this.api.access_token
-                }, {ids: this.selectlist.join(",")}, c)
+                }, {
+                    ids: this.selectlist.join(",")
+                }, c)
 
                 function c(res, that) {
                     if (res.data.status == 1) {
@@ -469,7 +462,7 @@
                 this.HsearchC()
             },
 
-            refresh: function () {
+            refresh: function() {
                 this.loading = true
                 this.search = {}
                 // this.searchType = 'search_LIKE_username'
@@ -478,7 +471,7 @@
                 // this.current = 1
                 this.onchanges(this.current)
             },
-            downExcel: function (params) {
+            downExcel: function(params) {
                 this.Global.fun(this, 'get', {
                     base: '/mpickvir/export/',
                     other: params.row.id + '/?',
@@ -497,7 +490,7 @@
                 }
 
             },
-            doAudit: function (params, type) {
+            doAudit: function(params, type) {
                 this.Global.fun(this, 'get', {
                     base: '/mpickvir/audit/',
                     other: params.row.id + '/' + type + '/?',
@@ -521,14 +514,14 @@
                 debugger
                 this.$Modal.confirm({
                     title: '审核',
-                    closable:true,
+                    closable: true,
                     content: '<div class="tbsh">' +
                         '<p><b>用户名称: </b>' + params.row.userName + '</p>' +
-                        '<p><b>用户账号: </b>' + params.row.userName + '</p>' +
+                        '<p><b>用户账号: </b>' + params.row.userPhone + '</p>' +
                         '<p><b>所提币种: </b>' + params.row.virName + '</p>' +
                         '<p><b>提币数量: </b>' + params.row.pickMoney + '</p>' +
-                        '<p><b>钱包地址: </b>' + params.row.walletAddress + '</p>' +
-                        '<p><b>提币时间: </b>' + params.row.createTime + '</p>' +
+                        '<p><b>钱包地址: </b>' + params.row.virAddress + '</p>' +
+                        '<p><b>提币时间: </b>' + this.Global.getDate(params.row.createTime) + '</p>' +
                         '</div>',
                     okText: '审核通过',
                     cancelText: '审核驳回',
@@ -543,12 +536,9 @@
                 });
             },
 
-            doTransfer: function (params) {
-
-
-                this.modal1=true
-
-                this.datadoTransfer=params.row
+            doTransfer: function(params) {
+                this.modal1 = true
+                this.datadoTransfer = params.row
 
                 // this.$Modal.confirm({
                 //     title: '转账',
@@ -573,7 +563,7 @@
                 // });
             },
 
-            onchanges: function (e) {
+            onchanges: function(e) {
                 var that = this
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
@@ -582,7 +572,7 @@
                     base: this.api.base,
                     other: '/page?',
                     access_token: this.api.access_token
-                }, function () {
+                }, function() {
                     that.search.page = e - 1
                     that.search.size = 10
                     return that.search
@@ -607,10 +597,10 @@
                     }
                 }
             },
-            oprahfun: function (e) {
+            oprahfun: function(e) {
                 this.Global.oprahfun(this)
             },
-            dosearch: function () {
+            dosearch: function() {
                 this.loading = true
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
@@ -627,7 +617,7 @@
                 }
             }
         },
-        created: function () {
+        created: function() {
             this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
             this.search = this.$route.query.search ? this.$route.query.search : {}
             this.searchType = 'search_LIKE_userName',
@@ -645,6 +635,7 @@
             position: relative;
             margin-bottom: 10px;
             word-break: break-all;
+
             b {
                 position: absolute;
                 left: 0;
@@ -653,6 +644,7 @@
             }
         }
     }
+
     .tbzz {
         p {
             padding-left: 100px;
@@ -660,6 +652,7 @@
             margin-bottom: 10px;
             line-height: 32px;
             word-break: break-all;
+
             b {
                 position: absolute;
                 left: 0;
@@ -667,19 +660,21 @@
                 text-align: right;
             }
 
-        }.tbzz_pwixon{
-             line-height: 32px;
-             position: absolute;
-             right: 10px;
-             top: 0px;
-             cursor: pointer;
-             z-index: 99;
-             font-size: 18px;
-             color: #999;
-         }
-        .ivu-form-item-label{
+        }
+
+        .tbzz_pwixon {
+            line-height: 32px;
+            position: absolute;
+            right: 10px;
+            top: 0px;
+            cursor: pointer;
+            z-index: 99;
+            font-size: 18px;
+            color: #999;
+        }
+
+        .ivu-form-item-label {
             font-weight: bold;
         }
     }
-
 </style>

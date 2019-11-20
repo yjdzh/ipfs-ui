@@ -323,7 +323,6 @@
                                     on: {
                                         click: function () {
                                             window.open(params.row.url, '_blank')
-
                                         }
                                     }
                                 }, '查看'),
