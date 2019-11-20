@@ -321,7 +321,7 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        // disabled: params.row.auditState == 0 ? false:true
+                                        disabled: params.row.auditState == 0 ? false:true
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -336,7 +336,7 @@
                                     props: {
                                         type: 'warning',
                                         size: 'small',
-                                        // disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
+                                        disabled: params.row.auditState == 1 ? (params.row.transferState == 1 ? true : false) : true
                                     },
                                     style: {
                                         marginRight: '5px'
