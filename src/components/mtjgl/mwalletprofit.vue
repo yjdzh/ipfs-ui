@@ -135,13 +135,13 @@
                     },
                     {
                         align: 'left',
-                        title: '单台日收',
+                        title: '单台日收益',
                         key: 'devIncome',
                         width: 100,
                     },
                     {
                         align: 'left',
-                        title: '日总收',
+                        title: '日总收益',
                         key: 'dayIncome',
                         width: 100
                     },

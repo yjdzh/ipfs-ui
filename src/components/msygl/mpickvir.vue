@@ -238,13 +238,13 @@
                                     color: function () {
                                         switch (params.row.auditState) {
                                             case 0:
-                                                return '#0061be';
+                                                return '#19be6b';
                                                 break;
                                             case 1:
-                                                return '#00ed03';
+                                                return '#ed3f14';
                                                 break;
                                             case 2:
-                                                return '#00ed03';
+                                                return '#b3be02';
                                                 break;
 
                                         }
@@ -276,10 +276,10 @@
                                     color: function () {
                                         switch (params.row.transferState) {
                                             case 0:
-                                                return '#0061be';
+                                                return '#19be6b';
                                                 break;
                                             case 1:
-                                                return '#00ed03';
+                                                return '#ed3f14';
                                                 break;
                                         }
                                     }()
@@ -357,17 +357,9 @@
                 searchType: 'search_LIKE_userName',
                 searchValue: '',
                 id: null,
-
-
                 selectlist: [],
-
-
                 modal1:false,
                 datadoTransfer:{}
-
-
-
-
             };
         },
         computed: {

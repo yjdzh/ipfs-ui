@@ -171,7 +171,7 @@
                     },
                     {
                         align: 'left',
-                        title: '日总收',
+                        title: '日总收益',
                         key: 'allIncome',
                         width: 90
                     }, {
