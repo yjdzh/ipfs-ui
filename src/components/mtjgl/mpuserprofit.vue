@@ -462,6 +462,7 @@ var arr=this.selectedArr
                 this.formItem.search_LIKE_endDate = ''
                 this.formItem.search_LIKE_userName = ''
                 this.Hsearch = true
+                this.selectedArr={}
             },
             HsearchC() {
 
@@ -534,6 +535,7 @@ var arr=this.selectedArr
             },
             dosearch: function () {
                 this.loading = true
+                this.selectedArr={}
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
                     this.search[this.searchType] = this.searchValue

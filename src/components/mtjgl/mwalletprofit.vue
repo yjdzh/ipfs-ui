@@ -83,6 +83,12 @@
         data() {
             var _this = this;
             return {
+
+                //这部分是新的
+                selectedArr: {},
+
+
+                //这部分是新的
                 search: {},
                 Hsearch: false,
                 selects: [],
@@ -225,6 +231,33 @@
             }
         },
         methods: {
+            //这部分是新的
+
+
+            //切换时候设置某一页的选中、未选中
+            superSetSelected(selectall, page, data) {
+                debugger
+                if (selectall[page] == undefined) {
+                    return
+                } else {
+                    var lidt = selectall[page]
+                    var l = selectall[page].length
+
+                    var d = data.length
+                    for (var i = 0; i < l; i++) {
+                        for (var j = 0; j < d; j++) {
+                            if (selectall[page][i].id == data[j].id) {
+                                data[j]._checked=true
+                            }
+                        }
+                    }
+
+                }
+
+            },
+
+
+            //这部分是新的
             datechange(e,v){
                 debugger
                 this.formItem[v]=e
@@ -232,8 +265,15 @@
 
             dobtns() {
                 const el = []
-                for (var i = 0; i < this.selects.length; i++) {
-                    el.push(this.selects[i].id);
+                var arr=this.selectedArr
+
+                for(var j in arr) {
+
+                    console.log(arr[j]);
+                    var m=arr[j]
+                    for (var i = 0; i < m.length; i++) {
+                        el.push(m[i].id);
+                    }
                 }
                 const sl = el.join(',')
                 this.Global.newfun(this, 'post', {
@@ -345,6 +385,11 @@
            selectionchange(e) {
                 this.selects = []
                 this.selects = e
+               if (e.length == 0) {
+                   delete this.selectedArr[this.current]
+               } else {
+                   this.selectedArr[this.current] = e
+               }
             },
             getoptions() {
                 this.Global.fun(this, 'get', {
@@ -370,6 +415,7 @@
                 this.formItem.search_LIKE_startDate = ''
                 this.formItem.search_LIKE_endDate = ''
                 this.Hsearch = true
+                this.selectedArr={}
             },
             HsearchC() {
 
@@ -393,6 +439,7 @@
             refresh: function() {
                 this.loading = true
                 this.search = {}
+                this.selectedArr={}
                 // this.searchType = 'search_LIKE_username'
                 // this.searchValue = ''
                 // this.search = ''
@@ -426,6 +473,7 @@
                         that.totalpage = res.data.data.totalElements;
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
+                        that.superSetSelected(that.selectedArr,res.data.data.number + 1,res.data.data.content)
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -439,6 +487,7 @@
             },
             dosearch: function() {
                 this.loading = true
+                this.selectedArr={}
                 if (this.searchType != 0) {
                     this.search = {
                         search_EQ_walletId: this.searchType
@@ -446,6 +495,7 @@
                 } else {
                     this.search = {}
                 }
+
                 this.onchanges(1)
 
 
