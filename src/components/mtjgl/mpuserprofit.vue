@@ -3,11 +3,12 @@
         <EVpageList :pageTitle="pageTitle" ass="nohidden">
             <div slot="searchBox" class="serach">
                 <Input v-model="searchValue" :class="selsctclass">
-                <Select v-model="searchType" slot="prepend" style="width: 90px">
-                    <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
-                        :key="option.index"></Option>
-                </Select>
-                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+                    <Select v-model="searchType" slot="prepend" style="width: 90px">
+                        <Option :value="option.value" :label="option.label" v-text="option.label"
+                                v-for="option in options"
+                                :key="option.index"></Option>
+                    </Select>
+                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>
                 </Input>
             </div>
 
@@ -20,35 +21,38 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem"  v-if="Hsearch" :label-width="90" >
+                        <Form :model="formItem" v-if="Hsearch" :label-width="90">
 
                             <Col span="23">
-                            <FormItem label="客户名称">
-                                <Input v-model="formItem.search_LIKE_userName" placeholder="请输入数据中心名称"></Input>
-                            </FormItem>
+                                <FormItem label="客户名称">
+                                    <Input v-model="formItem.search_LIKE_userName" placeholder="请输入数据中心名称"></Input>
+                                </FormItem>
                             </Col>
 
                             <Col span="23">
-                            <FormItem label="钱包">
-                                <Select v-model="formItem.search_EQ_walletId">
-                                    <Option :value="walletOption.id" :label="walletOption.allName" v-for="walletOption in walletOptions"
-                                        :key="walletOption.index"></Option>
-                                </Select>
-                            </FormItem>
+                                <FormItem label="钱包">
+                                    <Select v-model="formItem.search_EQ_walletId">
+                                        <Option :value="walletOption.id" :label="walletOption.allName"
+                                                v-for="walletOption in walletOptions"
+                                                :key="walletOption.index"></Option>
+                                    </Select>
+                                </FormItem>
                             </Col>
 
                             <Col span="23">
-                            <FormItem label="开始日期">
-                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择开始日期" @on-change="datechange($event,'search_LIKE_startDate')"
-                                    :editable="false" format="yyyy-MM-dd"></DatePicker>
-                            </FormItem>
+                                <FormItem label="开始日期">
+                                    <DatePicker type="date" style="    width: 100%;" placeholder="请选择开始日期"
+                                                @on-change="datechange($event,'search_LIKE_startDate')"
+                                                :editable="false" format="yyyy-MM-dd"></DatePicker>
+                                </FormItem>
                             </Col>
 
                             <Col span="23">
-                            <FormItem label="结束日期">
-                                <DatePicker type="date" style="    width: 100%;"  placeholder="请选择结束日期"  @on-change="datechange($event,'search_LIKE_endDate')"
-                                            :editable="false" format="yyyy-MM-dd"></DatePicker>
-                            </FormItem>
+                                <FormItem label="结束日期">
+                                    <DatePicker type="date" style="    width: 100%;" placeholder="请选择结束日期"
+                                                @on-change="datechange($event,'search_LIKE_endDate')"
+                                                :editable="false" format="yyyy-MM-dd"></DatePicker>
+                                </FormItem>
                             </Col>
                         </Form>
                     </div>
@@ -65,11 +69,13 @@
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
-                <Table border :columns="datahead" :data="databody" size='small' :loading="loading"  @on-selection-change="selectionchange">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading"
+                       @on-selection-change="selectionchange">
                 </Table>
             </div>
             <div slot="pagePage">
-                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges"
+                      :current="current">
                 </Page>
             </div>
 
@@ -80,7 +86,7 @@
         <Modal v-model="modal1" :title="activename +' 的收益统计'" width="720px" footer-hide style="height: 300px;">
 
 
-            <div id="chart1" ></div>
+            <div id="chart1"></div>
 
         </Modal>
     </div>
@@ -88,12 +94,18 @@
 
 <script>
     import echarts from "echarts";
+
     export default {
         name: "mwallet",
 
         data() {
             var _this = this;
             return {
+                //这部分是新的
+                selectedArr: {},
+
+
+                //这部分是新的
                 search: {},
                 Hsearch: false,
                 selects: [],
@@ -134,7 +146,7 @@
                     {
                         type: 'selection',
                         width: 50,
-                    },{
+                    }, {
                         align: 'left',
                         title: '币种',
                         key: 'virName',
@@ -202,7 +214,7 @@
                         key: 'action',
                         width: 80,
                         align: 'center',
-                        render: function(h, params) {
+                        render: function (h, params) {
                             return h('div', [
 
                                 h('Button', {
@@ -215,7 +227,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.sytj(params)
                                         }
                                     }
@@ -249,17 +261,56 @@
             }
         },
         methods: {
-            datechange(e,v){
+            //这部分是新的
+
+
+            //切换时候设置某一页的选中、未选中
+            superSetSelected(selectall, page, data) {
                 debugger
-               this.formItem[v]=e
+                if (selectall[page] == undefined) {
+                    return
+                } else {
+                    var lidt = selectall[page]
+                    var l = selectall[page].length
+
+                    var d = data.length
+                    for (var i = 0; i < l; i++) {
+                        for (var j = 0; j < d; j++) {
+                            if (selectall[page][i].id == data[j].id) {
+                                data[j]._checked=true
+                            }
+                        }
+                    }
+
+                }
+
+            },
+
+
+            //这部分是新的
+
+            datechange(e, v) {
+                debugger
+                this.formItem[v] = e
             },
 
             dobtns() {
                 const el = []
-                for (var i = 0; i < this.selects.length; i++) {
-                    el.push(this.selects[i].id);
+
+var arr=this.selectedArr
+
+                for(var j in arr) {
+
+                    console.log(arr[j]);
+                    var m=arr[j]
+                    for (var i = 0; i < m.length; i++) {
+                        el.push(m[i].id);
+                    }
                 }
+
                 const sl = el.join(',')
+                console.log(sl)
+                debugger
                 this.Global.newfun(this, 'post', {
                     base: '/mpuserprofit/mulexport?',
                     other: '',
@@ -281,7 +332,7 @@
                 this.activeid = e.row.id
                 this.activename = e.row.pubUserName
                 this.modal1 = true
-                    this.getdata()
+                this.getdata()
                 // const y=[1,2,3,4]
                 //
                 // const x=[5,5,5,6]
@@ -299,7 +350,7 @@
                         access_token: this.api.access_token,
 
                     }, {},
-                    function(res, that) {
+                    function (res, that) {
                         debugger
                         const st = res.data.status
                         if (st === 1) {
@@ -339,7 +390,7 @@
             },
 
 
-            line1: function(id, x, y, names) {
+            line1: function (id, x, y, names) {
                 var th = this
                 this.chart = echarts.init(document.getElementById(id));
                 this.chart.clear();
@@ -382,7 +433,7 @@
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function(res, that) {
+                    function (res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.walletOptions = res.data.data
@@ -398,6 +449,12 @@
             selectionchange(e) {
                 this.selects = []
                 this.selects = e
+                if (e.length == 0) {
+                    delete this.selectedArr[this.current]
+                } else {
+                    this.selectedArr[this.current] = e
+                }
+
             },
             openHsearch() {
                 this.formItem.search_EQ_walletId = ''
@@ -425,9 +482,10 @@
                 this.HsearchC()
             },
 
-            refresh: function() {
+            refresh: function () {
                 this.loading = true
                 this.search = {}
+                this.selectedArr={}
                 this.searchType = 'search_LIKE_userName'
                 // this.searchValue = ''
                 // this.search = ''
@@ -436,7 +494,7 @@
             },
 
 
-            onchanges: function(e) {
+            onchanges: function (e) {
                 var that = this
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
@@ -462,6 +520,7 @@
                         that.totalpage = res.data.data.totalElements;
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
+                        that.superSetSelected(that.selectedArr,res.data.data.number + 1,res.data.data.content)
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -470,10 +529,10 @@
                     }
                 }
             },
-            oprahfun: function(e) {
+            oprahfun: function (e) {
                 this.Global.oprahfun(this)
             },
-            dosearch: function() {
+            dosearch: function () {
                 this.loading = true
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
@@ -491,12 +550,12 @@
 
             },
         },
-        created: function() {
+        created: function () {
 
-                this.searchType = 'search_LIKE_userName',
+            this.searchType = 'search_LIKE_userName',
                 this.loading = true,
 
-            this.refresh()
+                this.refresh()
             this.getoptions()
             this.defaults.powerShow = this.show
             this.onchanges(1)
@@ -510,11 +569,12 @@
         border-top: 0px solid #e9eaec !important;
 
     }
+
     .overappend {
         .evaninline {
 
-            >.ivu-input-group-append,
-            >.ivu-input-group-prepend {
+            > .ivu-input-group-append,
+            > .ivu-input-group-prepend {
                 display: none;
             }
         }

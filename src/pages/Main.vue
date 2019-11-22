@@ -745,6 +745,8 @@
         // },
         mounted () {
 
+
+
             this.$nextTick(() => {
                 this.$refs.menu.updateActiveName();
 
