@@ -296,11 +296,8 @@
 
             dobtns() {
                 const el = []
-
-var arr=this.selectedArr
-
+                var arr=this.selectedArr
                 for(var j in arr) {
-
                     console.log(arr[j]);
                     var m=arr[j]
                     for (var i = 0; i < m.length; i++) {

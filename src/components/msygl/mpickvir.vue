@@ -123,7 +123,6 @@
 
         data() {
             var _this = this;
-
             return {
 
                 ruleValidate: {
@@ -138,6 +137,7 @@
                 formValidate: {
                     password: ''
                 },
+                selectedArr: {},
                 search: {},
                 Hsearch: false,
                 formItem: {
@@ -353,7 +353,7 @@
                 searchType: 'search_LIKE_userName',
                 searchValue: '',
                 id: null,
-                selectlist: [],
+                selects: [],
                 modal1: false,
                 datadoTransfer: {}
             };
@@ -367,6 +367,32 @@
             }
         },
         methods: {
+            //这部分是新的
+            //切换时候设置某一页的选中、未选中
+            superSetSelected(selectall, page, data) {
+                debugger
+                if (selectall[page] == undefined) {
+                    return
+                } else {
+                    var lidt = selectall[page]
+                    var l = selectall[page].length
+
+                    var d = data.length
+                    for (var i = 0; i < l; i++) {
+                        for (var j = 0; j < d; j++) {
+                            if (selectall[page][i].id == data[j].id) {
+                                data[j]._checked = true
+                            }
+                        }
+                    }
+
+                }
+
+            },
+
+
+            //这部分是新的
+
             ok(e) {
                 debugger
                 this.$refs['formValidate'].validate((valid) => {
@@ -407,12 +433,25 @@
             },
 
             downpost() {
+                const el = []
+                var arr = this.selectedArr
+                for (var j in arr) {
+                    console.log(arr[j]);
+                    var m = arr[j]
+                    for (var i = 0; i < m.length; i++) {
+                        el.push(m[i].id);
+                    }
+                }
+
+                const sl = el.join(',')
+                console.log(sl)
+                debugger
                 this.Global.fun(this, 'post', {
                     base: '/mpickvir/mulexport',
                     other: '/?',
                     access_token: this.api.access_token
                 }, {
-                    ids: this.selectlist.join(",")
+                    ids: sl
                 }, c)
 
                 function c(res, that) {
@@ -429,11 +468,26 @@
 
 
             selectchange(e) {
-                this.selectlist = []
-                for (let k in e) {
-                    this.selectlist.push(e[k].id)
+
+                // this.selects = []
+                // for (let k in e) {
+                //     this.selects.push(e[k].id)
+                // }
+                //                if (e.length == 0) {
+                //                    delete this.selectedArr[this.current]
+                //                } else {
+                //                    this.selectedArr[this.current] = e
+                //                }
+
+
+                this.selects = []
+                this.selects = e
+                if (e.length == 0) {
+                    delete this.selectedArr[this.current]
+                } else {
+                    this.selectedArr[this.current] = e
                 }
-                console.log(this.selectlist)
+
             },
 
 
@@ -443,6 +497,7 @@
                 this.formItem.search_EQ_transferState = ''
                 this.formItem.search_EQ_id = ''
                 this.Hsearch = true
+                this.selectedArr = {}
             },
             HsearchC() {
                 this.Hsearch = false
@@ -465,6 +520,8 @@
             refresh: function() {
                 this.loading = true
                 this.search = {}
+                this.selectedArr = {}
+
                 // this.searchType = 'search_LIKE_username'
                 // this.searchValue = ''
                 // this.search = ''
@@ -589,6 +646,7 @@
                         that.totalpage = res.data.data.totalElements;
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
+                        that.superSetSelected(that.selectedArr, res.data.data.number + 1, res.data.data.content)
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -602,6 +660,7 @@
             },
             dosearch: function() {
                 this.loading = true
+                this.selectedArr = {}
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
                     this.search[this.searchType] = this.searchValue
