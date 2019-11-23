@@ -24,6 +24,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+
+
+.v-transfer-dom{height: 0px!important;}
 .icon-positIcon:before {
   content: "\e900";
 }
