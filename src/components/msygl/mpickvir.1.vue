@@ -42,6 +42,15 @@
                             </FormItem>
                             </Col>
 
+
+                            <Col span="23">
+                            <FormItem label="转账状态">
+                                <RadioGroup v-model="formItem.search_EQ_transferState" type="button" size="large">
+                                    <Radio label="0">未转账</Radio>
+                                    <Radio label="1">转账完成</Radio>
+                                </RadioGroup>
+                            </FormItem>
+                            </Col>
                         </Form>
                     </div>
                     <div slot="footer">
@@ -76,34 +85,33 @@
             :mask-closable="false" :loading="true">
             <div slot="footer">
                 <Button type="text" size="large" @click="cancel">取消</Button>
-                <Button type="primary" size="large" @click="auditRefuse">审核驳回</Button>
-                <Button type="success" size="large" @click="auditPass">审核通过</Button>
+                <Button type="primary" size="large" @click="ok">确定</Button>
             </div>
             <div class="tbzz" v-if="modal1">
-                <!-- <p><b>转出账户: </b>{{datadoTransfer.zoneName==undefined?'':datadoTransfer.zoneName+'-'+datadoTransfer.virName}}
-                </p> -->
-                <!-- <p><b>转出钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
-               -->
+
+                <p><b>转出账户: </b>{{datadoTransfer.zoneName==undefined?'':datadoTransfer.zoneName+'-'+datadoTransfer.virName}}
+                </p>
+                <p><b>转出钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
                 <p><b>转入账户: </b>{{datadoTransfer.userPhone==undefined?'':datadoTransfer.userPhone}} </p>
                 <p><b>转入钱包地址: </b>{{datadoTransfer.virAddress==undefined?'':datadoTransfer.virAddress}} </p>
                 <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
-                <!-- <p><b>转账时间: </b>{{datadoTransfer.createTime==undefined?'':this.Global.getDate(datadoTransfer.createTime)}}</p> -->
-
-
+                <p><b>转账时间: </b>{{datadoTransfer.createTime==undefined?'':this.Global.getDate(datadoTransfer.createTime)}}
+                </p>
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
-                    <Col span="23">
-                    <FormItem label="转出账户" prop="outWalletId">
-                        <Select v-model="formValidate.outWalletId" :label-in-value="true">
-                            <Option :value="outWalletOption.id" :label="outWalletOption.realMoneyUrl" v-for="outWalletOption in outWalletOptions"
-                                :key="outWalletOption.index"></Option>
-                        </Select>
-
+                    <FormItem label="密码:" prop="password">
+                        <Input :type="showtype ? 'text' : 'password'" placeholder="请输入密码" v-model="formValidate.password">
+                        </Input>
+                        <Icon class="tbzz_pwixon" :type="showtype ? 'eye' : 'eye-disabled'" @click="handleShowPassword"></Icon>
                     </FormItem>
-                    </Col>
                 </Form>
 
+
+
             </div>
+
         </Modal>
+
+
     </div>
 </template>
 
@@ -114,17 +122,18 @@
         data() {
             var _this = this;
             return {
+
                 ruleValidate: {
-                    outWalletId: [{
-                        type: 'number',
+                    password: [{
                         required: true,
-                        message: "请选择转出账户",
-                        trigger: "change"
+                        message: '请输入密码',
+                        trigger: 'blur'
                     }],
                 },
+
                 showtype: false,
                 formValidate: {
-                    outWalletId: ''
+                    password: ''
                 },
                 selectedArr: {},
                 search: {},
@@ -132,6 +141,7 @@
                 formItem: {
                     search_LIKE_userName: '',
                     search_EQ_auditState: '',
+                    search_EQ_transferState: '',
                     search_EQ_id: ''
                 },
 
@@ -159,7 +169,7 @@
                 switch: false,
                 load: false,
                 id: null,
-                outWalletOptions: [],
+
                 options: [ //下拉选项
                     {
                         label: '用户名称',
@@ -249,9 +259,40 @@
                         },
                     },
                     {
+                        align: 'left',
+                        title: '转账状态',
+                        key: 'transferState',
+                        width: 80,
+                        render: function(h, params) {
+                            return h('span', {
+                                style: {
+                                    color: function() {
+                                        switch (params.row.transferState) {
+                                            case 0:
+                                                return '#19be6b';
+                                                break;
+                                            case 1:
+                                                return '#ed3f14';
+                                                break;
+                                        }
+                                    }()
+                                }
+                            }, [function() {
+                                switch (params.row.transferState) {
+                                    case 0:
+                                        return '未转账';
+                                        break;
+                                    case 1:
+                                        return '转账完成';
+                                        break;
+                                }
+                            }()])
+                        },
+                    },
+                    {
                         title: '管理',
                         key: 'action',
-                        width: 120,
+                        width: 150,
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [
@@ -280,10 +321,26 @@
                                     },
                                     on: {
                                         click: function() {
-                                            _this.doAudit(params)
+                                            _this.seedoAudit(params)
                                         }
                                     }
-                                }, '审核')
+                                }, '审核'),
+                                h('Button', {
+                                    props: {
+                                        type: 'warning',
+                                        size: 'small',
+                                        disabled: params.row.auditState == 1 ? (params.row.transferState ==
+                                            1 ? true : false) : true
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.doTransfer(params)
+                                        }
+                                    }
+                                }, '转账'),
                             ])
                         }
                     }
@@ -331,32 +388,16 @@
 
             },
 
-            getoptions() {
-                this.Global.fun(this, 'get', {
-                        base: '/moutwallet',
-                        other: '/all?',
-                        access_token: this.api.access_token,
-                    }, {},
-                    function(res, that) {
-                        if (res.data.status == 1) {
-                            that.$Message.destroy();
-                            that.outWalletOptions = res.data.data
-                        } else {
-                            that.$Message.destroy();
-                            that.$Message.error(res.data.msg);
-                        }
 
-                    })
-            },
             //这部分是新的
 
-            auditPass(e) {
+            ok(e) {
+                debugger
                 this.$refs['formValidate'].validate((valid) => {
                     if (valid) {
                         this.Global.fun(this, 'get', {
-                            base: 'mpickvir/audit/',
-                            other: this.datadoTransfer.id + '/1/' + this.formValidate.outWalletId +
-                                '/?',
+                            base: 'mpickvir/transfer/',
+                            other: this.datadoTransfer.id + '/' + this.formValidate.password + '/?',
                             access_token: this.api.access_token
                         }, {}, c)
 
@@ -377,31 +418,16 @@
                         this.modal1 = true
                     }
                 })
-            },
-            auditRefuse(e) {
-                this.Global.fun(this, 'get', {
-                    base: 'mpickvir/audit/',
-                    other: this.datadoTransfer.id + '/2/-1/?',
-                    access_token: this.api.access_token
-                }, {}, c)
 
-                function c(res, that) {
-                    if (res.data.status == 1) {
-                        that.$Message.success(res.data.msg);
-                        that.refresh()
-                        that.modal1 = false
-                    } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-                        that.modal1 = false
-                    }
-                }
 
             },
             cancel() {
                 this.modal1 = false
                 this.datadoTransfer = {}
-                this.formValidate.outWalletId = ''
+                this.formValidate.password = ''
+            },
+            handleShowPassword() {
+                this.showtype = !this.showtype
             },
 
             downpost() {
@@ -416,6 +442,8 @@
                 }
 
                 const sl = el.join(',')
+                console.log(sl)
+                debugger
                 this.Global.fun(this, 'post', {
                     base: '/mpickvir/mulexport',
                     other: '/?',
@@ -464,6 +492,7 @@
             openHsearch() {
                 this.formItem.search_LIKE_userName = ''
                 this.formItem.search_EQ_auditState = ''
+                this.formItem.search_EQ_transferState = ''
                 this.formItem.search_EQ_id = ''
                 this.Hsearch = true
                 this.selectedArr = {}
@@ -490,6 +519,11 @@
                 this.loading = true
                 this.search = {}
                 this.selectedArr = {}
+
+                // this.searchType = 'search_LIKE_username'
+                // this.searchValue = ''
+                // this.search = ''
+                // this.current = 1
                 this.onchanges(this.current)
             },
             downExcel: function(params) {
@@ -511,10 +545,77 @@
                 }
 
             },
+            doAudit: function(params, type) {
+                this.Global.fun(this, 'get', {
+                    base: '/mpickvir/audit/',
+                    other: params.row.id + '/' + type + '/?',
+                    access_token: this.api.access_token
+                }, {}, c)
 
-            doAudit: function(params) {
+                function c(res, that) {
+                    if (res.data.status == 1) {
+                        that.$Message.destroy();
+                        that.$Message.success(res.data.msg);
+                        //that.$Modal.remove();
+                        that.refresh()
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.refresh()
+                    }
+                }
+            },
+            seedoAudit(params) {
+                debugger
+                this.$Modal.confirm({
+                    title: '审核',
+                    closable: true,
+                    content: '<div class="tbsh">' +
+                        '<p><b>用户名称: </b>' + params.row.userName + '</p>' +
+                        '<p><b>用户账号: </b>' + params.row.userPhone + '</p>' +
+                        '<p><b>所提币种: </b>' + params.row.virName + '</p>' +
+                        '<p><b>提币数量: </b>' + params.row.pickMoney + '</p>' +
+                        '<p><b>钱包地址: </b>' + params.row.virAddress + '</p>' +
+                        '<p><b>提币时间: </b>' + this.Global.getDate(params.row.createTime) + '</p>' +
+                        '</div>',
+                    okText: '审核通过',
+                    cancelText: '审核驳回',
+                    onOk: () => {
+                        this.doAudit(params, 1)
+                        this.$Modal.remove();
+                    },
+                    onCancel: () => {
+                        this.doAudit(params, 2)
+                        this.$Modal.remove();
+                    }
+                });
+            },
+
+            doTransfer: function(params) {
                 this.modal1 = true
                 this.datadoTransfer = params.row
+
+                // this.$Modal.confirm({
+                //     title: '转账',
+                //     content: '<div class="tbsh">' +
+                //         '<p><b>转出账户: </b>' + params.row.userName + '</p>' +
+                //         '<p><b>转出钱包地址: </b>' + params.row.virName + '</p>' +
+                //         '<p><b>转入账户: </b>' + params.row.virAddress + '</p>' +
+                //         '<p><b>转入钱包地址: </b>' + params.row.pickMoney + '</p>' +
+                //         '<p><b>转账金额: </b>' + params.row.createTime + '</p>' +
+                //         '<p><b>转账时间: </b>' + params.row.offTime + '</p>' +
+                //         '<p><b>密码: </b><Input placeholder="请输入奖励时间" type="password"></Input>' + params.row.auditState + '</p>' +
+                //
+                //         '</div>',
+                //     // okText: '审核通过',
+                //     // cancelText: '审核驳回',
+                //     onOk: () => {
+                //         this.doAudit(params, 1)
+                //     },
+                //     onCancel: () => {
+                //         this.doAudit(params, 2)
+                //     }
+                // });
             },
 
             onchanges: function(e) {
@@ -574,7 +675,6 @@
             }
         },
         created: function() {
-            this.getoptions();
             this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
             this.search = this.$route.query.search ? this.$route.query.search : {}
             this.searchType = 'search_LIKE_userName',

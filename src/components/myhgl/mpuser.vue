@@ -834,7 +834,6 @@
             },
 
             changezone(e) {
-
                 if (e != undefined) {
                     for (let k in this.zoneOptions) {
                         if (this.zoneOptions[k].zoneId == e.value) {

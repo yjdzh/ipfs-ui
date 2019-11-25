@@ -315,7 +315,6 @@
                                     props: {
                                         type: 'primary',
                                         size: 'small',
-
                                     },
                                     style: {
                                         marginRight: '5px'
@@ -788,10 +787,7 @@
                                                         loading: true,
                                                         closable: true,
                                                         onOk: function () {
-
                                                             _this.readDev(params, 0)
-
-
                                                         },
                                                     });
                                                 }

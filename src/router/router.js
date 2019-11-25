@@ -367,8 +367,36 @@ export const appRouter = {
 			component: r => require.ensure([], () => r(require('@/components/msygl/mwallet_form')),
 				'mwallet-form')
 		},
-
-		{
+        {
+        	path: '/msygl-moutwallet',
+        	name: 'msygl-moutwallet',
+        	meta: {
+        		title: '转出账户',
+        		hierarchy: [{
+        			base: 'formDemo',
+        			app: 'formDemo',
+        			fristclass: 'formDemo',
+        			floor: 2
+        		}]
+        	},
+        	component: r => require.ensure([], () => r(require('@/components/msygl/moutwallet')),
+        		'msygl-moutwallet')
+        },
+        {
+        	path: '/msygl-moutwallet-form',
+        	name: 'moutwallet-form',
+        	meta: {
+        		title: '转出账户',
+        		hierarchy: [{
+        			base: 'formDemo',
+        			app: 'formDemo',
+        			fristclass: 'formDemo',
+        			floor: 2
+        		}]
+        	},
+        	component: r => require.ensure([], () => r(require('@/components/msygl/moutwallet_form')),
+        		'moutwallet-form')
+        },{
 			path: '/msygl-mplayrule',
 			name: 'msygl-mplayrule',
 			meta: {
