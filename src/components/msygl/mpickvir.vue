@@ -69,10 +69,9 @@
                 <!--拓展按钮1-->
             </div>
 
-
         </EVpageList>
 
-        <Modal v-model="modal1" :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'转账'"
+        <Modal v-model="modal1" :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'审核 '"
             :mask-closable="false" :loading="true">
             <div slot="footer">
                 <Button type="text" size="large" @click="cancel">取消</Button>
