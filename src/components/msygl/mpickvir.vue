@@ -72,7 +72,7 @@
         </EVpageList>
 
         <Modal v-model="modal1" :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'审核 '"
-            :mask-closable="false" :loading="true">
+            :mask-closable="false" :loading="true" @on-visible-change="modelVisibleChange">
             <div slot="footer">
                 <Button type="text" size="large" @click="cancel">取消</Button>
                 <Button type="primary" size="large" @click="auditRefuse">审核驳回</Button>
@@ -81,8 +81,7 @@
             <div class="tbzz" v-if="modal1">
                 <!-- <p><b>转出账户: </b>{{datadoTransfer.zoneName==undefined?'':datadoTransfer.zoneName+'-'+datadoTransfer.virName}}
                 </p> -->
-                <!-- <p><b>转出钱包地址: </b>{{datadoTransfer.walletAddress==undefined?'':datadoTransfer.walletAddress}} </p>
-               -->
+                <p><b>币种: </b>{{datadoTransfer.virName==undefined?'':datadoTransfer.virName}} </p>
                 <p><b>转入账户: </b>{{datadoTransfer.userPhone==undefined?'':datadoTransfer.userPhone}} </p>
                 <p><b>转入钱包地址: </b>{{datadoTransfer.virAddress==undefined?'':datadoTransfer.virAddress}} </p>
                 <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
@@ -97,6 +96,14 @@
                                 :key="outWalletOption.index"></Option>
                         </Select>
 
+                    </FormItem>
+                    </Col>
+
+                    <Col span="23">
+                    <FormItem label="密码:" prop="password">
+                        <Input :type="showtype ? 'text' : 'password'" placeholder="请输入密码" v-model="formValidate.password">
+                        </Input>
+                        <Icon class="tbzz_pwixon" :type="showtype ? 'eye' : 'eye-disabled'" @click="handleShowPassword"></Icon>
                     </FormItem>
                     </Col>
                 </Form>
@@ -120,10 +127,16 @@
                         message: "请选择转出账户",
                         trigger: "change"
                     }],
+                    password: [{
+                        required: true,
+                        message: '请输入密码',
+                        trigger: 'blur'
+                    }]
                 },
                 showtype: false,
                 formValidate: {
-                    outWalletId: ''
+                    outWalletId: '',
+                    password: ''
                 },
                 selectedArr: {},
                 search: {},
@@ -247,6 +260,13 @@
                             }()])
                         },
                     },
+                    // {
+                    //     align: 'left',
+                    //     title: '交易单号',
+                    //     key: 'txid',
+                    //     width: 140
+                    // },
+
                     {
                         title: '管理',
                         key: 'action',
@@ -310,7 +330,7 @@
             //这部分是新的
             //切换时候设置某一页的选中、未选中
             superSetSelected(selectall, page, data) {
-                debugger
+
                 if (selectall[page] == undefined) {
                     return
                 } else {
@@ -340,6 +360,7 @@
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.outWalletOptions = res.data.data
+
                         } else {
                             that.$Message.destroy();
                             that.$Message.error(res.data.msg);
@@ -348,44 +369,21 @@
                     })
             },
             //这部分是新的
-
-            auditPass(e) {
-                this.$refs['formValidate'].validate((valid) => {
-                    if (valid) {
-                        this.Global.fun(this, 'get', {
-                            base: 'mpickvir/audit/',
-                            other: this.datadoTransfer.id + '/1/' + this.formValidate.outWalletId +
-                                '/?',
-                            access_token: this.api.access_token
-                        }, {}, c)
-
-                        function c(res, that) {
-                            if (res.data.status == 1) {
-                                that.$Message.success(res.data.msg);
-                                that.refresh()
-                                that.modal1 = false
-
-                            } else {
-                                that.$Message.destroy();
-                                that.$Message.error(res.data.msg);
-                                that.modal1 = false
-                            }
-                        }
-                    } else {
-                        debugger
-                        this.modal1 = true
-                    }
-                })
-            },
             auditRefuse(e) {
-                this.Global.fun(this, 'get', {
-                    base: 'mpickvir/audit/',
-                    other: this.datadoTransfer.id + '/2/-1/?',
+                this.Global.newfun(this, 'post', {
+                    base: 'mpickvir/audit?',
+                    other: '',
                     access_token: this.api.access_token
-                }, {}, c)
+                }, {
+                    id: this.datadoTransfer.id,
+                    auditState: '2',
+                    outWalletId: '-1',
+                    pwd: ''
+                }, c)
 
                 function c(res, that) {
                     if (res.data.status == 1) {
+                        debugger
                         that.$Message.success(res.data.msg);
                         that.refresh()
                         that.modal1 = false
@@ -397,12 +395,66 @@
                 }
 
             },
+
+            auditPass(e) {
+                this.$refs['formValidate'].validate((valid) => {
+                    if (valid) {
+                        this.Global.newfun(this, 'post', {
+                            base: 'mpickvir/audit?',
+                            other: '',
+                            access_token: this.api.access_token
+                        }, {
+                            id: this.datadoTransfer.id,
+                            auditState: '1',
+                            outWalletId: this.formValidate.outWalletId,
+                            pwd: this.formValidate.password
+                        }, c)
+
+                        function c(res, that) {
+                            if (res.data.status == 1) {
+                                that.$Message.destroy();
+                                // that.$Message.success(res.data.msg);
+                                that.refresh()
+                                that.modal1 = false
+                                that.$Modal.confirm({
+                                    title: '审核转账成功',
+                                    closable: true,
+                                    content: '<div class="tbsh">' +
+                                        '<p><b>交易单号: </b>' + res.data.data.txid + '</p>' +
+                                        '<p><b>交易块高度: </b>' + res.data.data.height + '</p>' +
+                                        '<p><b>交易数量: </b>' + res.data.data.pickMoney + '</p>' +
+                                        '<p><b>交易时间: </b>' + res.data.data.transTime + '</p>' +
+                                        '</div>',
+                                    onOk: () => {
+                                        that.$Modal.remove();
+                                    },
+                                    onCancel: () => {
+                                        that.$Modal.remove();
+                                    }
+                                });
+                            } else {
+                                that.$Message.destroy();
+                                that.$Message.error(res.data.msg);
+                                that.modal1 = false
+                            }
+                        }
+                    } else {
+                        this.modal1 = true
+                    }
+                })
+            },
+
+
             cancel() {
                 this.modal1 = false
                 this.datadoTransfer = {}
                 this.formValidate.outWalletId = ''
+                this.formValidate.password = ''
             },
 
+            handleShowPassword() {
+                this.showtype = !this.showtype
+            },
             downpost() {
                 const el = []
                 var arr = this.selectedArr
@@ -533,7 +585,6 @@
 
                 function c(res, that) {
                     if (res.data.status === 1) {
-                        debugger
                         for (var key in res.data.data) {
                             if (res.data.data[key] === null) {
                                 res.data.data[key] = '暂无数据'
@@ -551,6 +602,14 @@
                     }
                 }
             },
+
+            modelVisibleChange: function(e) {
+                if (e) {
+                    this.formValidate.outWalletId = this.outWalletOptions[0].id
+                    this.formValidate.password = ''
+                }
+            },
+
             oprahfun: function(e) {
                 this.Global.oprahfun(this)
             },
