@@ -2,8 +2,6 @@
 	<EVpageForm :pageTitle="pageTitle+title" :model="formValidate" :rules="ruleValidate" :labelWidth="120" :doSubmitBefor="doSubmitBefor"
 	 :submitUrl="submitUrl" :submitType="submitType" :doReset="creat" :doCancal="doCancal" :pageload="pageload">
 		<div slot="form">
-
-
 			<Row>
 				<EVitemContainer label="所属产品" prop="productId" :span="24">
 					<Select v-model="formValidate.productId">
@@ -46,7 +44,8 @@
 				</EVitemContainer>
 			</Row>
 
-			<Row v-if="formValidate.saleState!=0">
+			<!-- <Row v-if="formValidate.saleState!=0"> -->
+            <Row>
 				<EVitemContainer label="数据中心" prop="zoneId" :span="12">
 
 					<Select v-model="formValidate.zoneId">

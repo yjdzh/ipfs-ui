@@ -164,7 +164,7 @@
                 <!--<div>-->
                 <!--<pre v-if="!this.switch" v-text="hardInfo"></pre>-->
                 <!--</div>-->
-                <FormItem style="    margin-bottom: 0px;">
+                <FormItem style="margin-bottom: 0px;">
                     <Button type="primary" size="large" class="submitbbox" @click="handleSubmit('formV')"
                             :loading="load">提交
                     </Button>
@@ -190,7 +190,6 @@
 
                     <Col span="23">
                         <FormItem label="销售类型" prop="saleType">
-
                             <RadioGroup v-model="editsbforms.saleType" type="button" size="large">
                                 <Radio label="0" >自维</Radio>
                                 <Radio label="1" >托管</Radio>
@@ -198,10 +197,10 @@
                         </FormItem>
                     </Col>
                     <Col span="23">
-                        <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='1'">
+                       <!-- <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='1'"> -->
+                        <FormItem label="所属数据中心" prop="zoneId" >
                             <Select v-model="editsbforms.zoneId" >
                                 <Option v-for="zoneOpt in zoneOptions" :value="zoneOpt.id" :label="zoneOpt.name"
-
                                         :key="zoneOpt.index"></Option>
                             </Select>
 
@@ -270,7 +269,15 @@
                         required: true,
                         message: "请选择销售类型",
                         trigger: "change"
-                    }]
+                    }],
+                    zoneId: [
+                        {
+                            type: 'number',
+                            required: true,
+                            message: '请选择数据中心',
+                            trigger: 'change'
+                        }
+                    ]
                 },
 
 
@@ -889,10 +896,9 @@
         methods: {
             closemodal() {
                 this.editsb=false
-
                 this.editsbforms.saleType = '',
-                    this.editsbforms.id = '',
-                    this.editsbforms.zoneId = ''
+                this.editsbforms.id = '',
+                this.editsbforms.zoneId = ''
                 this.editsbforms.mac = ''
             },
 
