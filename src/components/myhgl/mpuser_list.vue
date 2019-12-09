@@ -306,14 +306,17 @@ var th=this
                             }, c)
 
                             function c(res, that) {
+                                debugger
                                 if (res.data.status === 1) {
                                     that.loading = false;
                                     that.$Message.success(res.data.msg);
+                                    that.$Modal.remove();
                                     that.refresh()
                                 } else {
                                     that.$Message.destroy();
                                     that.$Message.error(res.data.msg);
                                     that.loading = false;
+                                    that.$Modal.remove();
                                     that.refresh()
                                 }
                             }
