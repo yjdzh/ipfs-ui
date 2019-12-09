@@ -286,22 +286,23 @@
                     this.$Message.error('请选择要取消关联的设备');
                 }
                 else{
-
-                    this.$Modal.confirm({
+var th=this
+                    th.$Modal.confirm({
                         title: '操作确认',
                         content: '<p>确认要取消关联吗？</p>',
                         loading: true,
                         closable: true,
 
                         onOk: function() {
-                            this.loading = true
-                            this.Global.fun(this, 'post', {
+                            debugger
+                            th.loading = true
+                            th.Global.fun(th, 'post', {
                                 base: '/mpuser',
                                 other: '/multis?',
-                                access_token: this.api.access_token
+                                access_token: th.api.access_token
                             }, {
-                                userId: this.openType,
-                                devMacs:  this.selectlist.join(',')
+                                userId: th.openType,
+                                devMacs:  th.selectlist.join(',')
                             }, c)
 
                             function c(res, that) {
