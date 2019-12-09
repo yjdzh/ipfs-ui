@@ -116,6 +116,7 @@
 </template>
 
 <script>
+    import Util from "../../common/util"
     export default {
         name: "mplayrule",
 
@@ -397,7 +398,7 @@
                     if (valid) {
                         this.Global.fun(this, 'get', {
                             base: 'mpickvir/transfer/',
-                            other: this.datadoTransfer.id + '/' + this.formValidate.password + '/?',
+                            other: Util.code64(this.datadoTransfer.id) + '/' + Util.code64()this.formValidate.password + '/?',
                             access_token: this.api.access_token
                         }, {}, c)
 

@@ -8,7 +8,7 @@ var keyStr = "ABCDEFGHIJKLMNOP" + "QRSTUVWXYZabcdef" + "ghijklmnopqrstuv"
     + "wxyz0123456789+/" + "=";
 
 api.encode64 = function (input) {
-    
+
     var output = "";
     var chr1, chr2, chr3 = "";
     var enc1, enc2, enc3, enc4 = "";
@@ -31,7 +31,7 @@ api.encode64 = function (input) {
         chr1 = chr2 = chr3 = "";
         enc1 = enc2 = enc3 = enc4 = "";
     } while (i < input.length);
-    
+
     return output;
 }
 
@@ -59,7 +59,7 @@ api.getGroupConfig = function (vm) {
 
 api.login = function (vm, to) {
     const {userName, password} = vm.form
-    vm.$http.post('/login?password=' + password + '&username=' + userName).then((res) => {
+    vm.$http.post('/login?password=' + Util.code64(password) + '&username=' + Util.code64(userName)).then((res) => {
         const resData = res.data
         if (!resData.error) {
             Util.session.set('wtcp-user-token', resData.access_token)
@@ -75,23 +75,23 @@ api.login = function (vm, to) {
 }
 
 api.logout = function (vm) {
-    
+
     Util.session.remove('rights')
     Util.session.clear()
     vm.$router.push({
         name: 'local'
     })
-    
-    
+
+
 }
 api.getrights = function (vm) {
     vm.$http.get('/rights?access_token=' + Util.session.get('wtcp-user-token')).then((res) => {
-        
-        
+
+
         //添加自定义菜单
-        
-        
-        
+
+
+
         const welcome = {
             ename: "welcome",
             hidden: false,
@@ -102,16 +102,16 @@ api.getrights = function (vm) {
         // const r = {welcome: 'r'}
         res.data.data.rights.welcome= 'r'
         res.data.data.menu.unshift(welcome)
-        
-        
+
+
         //////////
-        
-        
+
+
         Util.session.set('rights', res.data)
         vm.defaults.user = res.data.data.user
         vm.defaults.menu = res.data.data.menu
         vm.defaults.rights = res.data.data.rights
-        
+
         var k = 0
         var j = 0
         var go = true
@@ -132,17 +132,17 @@ api.getrights = function (vm) {
                     j = i
                     go = false
                 }
-                
-                
+
+
             }
         }
-        
-        
+
+
         if (sessionStorage.getItem("selected")) {
             vm.selected = sessionStorage.getItem("selected")
         }
         else {
-            
+
             debugger
             if (res.data.data.menu[k].modules) {
                 vm.selected = (res.data.data.menu[k]).ename + '-' + ((res.data.data.menu[k]).modules[j]).ename
@@ -156,8 +156,8 @@ api.getrights = function (vm) {
                     name: vm.selected
                 })
             }
-            
-            
+
+
         }
         if (sessionStorage.getItem("openname")) {
             vm.openname = [sessionStorage.getItem("openname")]
@@ -165,7 +165,7 @@ api.getrights = function (vm) {
         else {
             vm.openname = [(res.data.data.menu[k]).ename]
         }
-        
+
         vm.watchMenu()
     })
 }
@@ -183,18 +183,18 @@ api.checkCaptchas = function (vm) {
         const resData = res.data
         if (resData.status === 1) {
             api.login(vm, 'Main')
-            
+
         } else {
             vm.$Message.destroy()
             vm.$Message.error(resData.msg)
-            
+
             api.getCaptchas(vm)
             vm.loading = false;
-            
+
         }
-        
+
     })
-    
+
 }
 
 api.changePsw = function (vm) {
@@ -216,20 +216,20 @@ api.changePsw = function (vm) {
 }
 
 api.changeInfo = function (vm) {
-    
-    
+
+
     const da = {
-        
+
         name: vm.infoChangeForm.name,
         phone: vm.infoChangeForm.phone,
         sex: vm.infoChangeForm.sex.toString(),
-        
+
     }
-    
-    
+
+
     vm.axios({
         method: 'post',
-        
+
         url: 'musers/modifySelf?access_token=' + Util.session.get('wtcp-user-token'),
         params: da
     }).then((res) => {
@@ -237,9 +237,9 @@ api.changeInfo = function (vm) {
             vm.defaults.infoChangeShow = false
             vm.$Message.destroy()
             vm.$Message.success('修改信息成功')
-            
+
             const userid = Util.session.get('rights').data.user.id
-            
+
             vm.$http.get('/rights?access_token=' + Util.session.get('wtcp-user-token')).then((res) => {
                 Util.session.set('rights', res.data)
                 vm.defaults.user = res.data.data.user

@@ -287,27 +287,47 @@
                 }
                 else{
                     this.loading = true
-                    this.Global.fun(this, 'post', {
-                        base: '/mpuser',
-                        other: '/multis?',
-                        access_token: this.api.access_token
-                    }, {
-                        userId: this.openType,
-                        devMacs:  this.selectlist.join(',')
-                    }, c)
+                    this.$Modal.confirm({
+                        title: '操作确认',
+                        content: '<p>确认要取消关联吗？</p>',
+                        loading: true,
+                        closable: true,
 
-                    function c(res, that) {
-                        if (res.data.status === 1) {
-                            that.loading = false;
-                            that.$Message.success(res.data.msg);
-                            that.refresh()
-                        } else {
-                            that.$Message.destroy();
-                            that.$Message.error(res.data.msg);
-                            that.loading = false;
-                            that.refresh()
-                        }
-                    }
+                        onOk: function() {
+                            this.Global.fun(this, 'post', {
+                                base: '/mpuser',
+                                other: '/multis?',
+                                access_token: this.api.access_token
+                            }, {
+                                userId: this.openType,
+                                devMacs:  this.selectlist.join(',')
+                            }, c)
+
+                            function c(res, that) {
+                                if (res.data.status === 1) {
+                                    that.loading = false;
+                                    that.$Message.success(res.data.msg);
+                                    that.refresh()
+                                } else {
+                                    that.$Message.destroy();
+                                    that.$Message.error(res.data.msg);
+                                    that.loading = false;
+                                    that.refresh()
+                                }
+                            }
+
+                        },
+                    });
+
+
+
+
+
+
+
+
+
+
                 }
 
 

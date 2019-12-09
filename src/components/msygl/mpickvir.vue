@@ -114,6 +114,7 @@
 </template>
 
 <script>
+    import Util from "../../common/util"
     export default {
         name: "mplayrule",
 
@@ -407,7 +408,7 @@
                             id: this.datadoTransfer.id,
                             auditState: '1',
                             outWalletId: this.formValidate.outWalletId,
-                            pwd: this.formValidate.password
+                            pwd: Util.code64(this.formValidate.password)
                         }, c)
 
                         function c(res, that) {
