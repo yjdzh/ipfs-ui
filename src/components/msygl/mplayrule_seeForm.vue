@@ -91,6 +91,7 @@
                     playMoney: '',
                     playTime: '',
                     puserId: '',
+                    remark:'',
                 },
 
                 infoChangeRules: {

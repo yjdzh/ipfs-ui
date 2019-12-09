@@ -1,7 +1,7 @@
 <template>
 	<EVpageList :pageTitle="pageTitle">
 		<div slot="searchBox" class="serach">
-            {{searchValue}}
+
 			<Input v-model="searchValue" :class="selsctclass">
 			<Select v-model="searchType" slot="prepend" style="width: 80px">
 				<Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options" :key="option.index"></Option>

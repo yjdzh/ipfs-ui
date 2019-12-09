@@ -130,7 +130,7 @@
 			// }
 			const codername = function(coder, value, callback) {
 				if (value === '') {
-					callback(new Error('请输入编码名称'));
+					callback(new Error('请输入产品名称'));
 				} else {
 
 					if (!_this.formValidate.name.match(_this.Regex.regexlist.chennum_)) {
@@ -175,7 +175,7 @@
 			};
 			const codermodel = function(coder, value, callback) {
 				if (value === '') {
-					callback(new Error('请输入编码名称'));
+					callback(new Error('请输入型号名称'));
 				} else {
 
 					if (!_this.formValidate.model.match(_this.Regex.regexlist.chennum_)) {
@@ -295,7 +295,7 @@
 							trigger: 'change'
 						},
 					],
-									
+
 					powerInfo: [{
 						type: 'string',
 						max: 50,

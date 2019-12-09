@@ -186,7 +186,7 @@
                         align: 'left',
                         title: 'id',
                         key: 'id',
-                        width: 110
+                        width: 180
                     }, {
                         align: 'left',
                         title: '用户名称',
