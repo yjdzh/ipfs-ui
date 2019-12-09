@@ -97,20 +97,20 @@
             <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
             </Table>
 
-            <Modal v-model="modal1" width="500" @on-cancel="cancel1">
-                <p slot="header">
-                    <span>发货</span>
-                </p>
-                <div>
-                    <p>提示！输入多个设备的mac，并使用"，"或者","进行分割。</p>
-                    <br/>
-                    <Input v-model="value1" type="textarea" :autosize="{minRows: 5,maxRows: 8}"
-                           placeholder="可以输入要发货设备的mac，并使用','或者'，'进行分割,如:00E0701355D1，00E0701355D2"></Input>
-                </div>
-                <div slot="footer">
-                    <i-button type="primary" size="large" long @click="fahuoMeth">确认发货</i-button>
-                </div>
-            </Modal>
+            <!--            <Modal v-model="modal1" width="500" @on-cancel="cancel1">-->
+            <!--                <p slot="header">-->
+            <!--                    <span>发货</span>-->
+            <!--                </p>-->
+            <!--                <div>-->
+            <!--                    <p>提示！输入多个设备的mac，并使用"，"或者","进行分割。</p>-->
+            <!--                    <br/>-->
+            <!--                    <Input v-model="value1" type="textarea" :autosize="{minRows: 5,maxRows: 8}"-->
+            <!--                           placeholder="可以输入要发货设备的mac，并使用','或者'，'进行分割,如:00E0701355D1，00E0701355D2"></Input>-->
+            <!--                </div>-->
+            <!--                <div slot="footer">-->
+            <!--                    <i-button type="primary" size="large" long @click="fahuoMeth">确认发货</i-button>-->
+            <!--                </div>-->
+            <!--            </Modal>-->
 
 
             <Modal v-model="modal2" width="700" @on-cancel="cancel2">
@@ -149,14 +149,21 @@
                 <p slot="header">
                     <span>发货</span>
                 </p>
-                <div>
-                    <Scroll :on-reach-bottom="handleReachBottom3">
-                        <evtab border :columns="datahead3" :data="databody3" size='small' :loading="loading3"
-                               @on-select="select3"
-                               @on-select-cancel="select3" @on-select-all-cancel="selectall3"
-                               @on-select-all="selectall3">
-                        </evtab>
-                    </Scroll>
+                <div>数据中心:
+                    <Select v-model="zoneId" @on-change="dogetlist3">
+                        <Option :value="zoneOption.id" v-text="zoneOption.name"
+                                v-for="zoneOption in zoneOptions"
+                                :key="zoneOption.index"></Option>
+                    </Select>
+                    <div>
+                        <Scroll :on-reach-bottom="handleReachBottom3" v-if="zoneId">
+                            <evtab border :columns="datahead3" :data="databody3" size='small' :loading="loading3"
+                                   @on-select="select3"
+                                   @on-select-cancel="select3" @on-select-all-cancel="selectall3"
+                                   @on-select-all="selectall3">
+                            </evtab>
+                        </Scroll>
+                    </div>
                 </div>
                 <!--<div>-->
                 <!--<Page :total="totalpage3" show-total show-elevator :page-size="10" @on-change="getlist3" :current="current3">-->
@@ -591,7 +598,7 @@
                                                     _this.productId = params.row.productId
                                                 _this.id = params.row.id
                                                 _this.saleNum3 = params.row.saleNum
-                                                _this.getlist3(1)
+                                                // _this.getlist3(1)
                                             } else {
                                                 _this.modal2 = true,
                                                     _this.productId = params.row.productId
@@ -683,9 +690,14 @@
         },
         methods: {
             dogetlist2(e) {
-                this.current = 0,
+                this.current2 = 0,
                     this.databody2 = []
                 this.handleReachBottom2()
+            },
+            dogetlist3(e) {
+                this.current3 = 0,
+                    this.databody3 = []
+                this.handleReachBottom3()
             },
 
 
@@ -992,74 +1004,80 @@
 
             cancel1: function () {
                 this.value1 = ''
+
             },
             cancel2: function () {
                 debugger
                 this.totalpage2 = 0,
                     this.current2 = 0,
                     this.databody2 = []
+                this.loading3 = false;
                 this.loading2 = false;
                 this.loading = false;
+                this.zoneId = ''
 
             },
 
             handleReachBottom2() {
-                debugger
 
-                this.loading = true
+                if (this.zoneId) {
+                    this.loading = true
 
-                // this.searchValue = this.search === '' ? '' : this.search
-                this.current = this.current + 1;
-                this.Global.fun(this, 'get', {
-                    base: this.api.base,
-                    other: '/unUsedTgDevs?',
-                    access_token: this.api.access_token
-                }, {
-                    page: this.current - 1,
-                    size: this.pagesize,
-                    productId: this.productId,
-                    zoneId: this.zoneId
-                }, c)
+                    // this.searchValue = this.search === '' ? '' : this.search
+                    this.current2 = this.current2 + 1;
+                    this.Global.fun(this, 'get', {
+                        base: this.api.base,
+                        other: '/unUsedTgDevs?',
+                        access_token: this.api.access_token
+                    }, {
+                        page: this.current2 - 1,
+                        size: this.pagesize,
+                        productId: this.productId,
+                        zoneId: this.zoneId
+                    }, c)
 
-                function c(res, that) {
+                    function c(res, that) {
 
-                    if (res.data.status === 1) {
-                        for (var key in res.data.data) {
-                            if (res.data.data[key] === null) {
-                                res.data.data[key] = ''
+                        if (res.data.status === 1) {
+                            for (var key in res.data.data) {
+                                if (res.data.data[key] === null) {
+                                    res.data.data[key] = ''
+                                }
                             }
-                        }
 
 
-                        if (res.data.data.content.length == 0) {
-                            that.current = res.data.data.number + 1;
+                            if (res.data.data.content.length == 0) {
+                                that.current2 = res.data.data.number + 1;
+                            } else {
+                                that.current2 = res.data.data.number + 1;
+
+
+                                for (var key in res.data.data.content) {
+                                    res.data.data.content[key]._checked = false
+                                    res.data.data.content[key].select = parseInt(key) + (10 * (that.current2 - 1))
+                                }
+                                that.databody2 = that.databody2.concat(res.data.data.content);
+                            }
+
+
                         } else {
-                            that.current = res.data.data.number + 1;
+                            that.$Message.destroy();
+                            that.$Message.error(res.data.msg);
 
-
-                            for (var key in res.data.data.content) {
-                                res.data.data.content[key]._checked = false
-                                res.data.data.content[key].select = parseInt(key) + (10 * (that.current - 1))
-                            }
-                            that.databody2 = that.databody2.concat(res.data.data.content);
                         }
-
-
-                    } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-
+                        this.loading = false
                     }
-                    this.loading = false
                 }
             },
+
+
             getlist2: function (e, id) {
                 debugger
                 this.loading2 = true
                 this.current2 = e
                 this.Global.fun(this, 'get', {
                     base: this.api.base,
-                    other: '/unUsedTgDevs?',
+                    other: '/unUsedZwDevs?',
                     access_token: this.api.access_token
                 }, {
                     page: this.current2 - 1,
@@ -1102,60 +1120,71 @@
 
 
             cancel3: function () {
+                debugger
+
                 this.totalpage3 = 0,
                     this.current3 = 0,
                     this.databody3 = []
+                this.loading3 = false;
+                this.loading2 = false;
+                this.loading = false;
+                this.zoneId = ''
+
             },
 
             handleReachBottom3() {
+                if (this.zoneId) {
 
-                this.loading = true
 
-                // this.searchValue = this.search === '' ? '' : this.search
-                this.current = this.current + 1;
-                this.Global.fun(this, 'get', {
-                    base: this.api.base,
-                    other: '/unUsedZwDevs?',
-                    access_token: this.api.access_token
-                }, {
-                    page: this.current - 1,
-                    size: this.pagesize,
-                    productId: this.productId
-                }, a)
+                    this.loading = true
 
-                function a(res, that) {
+                    // this.searchValue = this.search === '' ? '' : this.search
+                    this.current3 = this.current3 + 1;
+                    this.Global.fun(this, 'get', {
+                        base: this.api.base,
+                        other: '/unUsedZwDevs?',
+                        access_token: this.api.access_token
+                    }, {
+                        page: this.current3 - 1,
+                        size: this.pagesize,
+                        productId: this.productId,
+                        zoneId: this.zoneId
+                    }, a)
 
-                    if (res.data.status === 1) {
-                        for (var key in res.data.data) {
-                            if (res.data.data[key] === null) {
-                                res.data.data[key] = ''
+                    function a(res, that) {
+
+                        if (res.data.status === 1) {
+                            for (var key in res.data.data) {
+                                if (res.data.data[key] === null) {
+                                    res.data.data[key] = ''
+                                }
                             }
-                        }
-                        that.totalpage3 = res.data.data.totalElements;
-                        // TODO // that.current3 = res.data.data.number + 1;
+                            that.totalpage3 = res.data.data.totalElements;
+                            // TODO // that.current3 = res.data.data.number + 1;
 
 
-                        that.current3 = res.data.data.number + 1;
+                            that.current3 = res.data.data.number + 1;
 
-                        if (res.data.data.content.length == 0) {
-                            that.current = res.data.data.number + 1;
+                            if (res.data.data.content.length == 0) {
+                                that.current3 = res.data.data.number + 1;
+                            } else {
+                                that.current3 = res.data.data.number + 1;
+
+
+                                for (var key in res.data.data.content) {
+                                    res.data.data.content[key]._checked = false
+                                    // TODO // res.data.data.content[key].select = parseInt(key) + (10 * (that.current-1));
+                                    res.data.data.content[key].select = parseInt(key) + (10 * (that.current3 - 1))
+                                }
+                                that.databody3 = that.databody3.concat(res.data.data.content);
+                            }
+
+                            that.loading3 = false;
                         } else {
-                            that.current = res.data.data.number + 1;
-
-
-                            for (var key in res.data.data.content) {
-                                res.data.data.content[key]._checked = false
-                                // TODO // res.data.data.content[key].select = parseInt(key) + (10 * (that.current-1));
-                                res.data.data.content[key].select = parseInt(key) + (10 * (that.current - 1))
-                            }
-                            that.databody3 = that.databody3.concat(res.data.data.content);
+                            that.$Message.destroy();
+                            that.$Message.error(res.data.msg);
+                            that.loading3 = false;
                         }
-
-                        that.loading3 = false;
-                    } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-                        that.loading3 = false;
                     }
                 }
             },
