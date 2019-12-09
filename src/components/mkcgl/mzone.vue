@@ -294,7 +294,7 @@
             refresh: function () {
                 this.loading = true
                 this.search = {}
-                this.searchType = 'search_LIKE_username'
+                this.searchType= 'search_LIKE_name',
                 // this.searchValue = ''
                 // this.search = ''
                 // this.current = 1
