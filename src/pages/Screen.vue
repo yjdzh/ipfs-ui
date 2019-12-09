@@ -704,7 +704,7 @@ right: "50px",
 
                             th.right1('right1', da.zccrlzb, 1 - da.zccrlzb, da.zccrl)
 
-                            th.right2('right2', [da.bzmc1, da.bzmc2, da.bzmc3], [da.syzb1, da.syzb2, da.syzb3])
+                            th.right2('right2', [da.bzmc3, da.bzmc2, da.bzmc1], [da.syzb3, da.syzb2, da.syzb1])
 
                             th.bottom1('bottom1', [da.kcmc1], [da.cczb1])
 

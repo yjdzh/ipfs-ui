@@ -286,7 +286,7 @@
                     this.$Message.error('请选择要取消关联的设备');
                 }
                 else{
-                    this.loading = true
+
                     this.$Modal.confirm({
                         title: '操作确认',
                         content: '<p>确认要取消关联吗？</p>',
@@ -294,6 +294,7 @@
                         closable: true,
 
                         onOk: function() {
+                            this.loading = true
                             this.Global.fun(this, 'post', {
                                 base: '/mpuser',
                                 other: '/multis?',
