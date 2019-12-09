@@ -186,7 +186,7 @@
                         align: 'left',
                         title: 'id',
                         key: 'id',
-                        width: 180
+                        width: 120
                     }, {
                         align: 'left',
                         title: '用户名称',
@@ -206,7 +206,7 @@
                         align: 'left',
                         title: '提币数量',
                         key: 'pickMoney',
-                        width: 80
+                        width: 70
                     },
                     {
                         align: 'left',
@@ -221,7 +221,7 @@
                         align: 'left',
                         title: '剩余时间',
                         key: 'offTime',
-                        width: 100
+                        width: 90
                     },
                     {
                         align: 'left',
@@ -271,7 +271,7 @@
                     {
                         title: '管理',
                         key: 'action',
-                        width: 120,
+                        width: 110,
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [

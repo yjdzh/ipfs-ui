@@ -28,7 +28,7 @@
                     <div>
                         <Form :model="formItem" :label-width="80" >
 <!--                            search_LIKE_level: '',-->
-<!--                            search_LIKE_operateUse: '',-->
+<!--                            search_LIKE_operateUser: '',-->
 <!--                            search_LIKE_types: ''-->
 
                             <Col span="23">
@@ -53,7 +53,7 @@
                             </Col>
                             <Col span="23">
                                 <FormItem label="操作用户">
-                                    <Input v-model="formItem.search_LIKE_operateUse" placeholder="请输入操作用户"></Input>
+                                    <Input v-model="formItem.search_LIKE_operateUser" placeholder="请输入操作用户"></Input>
                                 </FormItem>
                             </Col>
 
@@ -108,7 +108,7 @@
 
                 formItem: {
                     search_LIKE_level: '',
-                    search_LIKE_operateUse: '',
+                    search_LIKE_operateUser: '',
                     search_LIKE_types: ''
                 },
 
@@ -118,7 +118,7 @@
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
                 },
 
-                pageTitle: 'APP用户', //页面标题
+                pageTitle: '日志管理', //页面标题
                 totalpage: 0,
                 pagesize: this.Global.pagesize,
                 current: 1,
