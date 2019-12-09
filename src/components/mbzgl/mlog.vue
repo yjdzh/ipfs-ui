@@ -457,10 +457,13 @@
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
                         that.loading = false;
+                        debugger
                     } else {
+                        that.loading = false;
                         that.$Message.destroy();
                         that.$Message.error(res.data.msg);
-                        that.loading = false;
+                        debugger
+
                     }
                 }
             },

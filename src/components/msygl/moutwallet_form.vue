@@ -1,23 +1,25 @@
 <template>
     <EVpageForm :pageTitle="pageTitle+title" :model="formValidate" :rules="infoChangeRules" :labelWidth="120"
-        :doSubmitBefor="doSubmitBefor" :submitUrl="submitUrl" :submitType="submitType" :doReset="creat" :doCancal="doCancal"
-        :pageload="pageload">
+                :doSubmitBefor="doSubmitBefor" :submitUrl="submitUrl" :submitType="submitType" :doReset="creat"
+                :doCancal="doCancal"
+                :pageload="pageload">
         <div slot="form">
 
             <Row>
-                 <EVitemContainer label="币种" prop="virId" :span="12">
+                <EVitemContainer label="币种" prop="virId" :span="12">
                     <Select v-model="formValidate.virId" :disabled="this.openType!=-1">
-                        <Option :value="virOption.id" :label="virOption.name" v-for="virOption in virOptions" :key="virOption.index"></Option>
+                        <Option :value="virOption.id" :label="virOption.name" v-for="virOption in virOptions"
+                                :key="virOption.index"></Option>
                     </Select>
                 </EVitemContainer>
                 <EVitemContainer label="交易密码" prop="pwd" :span="12">
-                     <Input v-model="formValidate.pwd" placeholder="请输入交易密码"></Input>
-                 </EVitemContainer>
+                    <Input v-model="formValidate.pwd" placeholder="请输入交易密码"></Input>
+                </EVitemContainer>
             </Row>
             <Row>
-              <EVitemContainer label="私钥" prop="privateKey" :span="24">
-                  <Input v-model="formValidate.privateKey" placeholder="请输入私钥"></Input>
-              </EVitemContainer>
+                <EVitemContainer label="私钥" prop="privateKey" :span="24">
+                    <Input v-model="formValidate.privateKey" placeholder="请输入私钥"></Input>
+                </EVitemContainer>
             </Row>
 
 
@@ -26,6 +28,8 @@
 </template>
 
 <script>
+    import Util from "../../common/util"
+
     export default {
         name: "mwallet",
         data() {
@@ -62,10 +66,10 @@
                         trigger: 'change'
                     }],
                     privateKey: [{
-                            required: true,
-                            message: '请输入私钥',
-                            trigger: 'blur'
-                        },
+                        required: true,
+                        message: '请输入私钥',
+                        trigger: 'blur'
+                    },
                         {
                             type: 'string',
                             max: 100,
@@ -75,10 +79,10 @@
                     ],
 
                     pwd: [{
-                            required: true,
-                            message: '请输入交易密码',
-                            trigger: 'blur'
-                        },
+                        required: true,
+                        message: '请输入交易密码',
+                        trigger: 'blur'
+                    },
                         {
                             type: 'string',
                             max: 100,
@@ -116,8 +120,11 @@
             ochange(e) {
 
             },
-            doSubmitBefor: function(data, e) {
+            doSubmitBefor: function (data, e) {
+                debugger
 
+                data.privateKey = Util.code64(data.privateKey)
+                data.pwd = Util.code64(data.pwd)
 
             },
             creat() {
@@ -126,7 +133,7 @@
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function(res, that) {
+                    function (res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.virOptions = res.data.data
@@ -144,7 +151,7 @@
                             other: '/' + this.openType + '?',
                             access_token: this.api.access_token,
                         }, {},
-                        function(res, that) {
+                        function (res, that) {
                             const st = res.data.status
                             if (st === 1) {
                                 for (var key in res.data.data) {
@@ -153,7 +160,7 @@
                                     }
                                 }
                                 var back = res.data.data;
-                                Object.keys(that.formValidate).forEach(function(key) {
+                                Object.keys(that.formValidate).forEach(function (key) {
                                     that.formValidate[key] = back[key];
                                 });
 

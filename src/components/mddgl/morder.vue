@@ -1324,6 +1324,7 @@
             }
 		},
 		created: function() {
+            this.getoptions()
 			this.searchType = 'search_LIKE_productEntity.name',
 				this.onchanges(1)
 			// this.maclist = this.chunk(this.mac, 4)

@@ -5,6 +5,7 @@
                 币种
                 <Select v-model="searchType" placeholder="请选择搜索币种">
                     <Option :value="virOption.id" :label="virOption.name" v-for="virOption in options" :key="virOption.index"></Option>
+                    <Option value="" label="不限" ></Option>
                 </Select>
 
 
