@@ -3,9 +3,11 @@
         <EVpageList :pageTitle="pageTitle" class="nohidden">
             <div slot="searchBox" class="serach">
                 币种
-                <Select v-model="searchType" placeholder="请选择搜索币种">
-                    <Option :value="virOption.id" :label="virOption.name" v-for="virOption in options" :key="virOption.index"></Option>
-                    <Option value="" label="不限" ></Option>
+                <Select v-model="searchType" placeholder="请选择搜索币种" @on-change="selectchange">
+                    {{options}}
+                    <Option :value="virOption.id" :label="virOption.name" v-for="virOption in options"
+                            :key="virOption.index"></Option>
+
                 </Select>
 
 
@@ -20,42 +22,45 @@
                         <span>高级查询</span>
                     </p>
                     <div>
-                        <Form :model="formItem" :label-width="90" >
+                        <Form :model="formItem" :label-width="90">
 
                             <Col span="23">
-                            <FormItem label="数据中心">
+                                <FormItem label="数据中心">
 
-                                <Select v-model="formItem.search_EQ_zoneId">
-                                    <Option :value="zoneOption.id" :label="zoneOption.name" v-for="zoneOption in zoneOptions"
-                                        :key="zoneOption.index"></Option>
-                                </Select>
-                            </FormItem>
+                                    <Select v-model="formItem.search_EQ_zoneId">
+                                        <Option :value="zoneOption.id" :label="zoneOption.name"
+                                                v-for="zoneOption in zoneOptions"
+                                                :key="zoneOption.index"></Option>
+                                    </Select>
+                                </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="币种">
-                                <Select v-model="formItem.search_EQ_virId">
-                                    <Option :value="virOption.id" :label="virOption.name" v-for="virOption in virOptions"
-                                        :key="virOption.index"></Option>
-                                </Select>
-                            </FormItem>
+                                <FormItem label="币种">
+                                    <Select v-model="formItem.search_EQ_virId">
+                                        <Option :value="virOption.id" :label="virOption.name"
+                                                v-for="virOption in virOptions"
+                                                :key="virOption.index"></Option>
+                                    </Select>
+                                </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="钱包地址">
-                                <Input v-model="formItem.search_LIKE_realMoneyUrl" placeholder="请输入钱包地址"></Input>
-                            </FormItem>
+                                <FormItem label="钱包地址">
+                                    <Input v-model="formItem.search_LIKE_realMoneyUrl" placeholder="请输入钱包地址"></Input>
+                                </FormItem>
                             </Col>
 
                             <Col span="23">
-                            <FormItem label="最小提币额度" class="overappend">
-                                <EVinputNumber v-model="formItem.search_EQ_minQuota" :min="1" :max="10000" placeholder="请输入最小提币额度"></EVinputNumber>
-                            </FormItem>
+                                <FormItem label="最小提币额度" class="overappend">
+                                    <EVinputNumber v-model="formItem.search_EQ_minQuota" :min="1" :max="10000"
+                                                   placeholder="请输入最小提币额度"></EVinputNumber>
+                                </FormItem>
                             </Col>
                             <Col span="23">
-                            <FormItem label="办结时长" class="overappend">
-                                <EVinputNumber v-model="formItem.search_EQ_transactTime" :min="1" :max="168"
-                                    placeholder="请输入办结时长(小时)"></EVinputNumber>
+                                <FormItem label="办结时长" class="overappend">
+                                    <EVinputNumber v-model="formItem.search_EQ_transactTime" :min="1" :max="168"
+                                                   placeholder="请输入办结时长(小时)"></EVinputNumber>
 
-                            </FormItem>
+                                </FormItem>
                             </Col>
 
                         </Form>
@@ -77,7 +82,8 @@
                 </Table>
             </div>
             <div slot="pagePage">
-                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges" :current="current">
+                <Page :total="totalpage" show-total show-elevator :page-size="pagesize" @on-change="onchanges"
+                      :current="current">
                 </Page>
             </div>
 
@@ -91,12 +97,13 @@
 
 <script>
     import mwallet from './walletExtend.vue';
+
     export default {
         name: "mwallet",
 
         data() {
             var _this = this;
-            const coderhardInfo = function(coder, value, callback) {
+            const coderhardInfo = function (coder, value, callback) {
 
                 if ((_this.formV.hardInfo !== '')) {
                     const str = _this.formV.hardInfo
@@ -169,29 +176,29 @@
 
                 ],
                 datahead: [{
-                        type: 'expand',
-                        width: 50,
-                        render: function(h, params) {
-                            return h(mwallet, {
-                                props: {
-                                    row: params.row
-                                }
-                            })
-                        }
-                    }, {
-                        align: 'left',
-                        title: '币种',
-                        render: function(h, params) {
-                            return h('span', [params.row.virDictEntity.name])
-                        },
-                        width: 80
+                    type: 'expand',
+                    width: 50,
+                    render: function (h, params) {
+                        return h(mwallet, {
+                            props: {
+                                row: params.row
+                            }
+                        })
+                    }
+                }, {
+                    align: 'left',
+                    title: '币种',
+                    render: function (h, params) {
+                        return h('span', [params.row.virDictEntity.name])
                     },
+                    width: 80
+                },
                     {
                         align: 'left',
                         title: '所属数据中心',
                         key: 'zoneEntity.name',
                         width: 120,
-                        render: function(h, params) {
+                        render: function (h, params) {
                             return h('span', [params.row.zoneEntity.name])
                         }
                     },
@@ -217,7 +224,7 @@
                         title: '钱包余额',
                         key: 'walletBalance',
                         width: 100,
-                        render: function(h, params) {
+                        render: function (h, params) {
                             return h('span', [parseFloat(params.row.walletBalance) / 1000000000])
                         }
                     },
@@ -226,7 +233,7 @@
                         key: 'action',
                         width: 120,
                         align: 'center',
-                        render: function(h, params) {
+                        render: function (h, params) {
                             return h('div', [
                                 h('Button', {
                                     props: {
@@ -238,7 +245,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.edit(params)
                                         }
                                     }
@@ -252,13 +259,13 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function() {
+                                        click: function () {
                                             _this.$Modal.confirm({
                                                 title: '操作确认',
                                                 content: '<p>确认要删除吗？</p>',
                                                 loading: true,
                                                 closable: true,
-                                                onOk: function() {
+                                                onOk: function () {
                                                     _this.Global.fun(
                                                         _this,
                                                         'delete', {
@@ -298,7 +305,7 @@
                 databody: [],
                 loading: true,
                 oprah: {},
-                searchType: '',
+                searchType: '0',
                 searchValue: '',
                 id: null,
                 zoneOptions: [],
@@ -321,7 +328,7 @@
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function(res, that) {
+                    function (res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.zoneOptions = res.data.data
@@ -338,7 +345,7 @@
                         other: '/all?',
                         access_token: this.api.access_token,
                     }, {},
-                    function(res, that) {
+                    function (res, that) {
                         if (res.data.status == 1) {
                             that.$Message.destroy();
                             that.virOptions = res.data.data
@@ -375,7 +382,7 @@
                 this.HsearchC()
             },
 
-            refresh: function() {
+            refresh: function () {
                 this.loading = true
                 this.search = {}
                 // this.searchType = 'search_LIKE_username'
@@ -384,7 +391,7 @@
                 // this.current = 1
                 this.onchanges(this.current)
             },
-            edit: function(params) {
+            edit: function (params) {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -397,7 +404,7 @@
                 })
 
             },
-            added: function() {
+            added: function () {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -410,7 +417,21 @@
                 })
 
             },
-            onchanges: function(e) {
+
+
+            selectchange(e) {
+                this.search = {}
+                debugger
+                if (e != 0) {
+                    this.search = {
+                        'search_EQ_virId': e
+                    }
+
+                }
+                this.onchanges(1)
+
+            },
+            onchanges: function (e) {
                 var that = this
                 this.loading = true
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
@@ -419,7 +440,7 @@
                     base: this.api.base,
                     other: '/page?',
                     access_token: this.api.access_token
-                }, function() {
+                }, function () {
                     that.search.page = e - 1
                     that.search.size = 10
                     return that.search
@@ -443,10 +464,10 @@
                     }
                 }
             },
-            oprahfun: function(e) {
+            oprahfun: function (e) {
                 this.Global.oprahfun(this)
             },
-            dosearch: function() {
+            dosearch: function () {
                 this.loading = true
                 if (this.searchType != 0) {
                     this.search = {
@@ -462,7 +483,7 @@
 
             },
         },
-        created: function() {
+        created: function () {
             this.current = this.$route.query.current ? parseInt(this.$route.query.current) : 1
             this.search = this.$route.query.search ? this.$route.query.search : {}
 
@@ -479,8 +500,8 @@
     .overappend {
         .evaninline {
 
-            >.ivu-input-group-append,
-            >.ivu-input-group-prepend {
+            > .ivu-input-group-append,
+            > .ivu-input-group-prepend {
                 display: none;
             }
         }
