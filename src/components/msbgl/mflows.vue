@@ -79,7 +79,7 @@
 
 					{
 						align: 'left',
-						title: '生成厂商',
+						title: '生产厂家',
 						key: 'mfrs',
                         width: 150
 
