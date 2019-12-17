@@ -111,13 +111,13 @@
                         align: 'left',
                         title: '内控版本',
                         key: 'ver',
-                        width: 150
+                        width: 120
                     },
                     {
                         align: 'left',
                         title: '显示版本',
                         key: 'showVer',
-                        width: 150,
+                        width: 100,
 
                     },
 
@@ -135,7 +135,33 @@
                     // },
                     {
                         align: 'left',
+                        title: 'rom状态',
+                        width: 80,
+                        key: 'romPath',
+                        render: function (h, params) {
+                            return h('span', {
+                                style: {
+                                    color: function () {
+                                        if(params.row.romPath==''){
+                                           return '#19be6b';
+                                        }else{
+                                             return '#ed3f14';
+                                        }
+
+                                    }()
+                                }
+                            }, [function () {
+                                if(params.row.romPath==''){
+                                   return '未上传';
+                                }else{
+                                     return '已上传';
+                                }
+                            }()])
+                        },
+                    },{
+                        align: 'left',
                         title: '激活状态',
+                        width: 80,
                         key: 'liveState',
                         render: function (h, params) {
                             return h('span', {
@@ -164,7 +190,6 @@
                                 }
                             }()])
                         },
-
                     },
 
                     // {
@@ -177,13 +202,12 @@
                     {
                         title: '管理',
                         key: 'action',
-                        width: 250,
+                        width: 220,
                         align: 'center',
                         render: function (h, params) {
                             return h('div', [
                                     h('EVupload', {
                                         props: {
-
                                             actionUrl: '/mver/upload/' + params.row.id + '?' + _this.api.access_token,
                                             doAfterUpload: _this.doAfterUpload,
                                             type: _this.type,

@@ -8,7 +8,7 @@ util.baseDomain = 'http://47.92.51.100:80'
 // util.baseDomain = 'http://' + config.dev.host + ':' + config.dev.port
 
 util.title = function (title) {
-  let iTitle = 'IPFS星际特工云数据中心';
+  let iTitle = '币码翁分布式云数据监测系统';
   if (title) {
     iTitle += ' - ' + title;
   }

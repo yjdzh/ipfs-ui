@@ -199,7 +199,7 @@ api.checkCaptchas = function (vm) {
 
 api.changePsw = function (vm) {
     const {oldPsw, password, confirmPsw} = vm.pswChangeForm
-    vm.$http.get('musers/modifyPwd?access_token=' + Util.session.get('wtcp-user-token') + '&confirmPwd=' + confirmPsw + '&oldPwd=' + oldPsw + '&password=' + password).then((res) => {
+    vm.$http.get('musers/modifyPwd?access_token=' + Util.session.get('wtcp-user-token') + '&confirmPwd=' +  Util.code64(confirmPsw)  + '&oldPwd=' + Util.code64(oldPsw)  + '&password=' + Util.code64(password)).then((res) => {
         const resData = res.data
         if (resData.status === 1) {
             vm.defaults.pswChangeShow = false

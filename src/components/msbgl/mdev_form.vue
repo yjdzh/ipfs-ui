@@ -19,8 +19,8 @@
 
 			</Row>
 			<Row>
-				<EVitemContainer label="生成厂商" prop="mfrs" :span="12">
-					<Input v-model="formValidate.mfrs" placeholder="请输入生成厂商"></Input>
+				<EVitemContainer label="生产厂商" prop="mfrs" :span="12">
+					<Input v-model="formValidate.mfrs" placeholder="请输入生产厂商"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="销售类型" prop="saleState" :span="12">
 					<RadioGroup v-model="formValidate.saleState" type="button">

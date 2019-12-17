@@ -11,7 +11,7 @@
                     <Input v-model="formValidate.name" placeholder="请输入数据中心名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="数据中心地址" prop="addr" :span="12">
-                    <Input v-model="formValidate.addr" placeholder="请输入数据中心地址" :disabled="this.openType==-1?false:true"></Input>
+                    <Input v-model="formValidate.addr" placeholder="请输入数据中心地址" ></Input>
                 </EVitemContainer>
             </Row>
             <Row>

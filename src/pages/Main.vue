@@ -234,7 +234,7 @@
 
                     <h1>
                         <Avatar src="static/img/LOG1.png" size="large"/>
-                        IPFS星际特工云数据中心
+                        币码翁分布式云数据监测系统
                     </h1>
                     <!--<h1>这里 <Avatar icon="person" size="large" />是logo 这里是标题</h1>-->
 

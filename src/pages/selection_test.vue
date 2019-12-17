@@ -88,7 +88,7 @@
 
                     {
                         align: 'left',
-                        title: '生成厂商',
+                        title: '生产厂商',
                         key: 'mfrs',
 
                     },

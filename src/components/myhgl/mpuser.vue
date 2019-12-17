@@ -79,7 +79,7 @@
                             </Col>
                             <Col span="23">
                             <FormItem label="托管时长" prop="monthNum">
-                                <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="20" placeholder="请输入托管时长(月)"></EVinputNumber>
+                                <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="36" placeholder="请输入托管时长(月)"></EVinputNumber>
                             </FormItem>
                             </Col>
 
@@ -107,7 +107,7 @@
 
                             <Col span="23">
                             <FormItem label="托管时长" prop="monthNum">
-                                <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="20" placeholder="请输入托管时长(月)"></EVinputNumber>
+                                <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="36" placeholder="请输入托管时长(月)"></EVinputNumber>
                             </FormItem>
                             </Col>
 

@@ -8,7 +8,7 @@
 
 		<Row>
 			<Col span="8">
-			<span class="expand-key">生成厂商：</span>
+			<span class="expand-key">生产厂商：</span>
 			<span class="expand-value" v-text="(!row.mfrs)?'暂无数据':row.mfrs"></span>
 			</Col>
 			<Col span="8">
@@ -74,7 +74,7 @@
 							} else {
 								that.startTime = uptime;
 							}
-					
+
 
 							let rt106 = map["rt106"];
 							let rt107 = map["rt107"];
@@ -92,14 +92,14 @@
 							}
 							that.nc = (rt106 / 1048576).toFixed(2) + '/' + (rt107 / 1048576).toFixed(2) + ' GB';
 
-							
+
 							let rt105 = map["rt105"];
 							if (typeof(rt105) == "undefined") {
 								that.yp = '暂无信息';
 							} else {
 								that.yp = rt105;
 							}
-							
+
 							debugger
 							let rt108 = map["rt108"];
 							if (typeof(rt108) == "undefined") {
@@ -107,18 +107,18 @@
 							} else {
 								that.cpu = rt108;
 							}
-							
+
 							let wkfss="";
 							let ipfs038 = map["ipfs038"];
 							if (typeof(ipfs038) == "undefined" || ipfs038==='0') {
-								
+
 							} else {
 								wkfss = '，ipfs';
 							}
-							
+
 							let ipfs034 = map["ipfs034"];
 							if (typeof(ipfs034) == "undefined" || ipfs034==='0') {
-								
+
 							} else {
 								wkfss=wkfss + '，xmr';
 							}
@@ -126,7 +126,7 @@
 								that.wklx = '暂无信息';
 							}else{
 								that.wklx = wkfss.substr(1);
-							}							
+							}
 						}
 					}
 				);

@@ -444,6 +444,7 @@
                         align: 'left',
                         title: 'mac',
                         key: 'mac',
+                        width: 150,
                         render: function (h, params) {
                             return h('span', {
                                 attrs:{
@@ -455,6 +456,7 @@
                     }, {
                         align: 'left',
                         title: '序列号',
+                        width: 120,
                         key: 'sn',
                         render: function (h, params) {
                             return h('span', {
@@ -480,6 +482,7 @@
                         align: 'left',
                         title: '软件版本',
                         key: 'softVer',
+                        width: 120,
                         render: function (h, params) {
                             return h('span', {
                                 attrs:{
@@ -492,7 +495,7 @@
                         align: 'left',
                         title: '姓名',
                         key: 'buyUserName',
-                        width: 70,
+                        width: 100,
                         render: function (h, params) {
                             return h('span', {
                                 attrs:{
@@ -505,6 +508,7 @@
                         align: 'center',
                         title: '电话',
                         key: 'buyUserTel',
+                        width: 120,
                         render: function (h, params) {
                             return h('span', {
                                 attrs:{
@@ -518,7 +522,7 @@
                         align: 'center',
                         title: '业务状态',
                         key: 'bussState',
-                        width: 60,
+                        width: 80,
                         render: function (h, params) {
                             return h('span', {
                                 style: {
@@ -588,7 +592,7 @@
                         align: 'center',
                         title: '激活状态',
                         key: 'activeState',
-                        width: 60,
+                        width: 80,
                         render: function (h, params) {
                             return h('span', {
                                 style: {
@@ -621,7 +625,7 @@
                         align: 'center',
                         title: '在线状态',
                         key: 'lineState',
-                        width: 60,
+                        width: 80,
                         render: function (h, params) {
                             return h('span', {
                                 style: {
@@ -654,7 +658,7 @@
                         align: 'center',
                         title: '销售类型',
                         key: 'saleState',
-                        width: 60,
+                        width: 80,
                         render: function (h, params) {
                             return h('span', {
                                 style: {
@@ -956,7 +960,7 @@
                         that.$Message.success(res.data.msg);
                     } else {
                         that.$Message.destroy();
-                        that.$Message.error('信息获取失败');
+                        that.$Message.error(res.data.msg);
                     }
                 })
             },
