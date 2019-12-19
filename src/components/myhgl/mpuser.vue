@@ -2,7 +2,7 @@
     <div>
         <EVpageList :pageTitle="pageTitle">
             <div slot="searchBox" class="serach">
-                <Input v-model="searchValue" :class="selsctclass">
+                <Input v-model.trim="searchValue" :class="selsctclass">
                 <Select v-model="searchType" slot="prepend" style="width: 80px">
                     <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
                         :key="option.index"></Option>
@@ -23,12 +23,12 @@
                         <Form :model="formItem" :label-width="80">
                             <Col span="23">
                             <FormItem label="用户账号">
-                                <Input v-model="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_phone" placeholder="请输入手机号码"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
                             <FormItem label="用户昵称">
-                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入用户昵称"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_name" placeholder="请输入用户昵称"></Input>
                             </FormItem>
                             </Col>
 
@@ -86,7 +86,7 @@
 
                             <Col span="23">
                             <FormItem label="设备mac" prop="macs">
-                                <Input v-model="sbfpforms.macs" placeholder="请输入分配设备的mac，多个设备使用','分割"></Input>
+                                <Input v-model.trim="sbfpforms.macs" placeholder="请输入分配设备的mac，多个设备使用','分割"></Input>
                             </FormItem>
                             </Col>
 

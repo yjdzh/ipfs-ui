@@ -6,25 +6,25 @@
 			<EVdivider orientation="left">基础信息</EVdivider>
 			<Row>
 				<EVitemContainer label="产品名称" prop="name" :span="12">
-					<Input v-model="formValidate.name" placeholder="请输入产品名称"></Input>
+					<Input v-model.trim="formValidate.name" placeholder="请输入产品名称"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="产品型号" prop="model" :span="12">
-					<Input v-model="formValidate.model" :disabled="this.openType===-1?false:true" placeholder="请输入产品型号,该项提交保存后,不可修改"></Input>
+					<Input v-model.trim="formValidate.model" :disabled="this.openType===-1?false:true" placeholder="请输入产品型号,该项提交保存后,不可修改"></Input>
 				</EVitemContainer>
 			</Row>
 			<Row>
 				<EVitemContainer label="功耗" prop="powerInfo" :span="12">
-					<Input v-model="formValidate.powerInfo" placeholder="请输入功耗"></Input>
+					<Input v-model.trim="formValidate.powerInfo" placeholder="请输入功耗"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="硬件配置" prop="hardInfo" :span="12">
-					<Input v-model="formValidate.hardInfo" placeholder="请输入配置信息"></Input>
+					<Input v-model.trim="formValidate.hardInfo" placeholder="请输入配置信息"></Input>
 				</EVitemContainer>
 
 			</Row>
 
 			<Row>
 				<EVitemContainer label="物联网ProductKey" prop="productKey" :span="12">
-					<Input v-model="formValidate.productKey" placeholder="请输入阿里云物联网Key"></Input>
+					<Input v-model.trim="formValidate.productKey" placeholder="请输入阿里云物联网Key"></Input>
 				</EVitemContainer>
 			</Row>
 
@@ -33,10 +33,10 @@
 
 			<Row>
 				<EVitemContainer label="自维价格" prop="maintainPrice" :span="12">
-					<EVinputNumber v-model="formValidate.maintainPrice" :min="1" :max="100000" placeholder="请输入自维价格"></EVinputNumber>
+					<EVinputNumber v-model="formValidate.maintainPrice" :min="1" :max="100000"  :precision="2"  placeholder="请输入自维价格"></EVinputNumber>
 				</EVitemContainer>
 				<EVitemContainer label="自维折扣" prop="maintainDiscount" :span="12">
-					<EVinputNumber v-model="formValidate.maintainDiscount" :min="0" :max="1" placeholder="请输入自维折扣"></EVinputNumber>
+					<EVinputNumber v-model="formValidate.maintainDiscount" :min="0" :max="1"  :precision="2" placeholder="请输入自维折扣"></EVinputNumber>
 				</EVitemContainer>
 
 			</Row>
@@ -46,7 +46,7 @@
 					 placeholder="请输入托管价格"></EVinputNumber>
 				</EVitemContainer>
 				<EVitemContainer label="托管折扣" prop="trusteeDiscount" :span="12">
-					<EVinputNumber v-model="formValidate.trusteeDiscount" :min="0" :max="1" placeholder="请输入托管默认折扣"></EVinputNumber>
+					<EVinputNumber v-model="formValidate.trusteeDiscount" :min="0" :max="1" :precision="2"  placeholder="请输入托管默认折扣"></EVinputNumber>
 				</EVitemContainer>
 
 
@@ -251,7 +251,14 @@
 				autoUpload: true,
 				ruleValidate: {
 
-					hardInfo: [],
+					hardInfo: [
+                        {
+                            type: 'string',
+                            max: 100,
+                            message: '输入字符不得多于10个',
+                            trigger: 'change'
+                        },
+                    ],
 					img: [],
 					maintainDiscount: [{
 						type: 'number',

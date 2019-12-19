@@ -9,18 +9,18 @@
 					</Select>
 				</EVitemContainer>
 				<EVitemContainer label="SN" prop="left" :span="12">
-					<Input v-model="formValidate.left" placeholder="请输入SN"></Input>
+					<Input v-model.trim="formValidate.left" placeholder="请输入SN"></Input>
 				</EVitemContainer>
 			</Row>
 			<Row>
 				<EVitemContainer label="mac" prop="mac" :span="12">
-					<Input v-model="formValidate.mac" placeholder="请输入mac"></Input>
+					<Input v-model.trim="formValidate.mac" placeholder="请输入mac"></Input>
 				</EVitemContainer>
 
 			</Row>
 			<Row>
 				<EVitemContainer label="生产厂商" prop="mfrs" :span="12">
-					<Input v-model="formValidate.mfrs" placeholder="请输入生产厂商"></Input>
+					<Input v-model.trim="formValidate.mfrs" placeholder="请输入生产厂商"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="销售类型" prop="saleState" :span="12">
 					<RadioGroup v-model="formValidate.saleState" type="button">

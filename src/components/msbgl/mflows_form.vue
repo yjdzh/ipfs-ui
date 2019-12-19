@@ -8,7 +8,7 @@
 
             <Row >
                 <EVitemContainer label="阿里短信ID" prop="smsid" :span="12">
-                    <Input v-model="formValidate.smsid" placeholder="请输入阿里短信ID" ></Input>
+                    <Input v-model.trim="formValidate.smsid" placeholder="请输入阿里短信ID" ></Input>
                 </EVitemContainer>
 
                 <EVitemContainer label="托管到期保留天数" prop="trusteeday" :span="12">
@@ -17,7 +17,7 @@
             </Row>
             <Row >
                 <EVitemContainer label="阿里短信秘钥" prop="smssec" :span="12">
-                    <Input v-model="formValidate.smssec" placeholder="请输入短信秘钥" ></Input>
+                    <Input v-model.trim="formValidate.smssec" placeholder="请输入短信秘钥" ></Input>
                 </EVitemContainer>
                 <EVitemContainer label="订单自动审核" prop="orderaudit" :span="12">
                     <RadioGroup v-model="formValidate.orderaudit" type="button">

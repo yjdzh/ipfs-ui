@@ -2,7 +2,7 @@
     <div>
         <EVpageList :pageTitle="pageTitle">
             <div slot="searchBox" class="serach">
-                <Input v-model="searchValue" :class="selsctclass">
+                <Input v-model.trim="searchValue" :class="selsctclass">
                 <Select v-model="searchType" slot="prepend" style="width: 80px">
                     <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
                         :key="option.index"></Option>
@@ -22,17 +22,17 @@
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
                             <FormItem label="客户名称">
-                                <Input v-model="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
                             <FormItem label="数据中心地址">
-                                <Input v-model="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_addr" placeholder="请输入数据中心地址"></Input>
                             </FormItem>
                             </Col>
                             <Col span="23">
                             <FormItem label="联系人">
-                                <Input v-model="formItem.search_LIKE_contactor" placeholder="请输入联系人"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_contactor" placeholder="请输入联系人"></Input>
                             </FormItem>
                             </Col>
 

@@ -8,7 +8,7 @@
 
 			<Row>
 				<EVitemContainer label="类型" prop="type" :span="24">
-					<Input v-model="formValidate.type" placeholder="请输入类型"></Input>
+					<Input v-model.trim="formValidate.type" placeholder="请输入类型"></Input>
 				</EVitemContainer>
 			</Row>
 

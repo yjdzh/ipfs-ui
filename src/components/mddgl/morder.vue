@@ -2,7 +2,7 @@
     <EVpageList :pageTitle="pageTitle">
         <div slot="searchBox" class="serach">
 
-            <Input v-model="searchValue" :class="selsctclass">
+            <Input v-model.trim="searchValue" :class="selsctclass">
                 <Select v-model="searchType" slot="prepend" style="width: 80px">
                     <Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options"
                             :key="option.index"></Option>
@@ -32,19 +32,19 @@
                         </Col>
                         <Col span="23">
                             <FormItem label="收货人">
-                                <Input v-model="formItem.search_LIKE_addressContacter" placeholder="请输入收货人"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_addressContacter" placeholder="请输入收货人"></Input>
                             </FormItem>
                         </Col>
                         <Col span="23">
                             <FormItem label="收货电话">
-                                <Input v-model="formItem.search_LIKE_addressTel" placeholder="请输入收货人的联系电话"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_addressTel" placeholder="请输入收货人的联系电话"></Input>
                             </FormItem>
                         </Col>
 
 
                         <Col span="23">
                             <FormItem label="下单人账号">
-                                <Input v-model="formItem.search_LIKE_pubPhone" placeholder="请输入下单账号的手机号码"></Input>
+                                <Input v-model.trim="formItem.search_LIKE_pubPhone" placeholder="请输入下单账号的手机号码"></Input>
                             </FormItem>
                         </Col>
 
@@ -104,7 +104,7 @@
             <!--                <div>-->
             <!--                    <p>提示！输入多个设备的mac，并使用"，"或者","进行分割。</p>-->
             <!--                    <br/>-->
-            <!--                    <Input v-model="value1" type="textarea" :autosize="{minRows: 5,maxRows: 8}"-->
+            <!--                    <Input v-model.trim="value1" type="textarea" :autosize="{minRows: 5,maxRows: 8}"-->
             <!--                           placeholder="可以输入要发货设备的mac，并使用','或者'，'进行分割,如:00E0701355D1，00E0701355D2"></Input>-->
             <!--                </div>-->
             <!--                <div slot="footer">-->
@@ -174,7 +174,7 @@
                 </div>
             </Modal>
 
-            <Modal v-model="modal4" width="500" @on-cancel="cancel1">
+            <Modal v-model="modal4" width="570" @on-cancel="cancel1">
                 <p slot="header">
                     <span>打印预览</span>
                 </p>

@@ -2,7 +2,7 @@
     <div>
         <EVpageList :pageTitle="pageTitle" class="logs">
             <div slot="searchBox" class="serach">
-<!--                <Input v-model="searchValue" :class="selsctclass">-->
+<!--                <Input v-model.trim="searchValue" :class="selsctclass">-->
 <!--                    <Select v-model="searchType" slot="prepend" style="width: 80px">-->
 <!--                        <Option :value="option.value" :label="option.label"  v-for="option in options"-->
 <!--                                :key="option.index"></Option>-->
@@ -53,7 +53,7 @@
                             </Col>
                             <Col span="23">
                                 <FormItem label="操作用户">
-                                    <Input v-model="formItem.search_LIKE_operateUser" placeholder="请输入操作用户"></Input>
+                                    <Input v-model.trim="formItem.search_LIKE_operateUser" placeholder="请输入操作用户"></Input>
                                 </FormItem>
                             </Col>
 

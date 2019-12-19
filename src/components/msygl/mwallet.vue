@@ -45,7 +45,7 @@
                             </Col>
                             <Col span="23">
                                 <FormItem label="钱包地址">
-                                    <Input v-model="formItem.search_LIKE_realMoneyUrl" placeholder="请输入钱包地址"></Input>
+                                    <Input v-model.trim="formItem.search_LIKE_realMoneyUrl" placeholder="请输入钱包地址"></Input>
                                 </FormItem>
                             </Col>
 

@@ -21,7 +21,7 @@
                     <!--</RadioGroup>-->
                 <!--</EVitemContainer>-->
                 <EVitemContainer label="显示版本" prop="showVer" :span="12">
-                <Input v-model="formValidate.showVer"
+                <Input v-model.trim="formValidate.showVer"
                        placeholder="请输入显示版本"></Input>
             </EVitemContainer>
             </Row>
@@ -29,7 +29,7 @@
             <Row>
 
                 <EVitemContainer label="内控版本" prop="ver" :span="12">
-                    <Input v-model="formValidate.ver"
+                    <Input v-model.trim="formValidate.ver"
                            placeholder="请输入内控版本"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="版本描述信息" prop="info" :span="12">
@@ -111,20 +111,21 @@
 
 
 
-                    productId: [{type: 'number', required: true, message: '请输入所属产品编号', trigger: 'blur'}],
+                    productId: [{type: 'number', required: true, message: '请选择所属产', trigger: 'blur'}],
 
 
                     romPath: [{type: 'string', max: 50, message: '输入字符不得多于50个', trigger: 'change'},],
 
 
-                    showVer: [{required: true, message: '请输入请输入显示版本版本', trigger: 'blur'},
-                        {max: 20, message: '请输入显示版本', trigger: 'blur'},
-                        {pattern: this.Regex.regexlist.nums, message: '只能输入数字', trigger: 'blur'}],
+                    showVer: [{required: true, message: '请输入显示版本版本', trigger: 'blur'},
+                        {max: 20, message: '输入字符不得多于20个', trigger: 'blur'},
+                        {pattern: this.Regex.regexlist.nums, message: '只能输入数和"."', trigger: 'blur'}],
 
 
                     ver: [{required: true, message: '请输入内控版本', trigger: 'blur'},
-                        {pattern: this.Regex.regexlist.nums, message: '只能输入数字', trigger: 'blur'},
-                        {max: 20, message: '请输入内控版本', trigger: 'blur'}],
+
+                        {max: 20, message: '输入字符不得多于20个', trigger: 'blur'},
+                        {pattern: this.Regex.regexlist.nums, message: '只能输入数和"."', trigger: 'blur'}],
 
 
                 },

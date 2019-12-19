@@ -29,7 +29,7 @@
 
 
                                     <!--<EVitemContainer label="E-mail" prop="mail" >-->
-                                        <!--<Input v-model="formValidate.mail" placeholder="Enter your e-mail"></Input>-->
+                                        <!--<Input v-model.trim="formValidate.mail" placeholder="Enter your e-mail"></Input>-->
                                     <!--</EVitemContainer>-->
                                     <!--<EVitemContainer label="City" prop="city">-->
                                         <!--<Select v-model="formValidate.city" placeholder="Select your city">-->
@@ -73,7 +73,7 @@
                                         <!--</CheckboxGroup>-->
                                     <!--</EVitemContainer>-->
                                     <!--<EVitemContainer label="Desc" prop="desc">-->
-                                        <!--<Input v-model="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}"-->
+                                        <!--<Input v-model.trim="formValidate.desc" type="textarea" :autosize="{minRows: 2,maxRows: 5}"-->
                                                <!--placeholder="Enter something..."></Input>-->
                                     <!--</EVitemContainer>-->
                                 <!--</div>-->

@@ -13,12 +13,12 @@
                     </Select>
                 </EVitemContainer>
                 <EVitemContainer label="交易密码" prop="pwd" :span="12">
-                    <Input v-model="formValidate.pwd" placeholder="请输入交易密码"></Input>
+                    <Input v-model.trim="formValidate.pwd" placeholder="请输入交易密码"></Input>
                 </EVitemContainer>
             </Row>
             <Row>
                 <EVitemContainer label="私钥" prop="privateKey" :span="24">
-                    <Input v-model="formValidate.privateKey" placeholder="请输入私钥"></Input>
+                    <Input v-model.trim="formValidate.privateKey" placeholder="请输入私钥"></Input>
                 </EVitemContainer>
             </Row>
 

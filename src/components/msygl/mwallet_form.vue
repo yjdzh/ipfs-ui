@@ -21,7 +21,7 @@
             </Row>
             <Row>
                 <EVitemContainer label="钱包地址" prop="realMoneyUrl" :span="24">
-                    <Input v-model="formValidate.realMoneyUrl" placeholder="请输入钱包地址"></Input>
+                    <Input v-model.trim="formValidate.realMoneyUrl" placeholder="请输入钱包地址"></Input>
                 </EVitemContainer>
             </Row>
 
@@ -67,8 +67,8 @@
                     </RadioGroup>
                 </EVitemContainer>
 
-                <EVitemContainer label="自维设备记提比例" prop="maintainAccrue" :span="12">
-                    <EVinputNumber v-model="formValidate.maintainAccrue" :min="1" :max="99" placeholder="请输入自维设备记提比例(%)"></EVinputNumber>
+                <EVitemContainer label="自维设备计提比例" prop="maintainAccrue" :span="12">
+                    <EVinputNumber v-model="formValidate.maintainAccrue" :min="1" :max="99" placeholder="请输入自维设备计提比例(%)"></EVinputNumber>
                 </EVitemContainer>
             </Row>
             <Row>
@@ -79,13 +79,13 @@
                     </RadioGroup>
                 </EVitemContainer>
 
-                <EVitemContainer label="托管设备记提比例" prop="trusteeAccrue" :span="12">
-                    <EVinputNumber v-model="formValidate.trusteeAccrue" :min="1" :max="99" placeholder="请输入托管设备记提比例(%)"></EVinputNumber>
+                <EVitemContainer label="托管设备计提比例" prop="trusteeAccrue" :span="12">
+                    <EVinputNumber v-model="formValidate.trusteeAccrue" :min="1" :max="99" placeholder="请输入托管设备计提比例(%)"></EVinputNumber>
                 </EVitemContainer>
             </Row>
             <Row>
                 <EVitemContainer label="收益获取时间" prop="cycleTime" :span="24">
-                    <!--					 <Input v-model="formValidate.cycleTime"  placeholder="请输入收益获取时间(HH:mm:ss)"></Input>-->
+                    <!--					 <Input v-model.trim="formValidate.cycleTime"  placeholder="请输入收益获取时间(HH:mm:ss)"></Input>-->
                     <TimePicker :value="formValidate.cycleTime" @on-change=ochange format="HH:mm:ss" placeholder="请输入收益获取时间"
                         style="width: 168px"></TimePicker>
 
@@ -320,17 +320,17 @@
                     nodesNum: [{
                         validator: nodesnumrules,
                         trigger: 'change'
-                    }], 
+                    }],
                     sourceType: [{
                         type: 'number',
                         required: true,
-                        message: '请选择自定义总收入',
+                        message: '请选择获取方式',
                         trigger: 'change'
                     }],
                     sourceNum: [{
                         validator: sourcenumrules,
                         trigger: 'change'
-                    }],                    
+                    }],
                     maintainType: [{
                         type: 'number',
                         required: true,

@@ -70,7 +70,7 @@
         <Modal v-if="imgUrl" v-model="updimage" title='上传图片' @on-ok="clear" @on-cancel="clear">
             <Form :model="formItem" class="text_input-wri">
                 <FormItem>
-                    <Input v-model="formItem.input" placeholder="请输入关键字"></Input>
+                    <Input v-model.trim="formItem.input" placeholder="请输入关键字"></Input>
                 </FormItem>
             </Form>
             <EVupload :actionUrl="imgUrl" :action2Url="imgUrl2" ref="uploadButton1"

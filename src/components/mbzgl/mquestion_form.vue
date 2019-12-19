@@ -16,7 +16,7 @@
 
 			<Row>
 				<EVitemContainer label="问题" prop="ques" :span="24">
-					<Input v-model="formValidate.ques" placeholder="请输入问题"></Input>
+					<Input v-model.trim="formValidate.ques" placeholder="请输入问题"></Input>
 				</EVitemContainer>
 			</Row>
 
@@ -132,7 +132,7 @@
 							if (st === 1) {
 								debugger
 								for (var key in res.data.data) {
-									if (res.data.data[key] === null) {										
+									if (res.data.data[key] === null) {
 										res.data.data[key] = ''
 									}else if(key==='type'){
 										res.data.data[key]=res.data.data[key]+'';

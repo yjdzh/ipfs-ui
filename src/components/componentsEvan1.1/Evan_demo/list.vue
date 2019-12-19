@@ -7,7 +7,7 @@
             <div>
                 <EVpageList :pageTitle="pageTitle" >
                     <div slot="searchBox" class="serach">
-                        <Input v-model="serValue">
+                        <Input v-model.trim="serValue">
                             <Select v-model="serSelect" slot="prepend" style="width: 80px">
                                 <Option value="day">Day</Option>
                                 <Option value="month">Month</Option>
@@ -40,7 +40,7 @@
             <pre class="EVcode" v-text="`<template>
     <EVpageList :pageTitle='pageTitle' >
                 <div slot='searchBox' class='serach'>
-            <Input v-model='serValue'>
+            <Input v-model.trim='serValue'>
                 <Select v-model='serSelect' slot='prepend' style='width: 80px'>
                     <Option value='day'>Day</Option>
                     <Option value='month'>Month</Option>

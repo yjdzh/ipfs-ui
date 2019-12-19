@@ -157,7 +157,7 @@
                 } else {
                     this.$Message.destroy()
                     this.$Message.error(
-                        '文件过大'
+                        '最大文件为' + this.size / 1024 / 1024 + 'M'
                     )
                     this.percent = 0,
                         this.upstatus = '',

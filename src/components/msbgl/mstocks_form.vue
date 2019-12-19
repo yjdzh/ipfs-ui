@@ -12,16 +12,16 @@
 			<Row>
 
 				<EVitemContainer label="mac" prop="mac" :span="12">
-					<Input v-model="formValidate.mac" placeholder="请输入mac"></Input>
+					<Input v-model.trim="formValidate.mac" placeholder="请输入mac"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="SN" prop="sn" :span="12">
-					<Input v-model="formValidate.sn" placeholder="请输入SN"></Input>
+					<Input v-model.trim="formValidate.sn" placeholder="请输入SN"></Input>
 				</EVitemContainer>
 
 			</Row>
 			<Row>
 				<EVitemContainer label="生成厂商" prop="mfrs" :span="12">
-					<Input v-model="formValidate.mfrs" placeholder="请输入生成厂商"></Input>
+					<Input v-model.trim="formValidate.mfrs" placeholder="请输入生成厂商"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="出厂日期" prop="factoryDate" :span="12">
 					<DatePicker type="date" placeholder="请选择出厂日期" @on-change="change" v-model="formValidate.factoryDate" :editable="false"
@@ -54,7 +54,7 @@
 				</EVitemContainer>
 
 				<EVitemContainer label="IP" prop="ip" :span="12">
-					<Input v-model="formValidate.ip" placeholder="请输入ip"></Input>
+					<Input v-model.trim="formValidate.ip" placeholder="请输入ip"></Input>
 				</EVitemContainer>
 			</Row>
 

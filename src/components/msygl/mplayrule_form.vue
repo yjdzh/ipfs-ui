@@ -13,7 +13,7 @@
 
 				<EVitemContainer label="奖励时间" prop="playTime" :span="12">
 <!--                    {{formValidate.playTime}}-->
-<!--					<Input v-model="formValidate.playTime" placeholder="请输入奖励时间"></Input>-->
+<!--					<Input v-model.trim="formValidate.playTime" placeholder="请输入奖励时间"></Input>-->
                     <DatePicker type="datetime" v-model="formValidate.playTime" :options="options3"  format="yyyy-MM-dd HH:mm:ss" placeholder="请输入奖励时间" style="width: 200px"></DatePicker>
 				</EVitemContainer>
 
@@ -39,7 +39,7 @@
 				</EVitemContainer>
 
                 <EVitemContainer label="奖励说明" prop="remark" :span="12">
-                        <Input v-model="formValidate.remark" placeholder="请输入奖励说明"></Input>
+                        <Input v-model.trim="formValidate.remark" placeholder="请输入奖励说明"></Input>
                     </EVitemContainer>
                 </Row>
 

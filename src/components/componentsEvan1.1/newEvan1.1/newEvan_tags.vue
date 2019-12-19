@@ -7,7 +7,7 @@
         <Modal v-model="modal" width="320" :title="title" @on-cancel="doClose('tags')">
             <Form ref="tags" :model="tags" :rules="ruletags" :label-width="0">
                 <FormItem prop="value">
-                    <Input v-model="tags.value" placeholder="请输入新增标签" @on-enter="handleAdd('tags')"></Input>
+                    <Input v-model.trim="tags.value" placeholder="请输入新增标签" @on-enter="handleAdd('tags')"></Input>
                 </FormItem>
             </Form>
             <div slot="footer">

@@ -6,6 +6,7 @@ export default {
     enlarge: /^[A-Z]+$/,
     enLow: /^[a-z]+$/,
     ennum: /^[A-Za-z0-9]+$/,
+      ennums: /^[A-Za-z0-9|_]+$/,
     num: /^[0-9]+$/,
       nums: /^[0-9|.]+$/,
     ennum_: /^\w+$/,

@@ -1,7 +1,7 @@
 <template>
 	<EVpageList :pageTitle="pageTitle">
 		<div slot="searchBox" class="serach">
-			<Input v-model="searchValue" :class="selsctclass">
+			<Input v-model.trim="searchValue" :class="selsctclass">
 			<Select v-model="searchType" slot="prepend" style="width: 80px">
 				<Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options" :key="option.index"></Option>
 			</Select>
@@ -214,7 +214,7 @@
 				})
 
 			},
-			
+
 			edit: function (params) {
 			    this.Global.value = '';
 			    this.Global.type = '';
@@ -222,10 +222,10 @@
 			        name: 'mquestion_form',
 			        query: {
 			            id: params.row.id,
-			
+
 			        }
 			    })
-			
+
 			},
 			onchanges: function(e) {
 				this.loading = true

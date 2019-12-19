@@ -2,7 +2,7 @@
     <div class="EVbase" style="padding:0;">
         <EVpageList :pageTitle="pageTitle">
             <div slot="searchBox" class="serach">
-                <Input v-model="searchValue" :class="selsctclass">
+                <Input v-model.trim="searchValue" :class="selsctclass">
                     <Select v-model="searchType" slot="prepend" style="width: 80px">
                         <Option :value="option.value" :label="option.label" v-text="option.label"
                                 v-for="option in options" :key="option.index"></Option>
@@ -60,17 +60,17 @@
 
                             <Col span="10">
                                 <FormItem label="客户名称">
-                                    <Input v-model="formItem.search_LIKE_buyUserName" placeholder="请输入客户名称"></Input>
+                                    <Input v-model.trim="formItem.search_LIKE_buyUserName" placeholder="请输入客户名称"></Input>
                                 </FormItem>
                             </Col>
                             <Col span="11">
                                 <FormItem label="客户电话">
-                                    <Input v-model="formItem.search_LIKE_buyUserTel" placeholder="请输入客户电话"></Input>
+                                    <Input v-model.trim="formItem.search_LIKE_buyUserTel" placeholder="请输入客户电话"></Input>
                                 </FormItem>
                             </Col>
                             <Col span="10">
                                 <FormItem label="设备mac">
-                                    <Input v-model="formItem.search_LIKE_mac" placeholder="请输入设备mac"></Input>
+                                    <Input v-model.trim="formItem.search_LIKE_mac" placeholder="请输入设备mac"></Input>
                                 </FormItem>
                             </Col>
                             <Col span="11">

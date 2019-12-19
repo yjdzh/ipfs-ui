@@ -17,7 +17,7 @@
                     <Col class="list_tab-wrap EVp15 nopadding" style="padding-left: 235px;">
                         <EVpageList>
                             <!--<div slot="searchBox" class="serach">-->
-                            <!--<Input v-model="searchValue" :class="selsctclass">-->
+                            <!--<Input v-model.trim="searchValue" :class="selsctclass">-->
                             <!--<Select v-model="searchType" slot="prepend" style="width: 80px">-->
                             <!--<Option :value="option.value" :label="option.label" v-text="option.label"-->
                             <!--v-for="option in options"-->

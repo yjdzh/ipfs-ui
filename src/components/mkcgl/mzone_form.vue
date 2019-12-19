@@ -8,19 +8,19 @@
 
             <Row>
                 <EVitemContainer label="数据中心名称" prop="name" :span="12">
-                    <Input v-model="formValidate.name" placeholder="请输入数据中心名称"></Input>
+                    <Input v-model.trim="formValidate.name" placeholder="请输入数据中心名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="数据中心地址" prop="addr" :span="12">
-                    <Input v-model="formValidate.addr" placeholder="请输入数据中心地址" ></Input>
+                    <Input v-model.trim="formValidate.addr" placeholder="请输入数据中心地址" ></Input>
                 </EVitemContainer>
             </Row>
             <Row>
 				<EVitemContainer label="联系人" prop="contactor" :span="12">
-                    <Input v-model="formValidate.contactor"
+                    <Input v-model.trim="formValidate.contactor"
                            placeholder="请输入联系人"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="手机号码" prop="tel" :span="12">
-                    <Input v-model="formValidate.tel"
+                    <Input v-model.trim="formValidate.tel"
                            placeholder="请输入手机号码"></Input>
                 </EVitemContainer>
             </Row>

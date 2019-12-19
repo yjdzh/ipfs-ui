@@ -7,15 +7,15 @@
             <EVdivider orientation="left">大屏设置</EVdivider>
             <Row>
                 <EVitemContainer label="总节点" prop="zjd" :span="12">
-                    <Input v-model="formValidate.zjd" placeholder="请输入总结点信息"></Input>
+                    <Input v-model.trim="formValidate.zjd" placeholder="请输入总结点信息"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="离线节点" prop="lxjd" :span="12">
-                    <Input v-model="formValidate.lxjd" placeholder="请输入离线点信息"></Input>
+                    <Input v-model.trim="formValidate.lxjd" placeholder="请输入离线点信息"></Input>
                 </EVitemContainer>
             </Row>
             <Row>
                 <EVitemContainer label="在线节点" prop="zxjd" :span="12">
-                    <Input v-model="formValidate.zxjd" placeholder="请输入在线节点信息"></Input>
+                    <Input v-model.trim="formValidate.zxjd" placeholder="请输入在线节点信息"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="总存储容量使用占比" prop="zccrlzb" :span="12">
                     <EVinputNumber v-model="formValidate.zccrlzb" :min="1" :max="100" placeholder="请输入总存储容量使用占比"></EVinputNumber>
@@ -26,7 +26,7 @@
 
             <Row>
                 <EVitemContainer label="总存储容量" prop="zccrl" :span="12">
-                    <Input v-model="formValidate.zccrl" placeholder="请输入总存储容量"></Input>
+                    <Input v-model.trim="formValidate.zccrl" placeholder="请输入总存储容量"></Input>
                 </EVitemContainer>
             </Row>
 
@@ -36,7 +36,7 @@
 
             <Row>
                 <EVitemContainer label="币种名称1" prop="bzmc1" :span="12">
-                    <Input v-model="formValidate.bzmc1" placeholder="请输入币种1的名称"></Input>
+                    <Input v-model.trim="formValidate.bzmc1" placeholder="请输入币种1的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="节点收益" prop="syzb1" :span="12">
                     <EVinputNumber v-model="formValidate.syzb1" :min="0" :max="100" placeholder="请输入币种1的节点收益"></EVinputNumber>
@@ -46,7 +46,7 @@
 
             <Row>
                 <EVitemContainer label="币种名称2" prop="bzmc2" :span="12">
-                    <Input v-model="formValidate.bzmc2" placeholder="请输入币种2的名称"></Input>
+                    <Input v-model.trim="formValidate.bzmc2" placeholder="请输入币种2的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="节点收益" prop="syzb2" :span="12">
                     <EVinputNumber v-model="formValidate.syzb2" :min="0" :max="100" placeholder="请输入币种2的节点收益"></EVinputNumber>
@@ -57,7 +57,7 @@
 
             <Row>
                 <EVitemContainer label="币种名称3" prop="bzmc3" :span="12">
-                    <Input v-model="formValidate.bzmc3" placeholder="请输入币种3的名称"></Input>
+                    <Input v-model.trim="formValidate.bzmc3" placeholder="请输入币种3的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="节点收益" prop="syzb3" :span="12">
                     <EVinputNumber v-model="formValidate.syzb3" :min="0" :max="100" placeholder="请输入币种3的节点收益"></EVinputNumber>
@@ -69,7 +69,7 @@
             <EVdivider orientation="left">存储使用率设置</EVdivider>
             <Row>
                 <EVitemContainer label="数据中心1" prop="kcmc1" :span="12">
-                    <Input v-model="formValidate.kcmc1" placeholder="请输入数据中心1的名称"></Input>
+                    <Input v-model.trim="formValidate.kcmc1" placeholder="请输入数据中心1的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="存储占比" prop="cczb1" :span="12">
                     <EVinputNumber v-model="formValidate.cczb1" :min="0" :max="100" placeholder="请输入数据中心1的存储占比"></EVinputNumber>
@@ -78,7 +78,7 @@
 
             <Row>
                 <EVitemContainer label="数据中心2" prop="kcmc2" :span="12">
-                    <Input v-model="formValidate.kcmc2" placeholder="请输入数据中心2的名称"></Input>
+                    <Input v-model.trim="formValidate.kcmc2" placeholder="请输入数据中心2的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="存储占比" prop="cczb2" :span="12">
                     <EVinputNumber v-model="formValidate.cczb2" :min="0" :max="100" placeholder="请输入数据中心2的存储占比"></EVinputNumber>
@@ -88,7 +88,7 @@
 
             <Row>
                 <EVitemContainer label="数据中心3" prop="kcmc3" :span="12">
-                    <Input v-model="formValidate.kcmc3" placeholder="请输入数据中心3的名称"></Input>
+                    <Input v-model.trim="formValidate.kcmc3" placeholder="请输入数据中心3的名称"></Input>
                 </EVitemContainer>
                 <EVitemContainer label="存储占比" prop="cczb3" :span="12">
                     <EVinputNumber v-model="formValidate.cczb3" :min="0" :max="100" placeholder="请输入数据中心3的存储占比"></EVinputNumber>
