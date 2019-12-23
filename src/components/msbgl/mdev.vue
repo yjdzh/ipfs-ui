@@ -944,10 +944,16 @@
 
             dobtns(e) {
                 const el = []
-
-                for (var i = 0; i < this.selects.length; i++) {
-                    el.push(this.selects[i].id);
+                var arr=this.selectedArr
+                for(var j in arr) {
+                    console.log(arr[j]);
+                    var m=arr[j]
+                    for (var i = 0; i < m.length; i++) {
+                        el.push(m[i].id);
+                    }
                 }
+
+
                 const sl = el.join(',')
                 this.Global.newfun(this, 'post', {
                     base: '/mdev/multis?',

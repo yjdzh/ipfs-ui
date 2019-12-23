@@ -126,26 +126,13 @@
                     </Select>
 
 
-                    <div v-if="zoneId">
-<!--                        <evtab border :columns="datahead2" :data="databody2" size='small' :loading="loading2"-->
-<!--                               @on-select="select2"-->
-<!--                               @on-select-cancel="select2" @on-select-all-cancel="selectall2"-->
-<!--                               @on-select-all="selectall2">-->
-<!--                        </evtab>-->
-
-                        <Table border :columns="datahead2" :data="databody2" size='small' :loading="loading2"
-                               @on-selection-change="selectionchange2">
-                        </Table>
-
-                        <Page :total="totalpage2" show-total show-elevator :page-size="pagesize" @on-change="handleReachBottom2"
-                              :current="current2">
-                        </Page>
-
-
-
-
-
-                    </div>
+                    <Scroll :on-reach-bottom="handleReachBottom2" v-if="zoneId">
+                        <evtab border :columns="datahead2" :data="databody2" size='small' :loading="loading2"
+                               @on-select="select2"
+                               @on-select-cancel="select2" @on-select-all-cancel="selectall2"
+                               @on-select-all="selectall2">
+                        </evtab>
+                    </Scroll>
                 </div>
                 <!--<div>-->
                 <!--<Page :total="totalpage2" show-total show-elevator :page-size="10" @on-change="getlist2" :current="current2">-->
@@ -169,23 +156,13 @@
                                 :key="zoneOption.index"></Option>
                     </Select>
                     <div>
-                        <div  v-if="zoneId">
-<!--                            <evtab border :columns="datahead3" :data="databody3" size='small' :loading="loading3"-->
-<!--                                   @on-select="select3"-->
-<!--                                   @on-select-cancel="select3" @on-select-all-cancel="selectall3"-->
-<!--                                   @on-select-all="selectall3">-->
-<!--                            </evtab>-->
-
-
-
-                            <Table border :columns="datahead3" :data="databody3" size='small' :loading="loading3"
-                                   @on-selection-change="selectionchange3">
-                            </Table>
-
-                            <Page :total="totalpage3" show-total show-elevator :page-size="pagesize" @on-change="handleReachBottom3"
-                                  :current="current3">
-                            </Page>
-                        </div>
+                        <Scroll :on-reach-bottom="handleReachBottom3" v-if="zoneId">
+                            <evtab border :columns="datahead3" :data="databody3" size='small' :loading="loading3"
+                                   @on-select="select3"
+                                   @on-select-cancel="select3" @on-select-all-cancel="selectall3"
+                                   @on-select-all="selectall3">
+                            </evtab>
+                        </Scroll>
                     </div>
                 </div>
                 <!--<div>-->
@@ -261,9 +238,6 @@
         data() {
             var _this = this;
             return {
-
-                selectedArr2: {},
-                selectedArr3: {},
 
                 name: ' ',
                 phone: null,
@@ -355,7 +329,7 @@
                 loading2: false,
                 totalpage2: 0,
                 current2: 0,
-                selects2:[],
+
 
                 modal3: false,
                 value3: '',
@@ -420,7 +394,6 @@
                 loading3: false,
                 totalpage3: 0,
                 current3: 0,
-                selects3:[],
 
                 api: {
                     base: '/morder', //请求部分
@@ -716,59 +689,15 @@
             }
         },
         methods: {
-            superSetSelected(selectall, page, data) {
-                debugger
-                if (selectall[page] == undefined) {
-                    return
-                } else {
-                    var lidt = selectall[page]
-                    var l = selectall[page].length
-
-                    var d = data.length
-                    for (var i = 0; i < l; i++) {
-                        for (var j = 0; j < d; j++) {
-                            if (selectall[page][i].id == data[j].id) {
-                                data[j]._checked=true
-                            }
-                        }
-                    }
-
-                }
-
-            },
-            selectionchange2(e) {
-                this.selects2 = []
-                this.selects2 = e
-                if (e.length == 0) {
-                    delete this.selectedArr2[this.current2]
-                } else {
-                    this.selectedArr2[this.current2] = e
-                }
-
-            },
-            selectionchange3(e) {
-                this.selects3 = []
-                this.selects3 = e
-                if (e.length == 0) {
-                    delete this.selectedArr3[this.current3]
-                } else {
-                    this.selectedArr3[this.current3] = e
-                }
-
-            },
             dogetlist2(e) {
-                this.selectedArr2= {}
-                this.selectedArr3= {}
                 this.current2 = 0,
                     this.databody2 = []
-                this.handleReachBottom2(1)
+                this.handleReachBottom2()
             },
             dogetlist3(e) {
-                this.selectedArr2= {}
-                this.selectedArr3= {}
                 this.current3 = 0,
                     this.databody3 = []
-                this.handleReachBottom3(1)
+                this.handleReachBottom3()
             },
 
 
@@ -843,8 +772,6 @@
 
 
             openHsearch() {
-                this.selectedArr2= {},
-                    this.selectedArr3= {},
                 this.formItem.search_EQ_productId = ''
                 this.formItem.search_LIKE_addressContacter = ''
                 this.formItem.search_EQ_saleState = ''
@@ -865,14 +792,10 @@
                 this.Hsearch = true
             },
             HsearchC() {
-                this.selectedArr2= {},
-                    this.selectedArr3= {},
                 this.Hsearch = false
 
             },
             HsearchS() {
-                this.selectedArr2= {},
-                    this.selectedArr3= {},
                 this.search = {}
                 this.search = this.formItem
                 if (this.search) {
@@ -934,25 +857,13 @@
 
             },
             tuoguanMeth() {
-                const el = []
-                var arr=this.selectedArr
-                for(var j in arr) {
-                    console.log(arr[j]);
-                    var m=arr[j]
-                    for (var i = 0; i < m.length; i++) {
-                        el.push(m[i].mac);
-                    }
-                }
-
-                const sl = el.join(',')
-
                 if (this.selectNum2 == this.saleNum2) {
                     this.Global.fun(this, 'post', {
                         base: '/morder/sendTgDev?',
                         other: '',
                         access_token: this.api.access_token
                     }, {
-                        macs: sl,
+                        macs: this.value2,
                         id: this.id,
                         zoneId: this.zoneId
                     }, c)
@@ -977,13 +888,10 @@
                             that.refresh()
                             that.value2 = '';
                         }
-                        this.selectedArr2= {}
-                        this.selectedArr3= {}
                     }
                 } else {
                     this.$Message.destroy();
                     this.$Message.error('选择数量和托管数量不符');
-
                 }
             },
 
@@ -1001,24 +909,13 @@
             //     this.value3 = this.value3.substring(0, this.value3.length - 1)
             // },
             fhMeth() {
-                const el = []
-                var arr=this.selectedArr
-                for(var j in arr) {
-                    console.log(arr[j]);
-                    var m=arr[j]
-                    for (var i = 0; i < m.length; i++) {
-                        el.push(m[i].mac);
-                    }
-                }
-
-                const sl = el.join(',')
                 if (this.selectNum2 == this.saleNum3) {
                     this.Global.fun(this, 'post', {
                         base: '/morder/sendDev?',
                         other: '',
                         access_token: this.api.access_token
                     }, {
-                        macs: sl,
+                        macs: this.value2,
                         id: this.id
                     }, c)
 
@@ -1031,8 +928,7 @@
                             that.modal3 = false,
                                 that.current = 1
                             that.refresh()
-                            this.selectedArr2= {}
-                            this.selectedArr3= {}
+
                         } else {
                             that.$Message.destroy();
                             that.$Message.error(res.data.msg);
@@ -1042,14 +938,12 @@
                                 that.current = 1
                             that.refresh();
                             that.value2 = '';
-                            this.selectedArr2= {}
-                            this.selectedArr3= {}
+
                         }
                     }
                 } else {
                     this.$Message.destroy();
                     this.$Message.error('选择数量和发货数量不符');
-
                 }
             },
 
@@ -1124,13 +1018,13 @@
 
             },
 
-            handleReachBottom2(e) {
+            handleReachBottom2() {
 
                 if (this.zoneId) {
                     this.loading = true
 
                     // this.searchValue = this.search === '' ? '' : this.search
-                    this.current2 = e;
+                    this.current2 = this.current2 + 1;
                     this.Global.fun(this, 'get', {
                         base: this.api.base,
                         other: '/unUsedTgDevs?',
@@ -1151,21 +1045,19 @@
                                 }
                             }
 
-                            that.totalpage2 = res.data.data.totalElements;
+
                             if (res.data.data.content.length == 0) {
                                 that.current2 = res.data.data.number + 1;
                             } else {
                                 that.current2 = res.data.data.number + 1;
 
 
-                                // for (var key in res.data.data.content) {
-                                //     res.data.data.content[key]._checked = false
-                                //     res.data.data.content[key].select = parseInt(key) + (10 * (that.current2 - 1))
-                                // }
-                                that.databody2 = res.data.data.content;
-                                that.superSetSelected(that.selectedArr2,res.data.data.number + 1,res.data.data.content)
+                                for (var key in res.data.data.content) {
+                                    res.data.data.content[key]._checked = false
+                                    res.data.data.content[key].select = parseInt(key) + (10 * (that.current2 - 1))
+                                }
+                                that.databody2 = that.databody2.concat(res.data.data.content);
                             }
-                            that.loading2 = false;
 
 
                         } else {
@@ -1237,19 +1129,17 @@
                 this.loading2 = false;
                 this.loading = false;
                 this.zoneId = ''
-                this.selectedArr2= {}
-                    this.selectedArr3= {}
 
             },
 
-            handleReachBottom3(e) {
+            handleReachBottom3() {
                 if (this.zoneId) {
 
 
-
+                    this.loading = true
 
                     // this.searchValue = this.search === '' ? '' : this.search
-                    this.current3 =e;
+                    this.current3 = this.current3 + 1;
                     this.Global.fun(this, 'get', {
                         base: this.api.base,
                         other: '/unUsedZwDevs?',
@@ -1259,9 +1149,9 @@
                         size: this.pagesize,
                         productId: this.productId,
                         zoneId: this.zoneId
-                    }, c)
+                    }, a)
 
-                    function c(res, that) {
+                    function a(res, that) {
 
                         if (res.data.status === 1) {
                             for (var key in res.data.data) {
@@ -1269,30 +1159,32 @@
                                     res.data.data[key] = ''
                                 }
                             }
-
                             that.totalpage3 = res.data.data.totalElements;
+                            // TODO // that.current3 = res.data.data.number + 1;
+
+
+                            that.current3 = res.data.data.number + 1;
+
                             if (res.data.data.content.length == 0) {
                                 that.current3 = res.data.data.number + 1;
                             } else {
                                 that.current3 = res.data.data.number + 1;
 
 
-                                // for (var key in res.data.data.content) {
-                                //     res.data.data.content[key]._checked = false
-                                //     res.data.data.content[key].select = parseInt(key) + (10 * (that.current2 - 1))
-                                // }
-                                that.databody3 = res.data.data.content;
-                                that.superSetSelected(that.selectedArr3,res.data.data.number + 1,res.data.data.content)
+                                for (var key in res.data.data.content) {
+                                    res.data.data.content[key]._checked = false
+                                    // TODO // res.data.data.content[key].select = parseInt(key) + (10 * (that.current-1));
+                                    res.data.data.content[key].select = parseInt(key) + (10 * (that.current3 - 1))
+                                }
+                                that.databody3 = that.databody3.concat(res.data.data.content);
                             }
+
                             that.loading3 = false;
-
-
                         } else {
                             that.$Message.destroy();
                             that.$Message.error(res.data.msg);
-
+                            that.loading3 = false;
                         }
-                        this.loading = false
                     }
                 }
             },
@@ -1383,9 +1275,6 @@
                 this.searchValue = 'search_LIKE_productEntity.name'
                 this.search = {}
                 this.onchanges(this.current)
-
-                this.selectedArr2= {}
-                this.selectedArr3= {}
             },
             edit: function (params) {
                 this.Global.value = '';
@@ -1450,8 +1339,7 @@
             },
             dosearch: function () {
                 this.loading = true
-                this.selectedArr2= {}
-                this.selectedArr3= {}
+
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
                     this.search[this.searchType] = this.searchValue
