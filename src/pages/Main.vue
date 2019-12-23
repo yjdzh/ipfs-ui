@@ -82,7 +82,7 @@
         overflow: hidden;
         color: #fff;
         z-index: 990;
-        width: 290px;
+        width: 320px;
         &.hide {
             h1 {
                 opacity: 0;
