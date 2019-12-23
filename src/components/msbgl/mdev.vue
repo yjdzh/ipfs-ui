@@ -253,6 +253,7 @@
 
             }
             return {
+                selectedArr: {},
 
                 editsb: false,
 
@@ -964,9 +965,19 @@
                     }
                 })
             },
+            // selectionchange(e) {
+            //     this.selects = []
+            //     this.selects = e
+            // },
             selectionchange(e) {
                 this.selects = []
                 this.selects = e
+                if (e.length == 0) {
+                    delete this.selectedArr[this.current]
+                } else {
+                    this.selectedArr[this.current] = e
+                }
+
             },
             change(e) {
                 this.json = e
@@ -976,6 +987,7 @@
                 this.formItem.search_EQ_activeState = ''
                 this.formItem.search_LIKE_mac = ''
                 this.formItem.search_EQ_lineState = ''
+                this.selectedArr={}
                 this.Global.fun(this, 'get', {
                     base: '/mproduct/all?',
                     other: '',
@@ -992,10 +1004,13 @@
             },
             HsearchC() {
                 this.Hsearch = false
+                this.selectedArr={}
 
             },
             HsearchS() {
-                this.search = {}
+                this.search = {},
+                    this.selectedArr={}
+
                 this.search = this.formItem
                 if (this.search) {
                     for (var k in this.search) {
@@ -1018,6 +1033,7 @@
                 this.loading = true
                 this.searchValue = 'search_LIKE_mac'
                 this.search = {}
+                this.selectedArr={}
                 // 				this.search = ''
                 // 				this.current = 1
                 this.onchanges(this.current);
@@ -1112,6 +1128,26 @@
             //     })
             //
             // },
+            superSetSelected(selectall, page, data) {
+                debugger
+                if (selectall[page] == undefined) {
+                    return
+                } else {
+                    var lidt = selectall[page]
+                    var l = selectall[page].length
+
+                    var d = data.length
+                    for (var i = 0; i < l; i++) {
+                        for (var j = 0; j < d; j++) {
+                            if (selectall[page][i].id == data[j].id) {
+                                data[j]._checked=true
+                            }
+                        }
+                    }
+
+                }
+
+            },
             onchanges: function (e) {
                 var that = this
                 this.loading = true
@@ -1137,6 +1173,7 @@
                         that.totalpage = res.data.data.totalElements;
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
+                        that.superSetSelected(that.selectedArr,res.data.data.number + 1,res.data.data.content)
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -1188,7 +1225,7 @@
             },
             dosearch: function () {
                 this.loading = true
-
+                this.selectedArr={}
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
                     this.search[this.searchType] = this.searchValue
