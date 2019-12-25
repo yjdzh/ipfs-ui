@@ -146,13 +146,12 @@
                         {
                             min: 2,
                             max: 20,
-                            pattern: this.Regex.regexlist.ennums,
-                            message: '仅支持2-20位数字、字母、下划线',
+                            pattern: this.Regex.regexlist.realName,
+                            message: '请输入正确的中文或英文姓名',
                             trigger: 'blur'
                         }],
                     phone: [{required: true, validator: phoneRule, trigger: "blur"}]
                 },
-
                 zoneOptions: [ //下拉选项
 
                 ],

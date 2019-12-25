@@ -20,8 +20,8 @@
 
 			</Row>
 			<Row>
-				<EVitemContainer label="生成厂商" prop="mfrs" :span="12">
-					<Input v-model.trim="formValidate.mfrs" placeholder="请输入生成厂商"></Input>
+				<EVitemContainer label="生产厂商" prop="mfrs" :span="12">
+					<Input v-model.trim="formValidate.mfrs" placeholder="请输入生产厂商"></Input>
 				</EVitemContainer>
 				<EVitemContainer label="出厂日期" prop="factoryDate" :span="12">
 					<DatePicker type="date" placeholder="请选择出厂日期" @on-change="change" v-model="formValidate.factoryDate" :editable="false"
