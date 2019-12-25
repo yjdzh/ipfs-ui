@@ -43,7 +43,7 @@
 			<Row>
 				<EVitemContainer label="托管价格" prop="trusteePrice" :span="12">
 					<EVinputNumber v-model="formValidate.trusteePrice" :formatter="value => `${value} 元/月`" :min="1" :max="100000"
-					 placeholder="请输入托管价格"></EVinputNumber>
+					 placeholder="请输入托管价格 (单位'元/月')"></EVinputNumber>
 				</EVitemContainer>
 				<EVitemContainer label="托管折扣" prop="trusteeDiscount" :span="12">
 					<EVinputNumber v-model="formValidate.trusteeDiscount" :min="0" :max="1" :precision="2"  placeholder="请输入托管默认折扣"></EVinputNumber>
@@ -55,7 +55,7 @@
 
 				<EVitemContainer label="最低托管时长" prop="trusteeMin" :span="12">
 					<EVinputNumber v-model="formValidate.trusteeMin" :formatter="value => `${value} 月`" :min="1" :max="100"
-					 placeholder="请输入最低托管时长"></EVinputNumber>
+					 placeholder="请输入最低托管时长 (单位'月')"></EVinputNumber>
 				</EVitemContainer>
 			</Row>
 

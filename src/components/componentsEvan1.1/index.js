@@ -14,8 +14,15 @@ Vue.component('EVpageList', EVpage_list)
 
 import EVdivider from '@/components/componentsEvan1.1/newEvan1.1/newEvan_divider'
 Vue.component('EVdivider', EVdivider)
-import EVinputNumber from '@/components/componentsEvan1.1/newEvan1.1/newEvan_inputNumber'
+
+// import EVinputNumber from '@/components/componentsEvan1.1/newEvan1.1/newEvan_inputNumber'
+// Vue.component('EVinputNumber', EVinputNumber)
+
+
+import EVinputNumber from '@/components/componentsEvan1.1/newEvan1.1/elinputnumber/input-number'
 Vue.component('EVinputNumber', EVinputNumber)
+
+
 import EVtags from '@/components/componentsEvan1.1/newEvan1.1/newEvan_tags'
 Vue.component('EVtags', EVtags)
 import EVupload from '@/components/componentsEvan1.1/newEvan1.1/newEvan_upload'
