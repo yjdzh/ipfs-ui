@@ -1357,9 +1357,7 @@
                     if (res.data.status === 1) {
                         //
                         that.name = res.data.data.name;
-
                         that.phone = res.data.data.phone;
-
                         that.username = res.data.data.username;
                         that.address = res.data.data.address;
                         that.mac = res.data.data.maclist
