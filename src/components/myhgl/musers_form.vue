@@ -138,7 +138,7 @@
                         {
                             min: 2,
                             max: 20,
-                            pattern: this.Regex.regexlist.ennums,
+                            pattern: /^[A-Za-z0-9|_]+$/,
                             message: '仅支持2-20位数字、字母、下划线',
                             trigger: 'blur'
                         }],
@@ -146,7 +146,7 @@
                         {
                             min: 2,
                             max: 20,
-                            pattern: this.Regex.regexlist.realName,
+                            pattern:  /^(([a-zA-Z+\.?\·?a-zA-Z+]{2,30}$)|([\u4e00-\u9fa5+\·?\u4e00-\u9fa5+]{2,30}$))/,
                             message: '请输入正确的中文或英文姓名',
                             trigger: 'blur'
                         }],

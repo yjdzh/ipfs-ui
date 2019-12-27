@@ -935,7 +935,7 @@
             },
             tuoguanMeth() {
                 const el = []
-                var arr=this.selectedArr
+                var arr=this.selectedArr2
                 for(var j in arr) {
                     console.log(arr[j]);
                     var m=arr[j]
@@ -945,8 +945,8 @@
                 }
 
                 const sl = el.join(',')
-
-                if (this.selectNum2 == this.saleNum2) {
+debugger
+                if (el.length == this.saleNum2) {
                     this.Global.fun(this, 'post', {
                         base: '/morder/sendTgDev?',
                         other: '',
@@ -1002,7 +1002,7 @@
             // },
             fhMeth() {
                 const el = []
-                var arr=this.selectedArr
+                var arr=this.selectedArr3
                 for(var j in arr) {
                     console.log(arr[j]);
                     var m=arr[j]
@@ -1011,8 +1011,9 @@
                     }
                 }
 
+                debugger
                 const sl = el.join(',')
-                if (this.selectNum2 == this.saleNum3) {
+                if (el.length == this.saleNum3) {
                     this.Global.fun(this, 'post', {
                         base: '/morder/sendDev?',
                         other: '',
