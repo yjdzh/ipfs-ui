@@ -138,7 +138,7 @@
                         {
                             min: 2,
                             max: 20,
-                            pattern: /^[A-Za-z0-9|_]+$/,
+                            pattern: /^[A-Za-z0-9|_]{2,20}$/,
                             message: '仅支持2-20位数字、字母、下划线',
                             trigger: 'blur'
                         }],
@@ -146,8 +146,8 @@
                         {
                             min: 2,
                             max: 20,
-                            pattern:  /^(([a-zA-Z+\.?\·?a-zA-Z+]{2,30}$)|([\u4e00-\u9fa5+\·?\u4e00-\u9fa5+]{2,30}$))/,
-                            message: '请输入正确的中文或英文姓名',
+                            pattern:  /^(([a-zA-Z+\.?\·?a-zA-Z+]{2,20}$)|([\u4e00-\u9fa5+\·?\u4e00-\u9fa5+]{2,20}$))/,
+                            message: '仅支持2-20位的中文或英文姓名',
                             trigger: 'blur'
                         }],
                     phone: [{required: true, validator: phoneRule, trigger: "blur"}]

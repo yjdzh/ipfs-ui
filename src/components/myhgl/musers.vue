@@ -217,7 +217,8 @@
                     	title: '数据中心',
                         width: 200,
                         render: function (h, params) {
-                            return h('span', [params.row.zoneEntity.name])
+                            
+                            return h('span', [params.row.zoneEntity==null?'':params.row.zoneEntity.name])
                         }
                     },
 					{
