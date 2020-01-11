@@ -945,7 +945,6 @@
                 }
 
                 const sl = el.join(',')
-debugger
                 if (el.length == this.saleNum2) {
                     this.Global.fun(this, 'post', {
                         base: '/morder/sendTgDev?',
@@ -1417,8 +1416,8 @@ debugger
                 this.searchValue = this.search[this.searchType] ? this.search[this.searchType] : ''
                 this.current = e;
                 this.Global.fun(this, 'get', {
-                    base: this.api.base,
-                    other: '/morder/page?',
+                    base: '/morder/page?',
+                    other: '',                   
                     access_token: this.api.access_token
                 }, function () {
                     that.search.page = e - 1
