@@ -172,6 +172,20 @@ export const appRouter = {
 			},
 			component: r => require.ensure([], () => r(require('@/components/mkcgl/mscreem_form')),
 				'mkcgl-mscreem')
+		},{
+			path: '/mkcgl-msetup',
+			name: 'mkcgl-msetup',
+			meta: {
+				title: '运营参数',
+				hierarchy: [{
+					base: 'formDemo',
+					app: 'formDemo',
+					fristclass: 'formDemo',
+					floor: 2
+				}]
+			},
+			component: r => require.ensure([], () => r(require('@/components/mkcgl/msetup_form')),
+					'mkcgl-msetup')
 		},
 		{
 			path: '/msbgl-mdev',
