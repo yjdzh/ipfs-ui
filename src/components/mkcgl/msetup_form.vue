@@ -53,7 +53,7 @@
 
         computed: {
             title() {
-                '设置'
+                '运营参数'
             },
             submitType() {
                 return this.openType
