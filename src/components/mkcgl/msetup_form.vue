@@ -6,10 +6,23 @@
             <EVdivider orientation="left">提币设置</EVdivider>
                 <Row>
                     <EVitemContainer label="提币开始日期" prop="pickStart" :span="12">
-                        <EVinputNumber v-model="formValidate.pickStart" :min="1" :max="28" placeholder="请设置提币开始日期"></EVinputNumber>
+                        <EVinputNumber v-model="formValidate.pickStart" :min="1" :max="31" placeholder="请设置提币开始日期"></EVinputNumber>
                     </EVitemContainer>
                     <EVitemContainer label="提币截止日期" prop="pickEnd" :span="12">
-                        <EVinputNumber v-model="formValidate.pickEnd" :min="1" :max="28" placeholder="请设置提币截止日期"></EVinputNumber>
+                        <EVinputNumber v-model="formValidate.pickEnd" :min="1" :max="31" placeholder="请设置提币截止日期"></EVinputNumber>
+                    </EVitemContainer>
+                </Row>
+
+            <EVdivider orientation="left">提币手续费（%）</EVdivider>
+                <Row>
+                    <EVitemContainer label="初级特工手续费" prop="cjtgFy" :span="12">
+                        <EVinputNumber v-model="formValidate.cjtgFy" :min="0" :max="100" placeholder="请设置初级特工手续费"></EVinputNumber>
+                    </EVitemContainer>
+                    <EVitemContainer label="中级特工手续费" prop="zjtgFy" :span="12">
+                        <EVinputNumber v-model="formValidate.zjtgFy" :min="0" :max="100" placeholder="请设置中级特工手续费"></EVinputNumber>
+                    </EVitemContainer>
+                    <EVitemContainer label="高级特工手续费" prop="gjtgFy" :span="12">
+                        <EVinputNumber v-model="formValidate.gjtgFy" :min="0" :max="100" placeholder="请设置高级特工手续费"></EVinputNumber>
                     </EVitemContainer>
                 </Row>
 
@@ -33,6 +46,9 @@
                 formValidate: {
                     pickStart: '',
                     pickEnd: '',
+                    cjtgFy:'',
+                    zjtgFy:'',
+                    gjtgFy:''
                 },
                 ruleValidate: {
                     pickStart: [{
@@ -45,6 +61,24 @@
                         type: 'number',
                         required: true,
                         message: '请输入提币截止日期',
+                        trigger: 'blur'
+                    }],
+                    cjtgFy: [{
+                        type: 'number',
+                        required: true,
+                        message: '请输入初级特工手续费',
+                        trigger: 'blur'
+                    }],
+                    zjtgFy: [{
+                        type: 'number',
+                        required: true,
+                        message: '请输入中级特工手续费',
+                        trigger: 'blur'
+                    }],
+                    gjtgFy: [{
+                        type: 'number',
+                        required: true,
+                        message: '请输入高级特工手续费',
                         trigger: 'blur'
                     }]
                 },
