@@ -245,7 +245,6 @@
             },
 
             ypjs: function(my_time) {
-                debugger
                 var str = my_time.split(';');
                 var totalRL = 0;
                 var usedRL = 0;
