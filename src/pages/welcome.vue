@@ -1,13 +1,18 @@
 <template>
     <div class="wel">
-        <img class="wellogo" src="../assets/biglogo.png">
+       <img class="wellogo" src="../assets/biglogo.png">
+<br>
+<br>
+<br>
+       <img class="weltext" src="../assets/weltext.png">
 
-        <h3>公司介绍：币码翁·星际特工是一家致力于区块链分布式存储的技术开发公司</h3>
+
+       <!-- <h3>公司介绍：币码翁·星际特工是一家致力于区块链分布式存储的技术开发公司</h3>
         <h4>软件名称：币码翁智能云/bitcodeman</h4>
 
 
         <p>软件说明：这是一款一键式挖矿软件，区块链分布式存储软硬件技术服务提供商。</p>
-        <p>软件版本：v1.0</p>
+        <p>软件版本：v1.0</p> -->
         <img class="wellogobottom" src="../assets/logobottom.png">
     </div>
 
@@ -43,7 +48,19 @@
     .wel .wellogo {
         /*background: #fff;*/
         width: auto;
-        height: 120px;
+        height: 60px;
+        box-sizing: border-box;
+        display: inline-block;
+        /*background-image: url("../assets/biglogo.png");*/
+        /*background-position: center center;*/
+        /*background-repeat: no-repeat;*/
+        /*background-size: cover;*/
+    }
+
+    .wel .weltext {
+        /*background: #fff;*/
+        width: auto;
+        height: 60px;
         box-sizing: border-box;
         display: inline-block;
         /*background-image: url("../assets/biglogo.png");*/
@@ -83,4 +100,3 @@
     }
 
 </style>
-

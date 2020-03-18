@@ -65,8 +65,8 @@
 						trigger: "blur"
 					},{
 						type: 'string',
-						max: 250,
-						message: '输入字符不得多于250个',
+						max: 1000,
+						message: '输入字符不得多于1000个',
 						trigger: 'change'
 					}]
 				},
