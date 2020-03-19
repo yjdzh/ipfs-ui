@@ -12,7 +12,7 @@
                             <FormItem label="请选择时间">
                                 <Col span="8">
                                     <Select v-model="formItem.year" placeholder="请选择时间">
-                                        <Option value="2018">2018</Option>
+
                                         <Option value="2019">2019</Option>
                                         <Option value="2020">2020</Option>
                                         <Option value="2021">2021</Option>
@@ -100,7 +100,7 @@
 
         <div slot="btnBox" class="btn">
             <!--<Button @click="added" type="success">新增</Button>-->
-            <Button @click="refresh" type="info">刷新</Button>
+            <Button @click="refresh" type="info">刷新(2020年)</Button>
         </div>
         <div slot="table">
             <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
@@ -125,13 +125,13 @@
             return {
 
                 search: {
-                    year: '2019'
+                    year: '2020'
                 },
                 Hsearch: false,
                 Hsearchopt: [],
                 formItem: {
                     month: '',
-                    year: '2019',
+                    year: '2020',
                     day: '',
 
                 },
@@ -189,7 +189,7 @@
         methods: {
             openHsearch () {
                 this.formItem.month = ''
-                this.formItem.year = '2019'
+                this.formItem.year = '2020'
                 this.formItem.day = ''
 
                 this.Hsearch = true
@@ -221,7 +221,7 @@
                 this.loading = true
 
                 this.search = {
-                    year: '2019'
+                    year: '2020'
                 }
 
                 this.onchanges(1)
@@ -269,7 +269,7 @@
         },
         created: function () {
             this.search = {
-                year: '2019'
+                year: '2020'
             }
             //this.refresh()
 			 this.loading = false;

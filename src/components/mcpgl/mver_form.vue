@@ -78,45 +78,18 @@
                     name: 'mcpgl-mver',
                 },
                 formValidate: {
-
                     info: '',
-
-
                     liveData: '',
-
-
-
-
-
                     productId: '',
-
-
                     romPath: '',
-
-
                     showVer: '',
-
-
                     ver: '',
-
-
                 },
                 ruleValidate: {
-                    info: [{max: 50, message: '请输入版本描述信息', trigger: 'blur'}],
-
-
+                    info: [{max: 1000, message: '请输入版本描述信息', trigger: 'blur'}],
                     liveData: [{type: 'date', message: '请输入激活日期', trigger: 'blur'}],
-
-
-
-
-
-                    productId: [{type: 'number', required: true, message: '请选择所属产', trigger: 'blur'}],
-
-
+                    productId: [{type: 'number', required: true, message: '请选择所属产品', trigger: 'blur'}],
                     romPath: [{type: 'string', max: 50, message: '输入字符不得多于50个', trigger: 'change'},],
-
-
                     showVer: [{required: true, message: '请输入显示版本版本', trigger: 'blur'},
                         {max: 20, message: '输入字符不得多于20个', trigger: 'blur'},
                         {pattern: this.Regex.regexlist.nums, message: '只能输入数和"."', trigger: 'blur'}],

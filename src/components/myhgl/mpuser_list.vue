@@ -16,8 +16,7 @@
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
-                <Table border :columns="datahead" :data="databody" size='small' :loading="loading"
-                       @on-selection-change="qxglchange">
+                <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="qxglchange">
                 </Table>
             </div>
             <div slot="pagePage">
@@ -41,8 +40,7 @@
                     </i-switch>
                 </EVdivider>
                 <FormItem label="" prop="hardInfo" :span="12" v-if="this.switch">
-                    <Input type="textarea" :autosize="{minRows: 4,maxRows: 10}" v-model="formV.hardInfo"
-                           placeholder="请输入配置信息">
+                    <Input type="textarea" :autosize="{minRows: 4,maxRows: 10}" v-model="formV.hardInfo" placeholder="请输入配置信息">
 
                     </Input>
                 </FormItem>
@@ -50,8 +48,8 @@
                     <pre v-if="!this.switch" v-text="hardInfo"></pre>
                 </div>
                 <FormItem>
-                    <Button v-if="this.switch" type="primary" size="large" class="submitbbox"
-                            @click="handleSubmit('formV')" :loading="load">提交
+                    <Button v-if="this.switch" type="primary" size="large" class="submitbbox" @click="handleSubmit('formV')"
+                        :loading="load">提交
                     </Button>
                 </FormItem>
             </Form>
@@ -65,7 +63,7 @@
 
         data() {
             var _this = this;
-            const coderhardInfo = function (coder, value, callback) {
+            const coderhardInfo = function(coder, value, callback) {
 
                 if ((_this.formV.hardInfo !== '')) {
                     const str = _this.formV.hardInfo
@@ -90,7 +88,7 @@
             return {
 
 
-                selectlist:[],
+                selectlist: [],
                 api: {
                     base: '/mpuser', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
@@ -122,8 +120,7 @@
                         value: 'username',
                     },
                 ],
-                datahead: [
-                    {
+                datahead: [{
                         type: 'selection',
                         width: 50,
                     },
@@ -144,8 +141,8 @@
                         title: '绑定时间',
                         width: 180,
                         key: 'bindTime',
-                        render: function (h, params) {
-                            return h('span', [function () {
+                        render: function(h, params) {
+                            return h('span', [function() {
                                 //return params.row.bindTime;
 
                                 var date = new Date(params.row.bindTime);
@@ -160,7 +157,8 @@
                                 var second = date.getSeconds();
                                 minute = minute < 10 ? ('0' + minute) : minute;
                                 second = second < 10 ? ('0' + second) : second;
-                                return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' + second;
+                                return y + '-' + m + '-' + d + ' ' + h + ':' + minute + ':' +
+                                    second;
                             }()])
                         }
 
@@ -172,10 +170,10 @@
                         title: '绑定类型',
                         key: 'bindType',
                         width: 120,
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('span', {
                                 style: {
-                                    color: function () {
+                                    color: function() {
                                         switch (params.row.bindType) {
                                             case 0:
                                                 return '#19be6b';
@@ -187,7 +185,7 @@
                                         }
                                     }()
                                 }
-                            }, [function () {
+                            }, [function() {
                                 switch (params.row.bindType) {
                                     case 0:
                                         return '自维';
@@ -206,8 +204,8 @@
                         key: 'trusteeEndt',
                         width: 150,
 
-                        render: function (h, params) {
-                            return h('span', [function () {
+                        render: function(h, params) {
+                            return h('span', [function() {
                                 if (params.row.bindType == 0) {
                                     return '--';
                                 } else {
@@ -227,7 +225,7 @@
                         key: 'action',
                         width: 100,
                         align: 'center',
-                        render: function (h, params) {
+                        render: function(h, params) {
                             return h('div', [
 
                                 h('Button', {
@@ -240,7 +238,7 @@
                                         marginRight: '5px'
                                     },
                                     on: {
-                                        click: function () {
+                                        click: function() {
                                             _this.$Modal.confirm({
                                                 title: '操作确认',
                                                 content: '<p>确认要删除吗？</p>',
@@ -282,11 +280,10 @@
         },
         methods: {
             qxglALL() {
-                if(this.selectlist.length==0){
+                if (this.selectlist.length == 0) {
                     this.$Message.error('请选择要取消关联的设备');
-                }
-                else{
-var th=this
+                } else {
+                    var th = this
                     th.$Modal.confirm({
                         title: '操作确认',
                         content: '<p>确认要取消关联吗？</p>',
@@ -302,7 +299,7 @@ var th=this
                                 access_token: th.api.access_token
                             }, {
                                 userId: th.openType,
-                                devMacs:  th.selectlist.join(',')
+                                devMacs: th.selectlist.join(',')
                             }, c)
 
                             function c(res, that) {
@@ -323,31 +320,13 @@ var th=this
 
                         },
                     });
-
-
-
-
-
-
-
-
-
-
                 }
-
-
-
-
-
-
-
             },
-            qxglchange(e){
-                this.selectlist=[]
-                for(let k in e){
+            qxglchange(e) {
+                this.selectlist = []
+                for (let k in e) {
                     this.selectlist.push(e[k].mac)
                 }
-                console.log(this.selectlist)
 
             },
             qxgl(e) {
@@ -393,7 +372,7 @@ var th=this
                             },
 
 
-                            function (res, that) {
+                            function(res, that) {
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('保存成功');
@@ -414,7 +393,7 @@ var th=this
                 })
 
             },
-            refresh: function () {
+            refresh: function() {
                 this.loading = true
                 var _this = this;
                 this.searchType = 'username'
@@ -423,7 +402,7 @@ var th=this
                 this.current = 1
                 this.onchanges(1)
             },
-            edit: function (params) {
+            edit: function(params) {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -435,7 +414,7 @@ var th=this
                 })
 
             },
-            added: function () {
+            added: function() {
                 this.Global.value = '';
                 this.Global.type = '';
                 this.$router.push({
@@ -447,7 +426,7 @@ var th=this
                 })
 
             },
-            onchanges: function (e) {
+            onchanges: function(e) {
 
                 this.loading = true
                 this.searchValue = this.search === '' ? '' : this.search
@@ -476,10 +455,10 @@ var th=this
                     }
                 }
             },
-            oprahfun: function (e) {
+            oprahfun: function(e) {
                 this.Global.oprahfun(this)
             },
-            dosearch: function () {
+            dosearch: function() {
                 this.loading = true
 
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
@@ -493,9 +472,9 @@ var th=this
             }
 
         },
-        created: function () {
+        created: function() {
             this.searchType = 'username',
-            this.openType = parseInt(this.$route.query.id)
+                this.openType = parseInt(this.$route.query.id)
             this.refresh()
         },
     }

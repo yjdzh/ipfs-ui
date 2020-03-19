@@ -155,13 +155,13 @@
                     {
                         align: 'left',
                         title: '数据中心',
-                        key: 'zoneName',
-                        width: 100
+                        key: 'zoneName'
                     },
                     {
                         align: 'left',
                         title: '用户名称',
-                        key: 'pubUserName'
+                        key: 'pubUserName',
+                        width: 120
                     },
                     {
                         align: 'left',

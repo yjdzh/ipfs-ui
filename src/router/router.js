@@ -172,20 +172,6 @@ export const appRouter = {
 			},
 			component: r => require.ensure([], () => r(require('@/components/mkcgl/mscreem_form')),
 				'mkcgl-mscreem')
-		},{
-			path: '/mkcgl-msetup',
-			name: 'mkcgl-msetup',
-			meta: {
-				title: '运营参数',
-				hierarchy: [{
-					base: 'formDemo',
-					app: 'formDemo',
-					fristclass: 'formDemo',
-					floor: 2
-				}]
-			},
-			component: r => require.ensure([], () => r(require('@/components/mkcgl/msetup_form')),
-					'mkcgl-msetup')
 		},
 		{
 			path: '/msbgl-mdev',
@@ -355,7 +341,7 @@ export const appRouter = {
 			path: '/msygl-mwallet',
 			name: 'msygl-mwallet',
 			meta: {
-				title: '中心钱包',
+				title: '钱包管理',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -370,7 +356,7 @@ export const appRouter = {
 			path: '/msygl-mwallet-form',
 			name: 'mwallet-form',
 			meta: {
-				title: '数据中心钱包',
+				title: '钱包管理',
 				hierarchy: [{
 					base: 'formDemo',
 					app: 'formDemo',
@@ -395,6 +381,21 @@ export const appRouter = {
         	},
         	component: r => require.ensure([], () => r(require('@/components/msygl/moutwallet')),
         		'msygl-moutwallet')
+        },{
+
+            	path: '/msygl-msetup',
+            	name: 'msygl-msetup',
+            	meta: {
+            		title: '运营参数',
+            		hierarchy: [{
+            			base: 'formDemo',
+            			app: 'formDemo',
+            			fristclass: 'formDemo',
+            			floor: 2
+            		}]
+            	},
+            	component: r => require.ensure([], () => r(require('@/components/msygl/msetup_form')),
+            			'msygl-msetup')
         },
         {
         	path: '/msygl-moutwallet-form',

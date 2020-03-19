@@ -59,13 +59,16 @@
                             </Col>
 
                             <Col span="10">
-                                <FormItem label="客户名称">
+                                <!-- <FormItem label="客户名称">
                                     <Input v-model.trim="formItem.search_LIKE_buyUserName" placeholder="请输入客户名称"></Input>
+                                </FormItem> -->
+                                <FormItem label="序列号sn">
+                                    <Input v-model.trim="formItem.search_LIKE_sn" placeholder="请输入序列号sn"></Input>
                                 </FormItem>
                             </Col>
                             <Col span="11">
-                                <FormItem label="客户电话">
-                                    <Input v-model.trim="formItem.search_LIKE_buyUserTel" placeholder="请输入客户电话"></Input>
+                                <FormItem label="客户帐号">
+                                    <Input v-model.trim="formItem.search_LIKE_buyUserTel" placeholder="请输入客户帐号"></Input>
                                 </FormItem>
                             </Col>
                             <Col span="10">
@@ -296,7 +299,7 @@
                     search_EQ_productId: '',
                     search_LIKE_mac: '',
                     search_EQ_lineState: '',
-                    search_LIKE_buyUserName: '',
+                    search_LIKE_sn: '',
                     search_LIKE_buyUserTel: '',
                 },
                 zoneOptions: [],

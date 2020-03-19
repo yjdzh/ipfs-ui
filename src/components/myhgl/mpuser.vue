@@ -257,7 +257,6 @@
                     },
                 ],
                 datahead: [
-
                     {
                         align: 'left',
                         title: '昵称',
@@ -265,24 +264,20 @@
                     },
                     {
                         align: 'left',
-                        title: '账号',
-                        key: 'phone',
-                        width: 100,
-
+                        title: '姓名',
+                        key: 'surname',
                     },
                     {
                         align: 'left',
-                        title: '姓名',
-                        key: 'surname',
-                        width: 90,
-
+                        title: '账号',
+                        key: 'phone',
+                        width: 110,
                     },
                     {
                         align: 'left',
                         title: '身份证',
                         key: 'idcard',
-                        width: 145,
-
+                        width: 150,
                     },
                     {
                         align: 'left',
@@ -566,11 +561,6 @@
                 th.sbfpforms.macs = th.sbfpforms.macs.replace('，/g', ',')
                 this.$refs['sbfpforms'].validate((valid) => {
                     if (valid) {
-                        debugger
-
-
-
-
                         th.Global.fun(th, 'post', {
                                 base: '/mpuser/tgsb',
                                 other: '?',
