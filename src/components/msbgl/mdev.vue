@@ -112,7 +112,7 @@
                 <Button @click="dobtns(0)" type="info">软件升级</Button>
                 <Button @click="dobtns(1)" type="info">设备复位</Button>
                 <Button @click="dobtns(2)" type="info">设备重启</Button>
-
+                <Button @click="dobtns(3)" type="error">删除</Button>
 
                 <Button @click="refresh" type="info">刷新</Button>
 
@@ -448,7 +448,7 @@
                         align: 'left',
                         title: 'mac',
                         key: 'mac',
-                        width: 150,
+                        width: 120,
                         render: function (h, params) {
                             return h('span', {
                                 attrs:{
@@ -596,7 +596,7 @@
                         align: 'center',
                         title: '激活状态',
                         key: 'activeState',
-                        width: 80,
+                        width: 70,
                         render: function (h, params) {
                             return h('span', {
                                 style: {
@@ -694,7 +694,7 @@
                     {
                         title: '管理',
                         key: 'action',
-                        width: 150,
+                        width: 120,
                         align: 'center',
                         render: function (h, params) {
                             return h('div', [
@@ -731,46 +731,44 @@
                                     }
                                 }, '配置'),
 
-                                h('Button', {
-                                    props: {
-                                        type: 'error',
-                                        size: 'small',
-                                        disabled: false,
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: function () {
-                                            _this.$Modal.confirm({
-                                                title: '操作确认',
-                                                content: '<p>确认要删除吗？</p>',
-                                                loading: true,
-                                                closable: true,
-                                                onOk: function () {
-                                                    _this.Global.fun(
-                                                        _this,
-                                                        'delete', {
-                                                            base: _this.api.base,
-                                                            other: '/' + params.row.id + '?',
-                                                            access_token: _this.api.access_token
-                                                        }, {}, c)
-
-                                                    function c(res, that) {
-                                                        that.$Message.destroy();
-                                                        that.$Message.info(res.data.msg);
-
-                                                        that.$Modal.remove();
-                                                        that.refresh()
-                                                    }
-
-                                                },
-                                            });
-                                        }
-                                    }
-                                }, '删除'),
-
-
+//                                 h('Button', {
+//                                     props: {
+//                                         type: 'error',
+//                                         size: 'small',
+//                                         disabled: false,
+//                                     },
+//                                     style: {
+//                                         marginRight: '5px'
+//                                     },
+//                                     on: {
+//                                         click: function () {
+//                                             _this.$Modal.confirm({
+//                                                 title: '操作确认',
+//                                                 content: '<p>确认要删除吗？</p>',
+//                                                 loading: true,
+//                                                 closable: true,
+//                                                 onOk: function () {
+//                                                     _this.Global.fun(
+//                                                         _this,
+//                                                         'delete', {
+//                                                             base: _this.api.base,
+//                                                             other: '/' + params.row.id + '?',
+//                                                             access_token: _this.api.access_token
+//                                                         }, {}, c)
+//
+//                                                     function c(res, that) {
+//                                                         that.$Message.destroy();
+//                                                         that.$Message.info(res.data.msg);
+//
+//                                                         that.$Modal.remove();
+//                                                         that.refresh()
+//                                                     }
+//
+//                                                 },
+//                                             });
+//                                         }
+//                                     }
+//                                 }, '删除'),
                                 h('Dropdown', [
                                     h('Button', {
                                         props: {
@@ -946,6 +944,10 @@
 
 
             dobtns(e) {
+
+                if(e==3){
+                    // 删除确认操作
+                }
                 const el = []
                 var arr=this.selectedArr
                 for(var j in arr) {

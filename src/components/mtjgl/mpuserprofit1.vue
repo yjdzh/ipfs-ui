@@ -21,7 +21,7 @@
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
                             <Col span="23">
-                            <FormItem label="客户名称">
+                            <FormItem label="用户名称">
                                 <Input v-model.trim="formItem.search_LIKE_name" placeholder="请输入数据中心名称"></Input>
                             </FormItem>
                             </Col>

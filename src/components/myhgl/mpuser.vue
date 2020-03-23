@@ -74,12 +74,12 @@
 
                             <Col span="23">
                             <FormItem label="托管设备数量" prop="num">
-                                <EVinputNumber v-model="sbfpforms.num" :min="1" :max="500" placeholder="请输入托管设备数量"></EVinputNumber>
+                                <EVinputNumber v-model="sbfpforms.num" :min="1" :max="1000" :precision="0"  placeholder="请输入托管设备数量"></EVinputNumber>
                             </FormItem>
                             </Col>
                             <Col span="23">
                             <FormItem label="托管时长" prop="monthNum">
-                                <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="36" placeholder="请输入托管时长(月)"></EVinputNumber>
+                                <EVinputNumber v-model="sbfpforms.monthNum" :min="1" :max="36" :precision="0" placeholder="请输入托管时长(月)"></EVinputNumber>
                             </FormItem>
                             </Col>
 
@@ -107,7 +107,7 @@
 
                             <Col span="23">
                             <FormItem label="托管时长" prop="monthNum">
-                                <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="36" placeholder="请输入托管时长(月)"></EVinputNumber>
+                                <EVinputNumber v-model="tgfwforms.monthNum" :min="1" :max="36" :precision="0" placeholder="请输入托管时长(月)"></EVinputNumber>
                             </FormItem>
                             </Col>
 
@@ -271,13 +271,11 @@
                         align: 'left',
                         title: '账号',
                         key: 'phone',
-                        width: 110,
                     },
                     {
                         align: 'left',
                         title: '身份证',
                         key: 'idcard',
-                        width: 150,
                     },
                     {
                         align: 'left',
@@ -298,12 +296,10 @@
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [
-
                                 h('Button', {
                                     props: {
                                         type: 'primary',
                                         size: 'small',
-
                                     },
                                     style: {
                                         marginRight: '5px'

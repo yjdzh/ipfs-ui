@@ -24,7 +24,7 @@
                         <Form :model="formItem" v-if="Hsearch" :label-width="90">
 
                             <Col span="23">
-                                <FormItem label="客户名称">
+                                <FormItem label="用户名称">
                                     <Input v-model.trim="formItem.search_LIKE_userName" placeholder="请输入数据中心名称"></Input>
                                 </FormItem>
                             </Col>

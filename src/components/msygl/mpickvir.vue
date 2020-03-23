@@ -18,7 +18,7 @@
                 </Button>
                 <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
                     <p slot="header">
-                        <span>高级查询</span>
+                        <span>高级查询1</span>
                     </p>
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
@@ -71,22 +71,37 @@
 
         </EVpageList>
 
-        <Modal v-model="modal1" :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'审核 '"
-            :mask-closable="false" :loading="true" @on-visible-change="modelVisibleChange">
+        <Modal v-model="modal1" :title="datadoAudit.userName==undefined?'':datadoAudit.userName+'审核 '" :mask-closable="false"
+            :loading="true" @on-visible-change="modelVisibleChange">
             <div slot="footer">
                 <Button type="text" size="large" @click="cancel">取消</Button>
                 <Button type="primary" size="large" @click="auditRefuse">审核驳回</Button>
                 <Button type="success" size="large" @click="auditPass">审核通过</Button>
             </div>
             <div class="tbzz" v-if="modal1">
+                <p><b>币种: </b>{{datadoAudit.virName==undefined?'':datadoAudit.virName}} </p>
+                <p><b>转入账户: </b>{{datadoAudit.userPhone==undefined?'':datadoAudit.userPhone}} </p>
+                <p><b>转入钱包地址: </b>{{datadoAudit.virAddress==undefined?'':datadoAudit.virAddress}} </p>
+                <p><b>转账金额: </b>{{datadoAudit.pickMoney==undefined?'':datadoAudit.pickMoney}} </p>
+            </div>
+        </Modal>
+
+
+
+
+        <Modal v-model="modal2" :title="datadoTransfer.userName==undefined?'':datadoTransfer.userName+'转账 '"
+            :mask-closable="false" :loading="true" @on-visible-change="modelVisibleChange">
+            <div slot="footer">
+                <Button type="text" size="large" @click="cancelTrans">取消</Button>
+                <Button type="success" size="large" @click="transPass">确定</Button>
+            </div>
+            <div class="tbzz" v-if="modal2">
                 <!-- <p><b>转出账户: </b>{{datadoTransfer.zoneName==undefined?'':datadoTransfer.zoneName+'-'+datadoTransfer.virName}}
                 </p> -->
                 <p><b>币种: </b>{{datadoTransfer.virName==undefined?'':datadoTransfer.virName}} </p>
                 <p><b>转入账户: </b>{{datadoTransfer.userPhone==undefined?'':datadoTransfer.userPhone}} </p>
                 <p><b>转入钱包地址: </b>{{datadoTransfer.virAddress==undefined?'':datadoTransfer.virAddress}} </p>
                 <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
-                <!-- <p><b>转账时间: </b>{{datadoTransfer.createTime==undefined?'':this.Global.getDate(datadoTransfer.createTime)}}</p> -->
-
 
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
                     <Col span="23">
@@ -110,6 +125,8 @@
 
             </div>
         </Modal>
+
+
     </div>
 </template>
 
@@ -261,6 +278,38 @@
                             }()])
                         },
                     },
+
+                    {
+                        align: 'left',
+                        title: '转账状态',
+                        key: 'auditState',
+                        width: 80,
+                        render: function(h, params) {
+                            return h('span', {
+                                style: {
+                                    color: function() {
+                                        switch (params.row.transState) {
+                                            case 0:
+                                                return '#19be6b';
+                                                break;
+                                            case 1:
+                                                return '#ed3f14';
+                                                break;
+                                        }
+                                    }()
+                                }
+                            }, [function() {
+                                switch (params.row.transState) {
+                                    case 0:
+                                        return '未转账';
+                                        break;
+                                    case 1:
+                                        return '已转账';
+                                        break;
+                                }
+                            }()])
+                        },
+                    },
                     // {
                     //     align: 'left',
                     //     title: '交易单号',
@@ -275,20 +324,20 @@
                         align: 'center',
                         render: function(h, params) {
                             return h('div', [
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small',
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: function() {
-                                            _this.downExcel(params)
-                                        }
-                                    }
-                                }, '下载'),
+                                // h('Button', {
+                                //     props: {
+                                //         type: 'primary',
+                                //         size: 'small',
+                                //     },
+                                //     style: {
+                                //         marginRight: '5px'
+                                //     },
+                                //     on: {
+                                //         click: function() {
+                                //             _this.downExcel(params)
+                                //         }
+                                //     }
+                                // }, '下载'),
                                 h('Button', {
                                     props: {
                                         type: 'warning',
@@ -303,7 +352,23 @@
                                             _this.doAudit(params)
                                         }
                                     }
-                                }, '审核')
+                                }, '审核'),
+                                h('Button', {
+                                    props: {
+                                        type: 'warning',
+                                        size: 'small',
+                                        disabled: params.row.auditState == 1 ? (params.row.transState ==
+                                            0 ? false : true) : true
+                                    },
+                                    style: {
+                                        marginRight: '5px'
+                                    },
+                                    on: {
+                                        click: function() {
+                                            _this.doTrans(params)
+                                        }
+                                    }
+                                }, '转账')
                             ])
                         }
                     }
@@ -316,7 +381,9 @@
                 id: null,
                 selects: [],
                 modal1: false,
-                datadoTransfer: {}
+                modal2: false,
+                datadoAudit: {},
+                datadoTransfer: {},
             };
         },
         computed: {
@@ -371,15 +438,36 @@
             },
             //这部分是新的
             auditRefuse(e) {
-                this.Global.newfun(this, 'post', {
+               this.Global.newfun(this, 'post', {
+                   base: 'mpickvir/audit?',
+                   other: '',
+                   access_token: this.api.access_token
+               }, {
+                   id: this.datadoAudit.id,
+                   auditState: '2'
+               }, c)
+
+               function c(res, that) {
+                   if (res.data.status == 1) {
+                       debugger
+                       that.$Message.success(res.data.msg);
+                       that.refresh()
+                       that.modal1 = false
+                   } else {
+                       that.$Message.destroy();
+                       that.$Message.error(res.data.msg);
+                       that.modal1 = false
+                   }
+               }
+            },
+
+            auditPass(e) { this.Global.newfun(this, 'post', {
                     base: 'mpickvir/audit?',
                     other: '',
                     access_token: this.api.access_token
                 }, {
-                    id: this.datadoTransfer.id,
-                    auditState: '2',
-                    outWalletId: '-1',
-                    pwd: ''
+                    id: this.datadoAudit.id,
+                    auditState: '1'
                 }, c)
 
                 function c(res, that) {
@@ -389,36 +477,48 @@
                         that.refresh()
                         that.modal1 = false
                     } else {
-                        that.$Message.destroy();
+                        // that.$Message.destroy();
                         that.$Message.error(res.data.msg);
                         that.modal1 = false
                     }
-                }
+                }},
 
+
+            cancel() {
+                this.modal1 = false
+                this.datadoAudit = {}
             },
 
-            auditPass(e) {
+
+            cancelTrans() {
+                this.modal2 = false
+                this.datadoTransfer = {}
+                this.formValidate.outWalletId = ''
+                this.formValidate.password = ''
+            },
+
+            transPass(e) {
                 this.$refs['formValidate'].validate((valid) => {
                     if (valid) {
                         this.Global.newfun(this, 'post', {
-                            base: 'mpickvir/audit?',
+                            base: 'mpickvir/trans?',
                             other: '',
                             access_token: this.api.access_token
                         }, {
                             id: this.datadoTransfer.id,
-                            auditState: '1',
                             outWalletId: this.formValidate.outWalletId,
                             pwd: Util.code64(this.formValidate.password)
                         }, c)
 
                         function c(res, that) {
+                             debugger
                             if (res.data.status == 1) {
                                 that.$Message.destroy();
                                 // that.$Message.success(res.data.msg);
-                                that.refresh()
-                                that.modal1 = false
+                                that.refresh();
+                                that.modal2 = false
                                 that.$Modal.confirm({
-                                    title: '审核转账成功',
+                                    title: '转账成功',
                                     closable: true,
                                     content: '<div class="tbsh">' +
                                         '<p><b>交易单号: </b>' + res.data.data.txid + '</p>' +
@@ -434,23 +534,15 @@
                                     }
                                 });
                             } else {
-                                that.$Message.destroy();
+                                // that.$Message.destroy();
                                 that.$Message.error(res.data.msg);
-                                that.modal1 = false
+                                that.modal2 = false
                             }
                         }
                     } else {
-                        this.modal1 = true
+                        this.modal2 = true
                     }
                 })
-            },
-
-
-            cancel() {
-                this.modal1 = false
-                this.datadoTransfer = {}
-                this.formValidate.outWalletId = ''
-                this.formValidate.password = ''
             },
 
             handleShowPassword() {
@@ -566,6 +658,12 @@
 
             doAudit: function(params) {
                 this.modal1 = true
+                this.datadoAudit = params.row
+            },
+
+
+            doTrans: function(params) {
+                this.modal2 = true
                 this.datadoTransfer = params.row
             },
 

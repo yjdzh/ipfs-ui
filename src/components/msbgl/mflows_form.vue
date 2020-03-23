@@ -12,7 +12,7 @@
                 </EVitemContainer>
 
                 <EVitemContainer label="托管到期保留天数" prop="trusteeday" :span="12">
-                    <EVinputNumber v-model="formValidate.trusteeday" :min="0" :max="365"  placeholder="请输入保留天数"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.trusteeday" :min="0" :max="365"  :precision="0" placeholder="请输入保留天数"></EVinputNumber>
                 </EVitemContainer>
             </Row>
             <Row >

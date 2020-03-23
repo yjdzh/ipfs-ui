@@ -6,10 +6,7 @@
                 <Select v-model="searchType" placeholder="请选择搜索币种" @on-change="selectchange">
                     {{options}}
                     <Option :value="virOption.id" :label="virOption.name" v-for="virOption in options" :key="virOption.index"></Option>
-
                 </Select>
-
-
             </div>
 
 
@@ -48,13 +45,12 @@
 
                             <Col span="23">
                             <FormItem label="最小提币额度" class="overappend">
-                                <EVinputNumber v-model="formItem.search_EQ_minQuota" :min="1" :max="10000" placeholder="请输入最小提币额度"></EVinputNumber>
+                                <EVinputNumber v-model="formItem.search_EQ_minQuota" :min="1" :max="10000" :precision="0" placeholder="请输入最小提币额度"></EVinputNumber>
                             </FormItem>
                             </Col>
                             <Col span="23">
                             <FormItem label="办结时长" class="overappend">
-                                <EVinputNumber v-model="formItem.search_EQ_transactTime" :min="1" :max="168"
-                                    placeholder="请输入办结时长(小时)"></EVinputNumber>
+                                <EVinputNumber v-model="formItem.search_EQ_transactTime" :min="1" :max="168" :precision="0" placeholder="请输入办结时长(小时)"></EVinputNumber>
 
                             </FormItem>
                             </Col>
@@ -95,7 +91,6 @@
 
     export default {
         name: "mwallet",
-
         data() {
             var _this = this;
             const coderhardInfo = function(coder, value, callback) {

@@ -38,7 +38,7 @@
                 </EVitemContainer>
 
                 <EVitemContainer v-if="formValidate.sourceType==1" label="自定义总收益" prop="sourceNum" :span="12">
-                    <EVinputNumber v-model="formValidate.sourceNum" :min="1" :max="100000000" placeholder="请输入自定义总收益"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.sourceNum" :min="1" :max="100000000" :precision="0" placeholder="请输入自定义总收益"></EVinputNumber>
                 </EVitemContainer>
             </Row>
 
@@ -53,7 +53,7 @@
                 </EVitemContainer>
 
                 <EVitemContainer v-if="formValidate.nodesType==2" label="自定义节点数量" prop="nodesNum" :span="12">
-                    <EVinputNumber v-model="formValidate.nodesNum" :min="1" :max="100000000" placeholder="请输入自定义节点数量"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.nodesNum" :min="1" :max="100000000" :precision="0" placeholder="请输入自定义节点数量"></EVinputNumber>
                 </EVitemContainer>
             </Row>
 
@@ -68,7 +68,7 @@
                 </EVitemContainer>
 
                 <EVitemContainer label="自维设备计提比例" prop="maintainAccrue" :span="12">
-                    <EVinputNumber v-model="formValidate.maintainAccrue" :min="1" :max="99" placeholder="请输入自维设备计提比例(%)"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.maintainAccrue" :min="1" :max="99" :precision="0" placeholder="请输入自维设备计提比例(%)"></EVinputNumber>
                 </EVitemContainer>
             </Row>
             <Row>
@@ -80,7 +80,7 @@
                 </EVitemContainer>
 
                 <EVitemContainer label="托管设备计提比例" prop="trusteeAccrue" :span="12">
-                    <EVinputNumber v-model="formValidate.trusteeAccrue" :min="1" :max="99" placeholder="请输入托管设备计提比例(%)"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.trusteeAccrue" :min="1" :max="99" :precision="0" placeholder="请输入托管设备计提比例(%)"></EVinputNumber>
                 </EVitemContainer>
             </Row>
             <Row>
@@ -97,16 +97,16 @@
             <EVdivider orientation="left">提币规则</EVdivider>
             <Row>
                 <EVitemContainer label="最小提币额度" prop="minQuota" :span="12">
-                    <EVinputNumber v-model="formValidate.minQuota" :min="1" :max="10000" placeholder="请输入最小提币额度"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.minQuota" :min="1" :max="10000" :precision="0" placeholder="请输入最小提币额度"></EVinputNumber>
                 </EVitemContainer>
 
                 <EVitemContainer label="提币倍数" prop="multipleNum" :span="12">
-                    <EVinputNumber v-model="formValidate.multipleNum" :min="1" :max="10000" placeholder="请输入提币倍数"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.multipleNum" :min="1" :max="10000" :precision="0" placeholder="请输入提币倍数"></EVinputNumber>
                 </EVitemContainer>
             </Row>
             <Row>
                 <EVitemContainer label="办结时长(小时)" prop="transactTime" :span="24">
-                    <EVinputNumber v-model="formValidate.transactTime" :min="1" :max="168" placeholder="请输入办结时长(小时)"></EVinputNumber>
+                    <EVinputNumber v-model="formValidate.transactTime" :min="1" :max="168" :precision="0" placeholder="请输入办结时长(小时)"></EVinputNumber>
                 </EVitemContainer>
             </Row>
 

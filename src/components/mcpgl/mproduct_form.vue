@@ -42,7 +42,7 @@
 			</Row>
 			<Row>
 				<EVitemContainer label="托管价格" prop="trusteePrice" :span="12">
-					<EVinputNumber v-model="formValidate.trusteePrice" :formatter="value => `${value} 元/月`" :min="1" :max="100000"
+					<EVinputNumber v-model="formValidate.trusteePrice" :formatter="value => `${value} 元/月`" :min="1" :max="100000" :precision="2"
 					 placeholder="请输入托管价格 (单位'元/月')"></EVinputNumber>
 				</EVitemContainer>
 				<EVitemContainer label="托管折扣" prop="trusteeDiscount" :span="12">
@@ -55,7 +55,7 @@
 
 				<EVitemContainer label="最低托管时长" prop="trusteeMin" :span="12">
 					<EVinputNumber v-model="formValidate.trusteeMin" :formatter="value => `${value} 月`" :min="1" :max="100"
-					 placeholder="请输入最低托管时长 (单位'月')"></EVinputNumber>
+					 placeholder="请输入最低托管时长 (单位'月')" :precision="0"></EVinputNumber>
 				</EVitemContainer>
 			</Row>
 
@@ -250,12 +250,11 @@
 				},
 				autoUpload: true,
 				ruleValidate: {
-
 					hardInfo: [
                         {
                             type: 'string',
-                            max: 100,
-                            message: '输入字符不得多于10个',
+                            max: 50,
+                            message: '输入字符不得多于50个',
                             trigger: 'change'
                         },
                     ],
@@ -285,8 +284,8 @@
 						},
 						{
 							type: 'string',
-							max: 50,
-							message: '输入字符不得多于50个',
+							max: 20,
+							message: '输入字符不得多于20个',
 							trigger: 'change'
 						},
 					],
@@ -297,8 +296,8 @@
 						},
 						{
 							type: 'string',
-							max: 100,
-							message: '输入字符不得多于100个',
+							max: 50,
+							message: '输入字符不得多于50个',
 							trigger: 'change'
 						},
 					],
@@ -328,8 +327,6 @@
 						trigger: 'blur'
 					}],
 					trusteeStock: [],
-
-
 				},
 			}
 		},
