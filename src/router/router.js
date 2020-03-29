@@ -14,7 +14,7 @@ export const Logout = {
 export const test = {
 	path: '/test',
 	name: 'test',
-	component: r => require.ensure([], () => r(require('../pages/test')), 'test')
+	component: r => require.ensure([], () => r(require('../components/componentsEvan1.1/Evan_demo/list')), 'test')
 }
 
 

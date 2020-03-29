@@ -28,6 +28,7 @@
                     </div>
 
                     <div slot="moreBtn">
+                        <Button @click="addData" type="success">新增</Button>
                         <Button>拓展按钮1</Button>
                         <Button>拓展按钮2</Button>
                     </div>

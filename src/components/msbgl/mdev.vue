@@ -109,10 +109,10 @@
 					<Alert type="error" show-icon>离线设备：{{outline}} 台</Alert>
 				</span>
 
-                <Button @click="dobtns(0)" type="info">软件升级</Button>
-                <Button @click="dobtns(1)" type="info">设备复位</Button>
-                <Button @click="dobtns(2)" type="info">设备重启</Button>
-                <Button @click="dobtns(3)" type="error">删除</Button>
+                <!--<Button @click="dobtns(0)" type="info">软件升级</Button>-->
+                <!--<Button @click="dobtns(1)" type="info">设备复位</Button>-->
+                <!--<Button @click="dobtns(2)" type="info">设备重启</Button>-->
+                <!--<Button @click="dobtns(3)" type="error">删除</Button>-->
 
                 <Button @click="refresh" type="info">刷新</Button>
 
@@ -144,6 +144,10 @@
             </div>
 
             <div slot="moreBtn">
+                <Button @click="dobtns(0)" type="info">软件升级</Button>
+                <Button @click="dobtns(1)" type="info">设备复位</Button>
+                <Button @click="dobtns(2)" type="info">设备重启</Button>
+                <Button @click="dobtns(3)" type="error">删除</Button>
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
