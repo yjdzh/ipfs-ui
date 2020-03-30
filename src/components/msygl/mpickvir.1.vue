@@ -63,7 +63,7 @@
 
             <div slot="btnBox" class="btn">
                 <Button @click="refresh" type="info">刷新</Button>
-                <!--<Button @click="downpost">账单下载</Button>-->
+                <Button @click="downpost">账单下载</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="selectchange">
@@ -75,7 +75,7 @@
             </div>
 
             <div slot="moreBtn">
-                <Button @click="downpost">账单下载</Button>
+
                 <!--拓展按钮1-->
             </div>
 

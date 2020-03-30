@@ -12,7 +12,7 @@
                 <!--</Input>-->
             </div>
             <div slot="btnBox" class="btn">
-                <!--<Button @click="qxglALL" type="success">批量取消关联</Button>-->
+                <Button @click="qxglALL" type="success">批量取消关联</Button>
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
@@ -27,7 +27,7 @@
             </div>
 
             <div slot="moreBtn">
-                <Button @click="qxglALL" type="success">批量取消关联</Button>
+
                 <!--拓展按钮1-->
             </div>
         </EVpageList>

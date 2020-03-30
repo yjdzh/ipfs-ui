@@ -11,7 +11,7 @@
                 </Input>
             </div>
             <div slot="btnBox" class="btn">
-
+                <Button @click="added" type="success">新增</Button>
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
@@ -25,7 +25,7 @@
             </div>
 
             <div slot="moreBtn">
-                <Button @click="added" type="success">新增</Button>
+
                 <!--拓展按钮1-->
             </div>
         </EVpageList>

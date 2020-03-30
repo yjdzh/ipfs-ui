@@ -12,8 +12,8 @@
                 </Input>
             </div>
             <div slot="btnBox" class="btn">
-                <!--<Button @click="uploads=true" type="primary">批量入库</Button>-->
-                <!--<Button @click="added" type="success">手动入库</Button>-->
+                <Button @click="uploads=true" type="primary">批量入库</Button>
+                <Button @click="added" type="success">手动入库</Button>
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
@@ -27,8 +27,7 @@
             </div>
 
             <div slot="moreBtn">
-                <Button @click="uploads=true" type="primary">批量入库</Button>
-                <Button @click="added" type="success">手动入库</Button>
+
                 <!--拓展按钮1-->
             </div>
         </EVpageList>

@@ -52,7 +52,7 @@
 
 
             <div slot="btnBox" class="btn">
-                <!--<Button @click="dobtns()" type="info">批量导出</Button>-->
+                <Button @click="dobtns()" type="info">批量导出</Button>
                 <Button @click="refresh" type="info">刷新</Button>
             </div>
             <div slot="table">
@@ -65,7 +65,7 @@
             </div>
 
             <div slot="moreBtn">
-                <Button @click="dobtns()" type="info">批量导出</Button>
+
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
