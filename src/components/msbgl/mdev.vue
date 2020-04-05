@@ -949,9 +949,6 @@
 
             dobtns(e) {
 
-                if(e==3){
-                    // 删除确认操作
-                }
                 const el = []
                 var arr=this.selectedArr
                 for(var j in arr) {
@@ -965,15 +962,17 @@
 
                 const sl = el.join(',')
                 this.Global.newfun(this, 'post', {
-                    base: '/mdev/multis?',
-                    other: '',
+                    base: '/mdev/multis/',
+                    other: e+'?',
                     access_token: this.api.access_token
                 }, {
-                    ids: sl,
-                    type: e
+                    ids: sl
                 }, function (res, that) {
                     if (res.data.status == 1) {
                         that.$Message.success(res.data.msg);
+                        if(e==3){
+                             that.refresh();
+                        }
                     } else {
                         that.$Message.destroy();
                         that.$Message.error(res.data.msg);

@@ -74,7 +74,7 @@
 
                             <Col span="23">
                             <FormItem label="托管设备数量" prop="num">
-                                <EVinputNumber v-model="sbfpforms.num" :min="1" :max="1000" :precision="0"  placeholder="请输入托管设备数量"></EVinputNumber>
+                                <EVinputNumber v-model="sbfpforms.num" :min="1" :max="500" :precision="0"  placeholder="请输入托管设备数量"></EVinputNumber>
                             </FormItem>
                             </Col>
                             <Col span="23">

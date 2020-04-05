@@ -103,7 +103,7 @@
                     },
                     {
                         align: 'center',
-                        title: '自维库存',
+                        title: '自维库存余量',
                         render: function (h, params) {
                             return h('span', [params.row.maintainStock])
                         }
@@ -111,7 +111,7 @@
                     },
                     {
                         align: 'center',
-                        title: '托管总数量',
+                        title: '托管库存余量',
                         render: function (h, params) {
                             return h('span', [params.row.trusteeStock])
                         }
