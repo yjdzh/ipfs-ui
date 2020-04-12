@@ -271,31 +271,26 @@
                 <Button size="large" type="primary" long @click="elogin('Enter')">确定登录</Button>
             </div>
         </Modal>
-<!--        <img class="login_logo" src="static/img/login_3.png"></img>-->
+        <!--        <img class="login_logo" src="static/img/login_3.png"></img>-->
         <div class="box_login-wrap">
             <div class="login-card">
                 <Card :bordered='false' dis-hover>
                     <div class="extra">
-                        <a class="cur" href="javascript:void(0);"
-                           @click="handleLoginMode('password')">IPFS星际特工全球云数据监测登录系统</a>
+                        <a class="cur" href="javascript:void(0);" @click="handleLoginMode('password')">币码翁分布式云数据监测系统</a>
 
                     </div>
                     <div class="login-form" @keydown.enter="handleSubmit">
                         <Form ref="loginForm" :model="form" :rules="rules">
                             <FormItem prop="userName">
-                                <Input type="text" placeholder="请输入用户名或请输入手机号"
-                                       v-model="form.userName">
-                                    <Icon slot="prepend" :size="20" class="phone_size"
-                                          type="person"></Icon>
+                                <Input type="text" placeholder="请输入用户名或请输入手机号" v-model="form.userName">
+                                <Icon slot="prepend" :size="20" class="phone_size" type="person"></Icon>
                                 </Input>
                             </FormItem>
                             <FormItem>
-                                <Input :type="defaults.showPassword ? 'text' : 'password'" placeholder="请输入密码"
-                                       v-model="form.password">
-                                    <Icon slot="prepend" :size="16" type="locked"></Icon>
-                                    <Icon slot="append" style="line-height: 32px;font-size: 16px;"
-                                          :type="defaults.showPassword ? 'eye' : 'eye-disabled'"
-                                            @click="handleShowPassword"></Icon>
+                                <Input :type="defaults.showPassword ? 'text' : 'password'" placeholder="请输入密码" v-model="form.password">
+                                <Icon slot="prepend" :size="16" type="locked"></Icon>
+                                <Icon slot="append" style="line-height: 32px;font-size: 16px;" :type="defaults.showPassword ? 'eye' : 'eye-disabled'"
+                                    @click="handleShowPassword"></Icon>
                                 </Input>
                             </FormItem>
                             <!--<FormItem prop="password" >-->
@@ -308,17 +303,14 @@
 
                             <FormItem prop="captchas" class="yzm_box-wrap">
                                 <Input type="text" placeholder="请输入验证码" v-model="form.captchas">
-                                    <Icon slot="prepend" :size="18" type="ios-barcode"></Icon>
+                                <Icon slot="prepend" :size="18" type="ios-barcode"></Icon>
                                 </Input>
-                                <img class="captchas-img"
-                                     :src="defaults.captchas.imgStr ? 'data:image/png;base64,' + defaults.captchas.imgStr : ''"
-                                     alt=""
-                                     @click="handleCaptchas">
+                                <img class="captchas-img" :src="defaults.captchas.imgStr ? 'data:image/png;base64,' + defaults.captchas.imgStr : ''"
+                                    alt="" @click="handleCaptchas">
                             </FormItem>
 
                             <FormItem>
-                                <Button @click="handleSubmit" :loading="loading" type="primary" long style="background-color: #014b83;
-    border: none;">登录</Button>
+                                <Button @click="handleSubmit" :loading="loading" type="primary" long style="background-color: #014b83;border: none;">登录</Button>
                             </FormItem>
                         </Form>
                         <!--<p class="forgot-password"><a @click="handlePswBack">找回密码</a></p>-->
@@ -334,35 +326,36 @@
             <Form class="psw-back-form" ref="pswForm" :model="pswBackForm" :rules="pswBackRules">
                 <FormItem prop="phone">
                     <Input placeholder="请输入手机号" type="text" v-model="pswBackForm.phone">
-                        <span slot="prepend">手机号码</span>
+                    <span slot="prepend">手机号码</span>
                     </Input>
                 </FormItem>
                 <FormItem prop="password">
                     <Input placeholder="请输入新密码" type="password" v-model="pswBackForm.password">
-                        <span slot="prepend">新密码</span>
+                    <span slot="prepend">新密码</span>
                     </Input>
                 </FormItem>
                 <FormItem prop="confirmPsw">
                     <Input placeholder="请确认密码" type="password" v-model="pswBackForm.confirmPsw">
-                        <span slot="prepend">确认密码</span>
+                    <span slot="prepend">确认密码</span>
                     </Input>
                 </FormItem>
                 <FormItem prop="captcha">
                     <Input placeholder="请输入验证码" type="text" v-model="pswBackForm.captcha">
-                        <span slot="prepend">验证码</span>
+                    <span slot="prepend">验证码</span>
                     </Input>
-                    <Button class="codeBtn" :type="defaults.pswCodeState === 0 ? 'success' : 'default'"
-                            :loading="defaults.pswCodeState === 1" :disabled="defaults.pswCodeState !== 0"
-                            @click="handlePswCode">
+                    <Button class="codeBtn" :type="defaults.pswCodeState === 0 ? 'success' : 'default'" :loading="defaults.pswCodeState === 1"
+                        :disabled="defaults.pswCodeState !== 0" @click="handlePswCode">
                         <span v-text="defaults.pswCodeTxt"></span>
                     </Button>
                 </FormItem>
             </Form>
             <div slot="footer">
-                <Button type="primary" size="large" long @click="handlePswSubmit" >确定</Button>
+                <Button type="primary" size="large" long @click="handlePswSubmit">确定</Button>
             </div>
         </Modal>
-        <p class="bq_botm-wri"><!-- 版权所有 --></p>
+        <p class="bq_botm-wri">
+            <!-- 版权所有 -->
+        </p>
 
     </div>
 </template>
@@ -373,7 +366,7 @@
 
     export default {
         name: 'Login',
-        data () {
+        data() {
             const userNameRule = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('用户名不能为空'))
@@ -402,8 +395,7 @@
             const pswConfirmRule = (rule, value, callback) => {
                 if (value === '') {
                     callback(new Error('确认密码不能为空'))
-                }
-                else if (!this.Regex.regexlist.password.test(this.pswBackForm.confirmPsw)) {
+                } else if (!this.Regex.regexlist.password.test(this.pswBackForm.confirmPsw)) {
                     callback(new Error('密码应同时包含数字小写字母大写字母3种'))
                 } else if (this.pswBackForm.password !== this.pswBackForm.confirmPsw) {
                     callback(new Error('两次密码不一致'))
@@ -438,44 +430,66 @@
                     captchas: ''
                 },
                 rules: {
-                    userName: [
-                        {validator: userNameRule, trigger: 'blur'}
-                    ],
-                    password: [
-                        {validator: pswRule, trigger: 'blur'}
-                    ],
-                    captchas: [
-                        {required: true, message: '验证码不能为空', trigger: 'blur'}
-                    ]
+                    userName: [{
+                        validator: userNameRule,
+                        trigger: 'blur'
+                    }],
+                    password: [{
+                        validator: pswRule,
+                        trigger: 'blur'
+                    }],
+                    captchas: [{
+                        required: true,
+                        message: '验证码不能为空',
+                        trigger: 'blur'
+                    }]
                 },
                 pswBackRules: {
-                    phone: [
-                        {validator: phoneRule, trigger: 'blur'}
-                    ],
-                    password: [
-                        {required: true, message: '新密码不能为空', trigger: 'blur'},
-                        {min: 6, message: '请输入最少6位'},
-                        {max: 20, message: '请输入最多20位'},
-                        {type: 'string', pattern: Util.reg.password, message: '密码应同时包含数字小写字母大写字母3种', trigger: 'blur'}
+                    phone: [{
+                        validator: phoneRule,
+                        trigger: 'blur'
+                    }],
+                    password: [{
+                            required: true,
+                            message: '新密码不能为空',
+                            trigger: 'blur'
+                        },
+                        {
+                            min: 6,
+                            message: '请输入最少6位'
+                        },
+                        {
+                            max: 20,
+                            message: '请输入最多20位'
+                        },
+                        {
+                            type: 'string',
+                            pattern: Util.reg.password,
+                            message: '密码应同时包含数字小写字母大写字母3种',
+                            trigger: 'blur'
+                        }
 
                     ],
-                    confirmPsw: [
-                        {validator: pswConfirmRule, trigger: 'blur'}
-                    ],
-                    captcha: [
-                        {required: true, message: '验证码不能为空', trigger: 'blur'}
-                    ]
+                    confirmPsw: [{
+                        validator: pswConfirmRule,
+                        trigger: 'blur'
+                    }],
+                    captcha: [{
+                        required: true,
+                        message: '验证码不能为空',
+                        trigger: 'blur'
+                    }]
                 }
             }
         },
 
         methods: {
-            elogin (b) {
+            elogin(b) {
                 var _this = this
                 api.login(_this, b)
                 _this.$Modal.remove()
             },
-            handleLoginMode (value) {
+            handleLoginMode(value) {
                 this.form = {
                     userName: '',
                     password: '',
@@ -484,7 +498,7 @@
                 }
                 this.$refs.loginForm.resetFields()
             },
-            handleSubmit () {
+            handleSubmit() {
                 this.$refs.loginForm.validate((valid) => {
                     if (valid) {
                         this.loading = true;
@@ -492,26 +506,26 @@
                     }
                 })
             },
-            handleShowPassword () {
+            handleShowPassword() {
                 this.defaults.showPassword = !this.defaults.showPassword
             },
-            handleCode () {
+            handleCode() {
                 api.validPhone(this, this.form.userName, 120)
             },
-            handleCaptchas () {
+            handleCaptchas() {
                 api.getCaptchas(this)
             },
-            handleCaptchasOption () {
+            handleCaptchasOption() {
                 return {
                     fontSize: 20,
                     bgColor: '255,255,255',
                     fontColor: Util.randomColor()
                 }
             },
-            handlePswCode () {
+            handlePswCode() {
                 api.validPswPhone(this, this.pswBackForm.phone, 120)
             },
-            handlePswSubmit () {
+            handlePswSubmit() {
                 this.$refs.pswForm.validate((valid) => {
                     if (valid) {
                         api.getPswBack(this)
@@ -519,16 +533,15 @@
                     }
                 })
             },
-            handlePswBack (name) {
+            handlePswBack(name) {
                 this.defaults.pswBackShow = true
                 this.$refs.loginForm.resetFields()
                 this.$refs.pswForm.resetFields()
             }
         },
-        created: function () {
+        created: function() {
             api.getCaptchas(this)
         },
-        mounted: function () {
-        }
+        mounted: function() {}
     }
 </script>
