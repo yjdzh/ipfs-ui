@@ -572,6 +572,7 @@
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('分配成功');
+                                    that.getoptions()
                                     that.closemodal()
 
 
@@ -617,6 +618,7 @@
                                 if (res.data.status == 1) {
                                     that.$Message.destroy();
                                     that.$Message.success('托管成功');
+                                    that.getoptions()
                                     that.closemodal()
                                 } else {
                                     that.$Message.destroy();

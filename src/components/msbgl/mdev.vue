@@ -148,6 +148,8 @@
                 <Button @click="dobtns(1)" type="info">设备复位</Button>
                 <Button @click="dobtns(2)" type="info">设备重启</Button>
                 <Button @click="dobtns(3)" type="error">删除</Button>
+
+
                 <!--拓展按钮1-->
             </div>
         </EVpageList>
@@ -948,6 +950,16 @@
 
 
             dobtns(e) {
+                var _this=this
+                var st=[  '软件升级','设备复位','设备重启','删除']
+                _this.$Modal.confirm({
+                    title: '操作确认',
+                    content: '<p>确认要'+st[e]+'吗？</p>',
+                    loading: true,
+                    onOk: function() {
+
+
+
 
                 const el = []
                 var arr=this.selectedArr
@@ -978,6 +990,8 @@
                         that.$Message.error(res.data.msg);
                     }
                 })
+                    },
+                });
             },
             // selectionchange(e) {
             //     this.selects = []
