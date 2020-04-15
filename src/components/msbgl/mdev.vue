@@ -182,17 +182,18 @@
         </Modal>
 
 
-        <Modal v-model="editsb" class="evinputnumber editbox" width="500" >
+        <Modal v-model="editsb" class="evinputnumber editbox" width="500">
             <p slot="header">
                 <span>编辑设备</span>
             </p>
             <div>
                 <Form ref="editsbforms" :model="editsbforms" :label-width="100" :rules="editsbformRules"
-                      >
+                >
 
                     <Col span="23">
                         <FormItem label="设备mac">
-                            <span style="height: 38px;line-height: 38px;display: inline-block">{{editsbforms.mac}}</span>
+                            <span
+                                style="height: 38px;line-height: 38px;display: inline-block">{{editsbforms.mac}}</span>
                         </FormItem>
                     </Col>
 
@@ -200,15 +201,15 @@
                     <Col span="23">
                         <FormItem label="销售类型" prop="saleType">
                             <RadioGroup v-model="editsbforms.saleType" type="button" size="large">
-                                <Radio label="0" >自维</Radio>
-                                <Radio label="1" >托管</Radio>
+                                <Radio label="0">自维</Radio>
+                                <Radio label="1">托管</Radio>
                             </RadioGroup>
                         </FormItem>
                     </Col>
                     <Col span="23">
-                       <!-- <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='1'"> -->
-                        <FormItem label="所属数据中心" prop="zoneId" >
-                            <Select v-model="editsbforms.zoneId" >
+                        <!-- <FormItem label="所属数据中心"  v-if="editsbforms.saleType=='1'"> -->
+                        <FormItem label="所属数据中心" prop="zoneId">
+                            <Select v-model="editsbforms.zoneId">
                                 <Option v-for="zoneOpt in zoneOptions" :value="zoneOpt.id" :label="zoneOpt.name"
                                         :key="zoneOpt.index"></Option>
                             </Select>
@@ -444,8 +445,8 @@
                         title: '产品名称',
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.productEntity.name,
+                                attrs: {
+                                    title: params.row.productEntity.name,
                                 },
                             }, [params.row.productEntity.name])
                         }
@@ -457,8 +458,8 @@
                         width: 120,
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.mac,
+                                attrs: {
+                                    title: params.row.mac,
                                 },
                             }, [params.row.mac])
                         },
@@ -470,8 +471,8 @@
                         key: 'sn',
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.sn,
+                                attrs: {
+                                    title: params.row.sn,
                                 },
                             }, [params.row.sn])
                         },
@@ -483,8 +484,8 @@
                         width: 100,
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.ip,
+                                attrs: {
+                                    title: params.row.ip,
                                 },
                             }, [params.row.ip])
                         },
@@ -495,8 +496,8 @@
                         width: 120,
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.softVer,
+                                attrs: {
+                                    title: params.row.softVer,
                                 },
                             }, [params.row.softVer])
                         },
@@ -508,8 +509,8 @@
                         width: 100,
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.buyUserName,
+                                attrs: {
+                                    title: params.row.buyUserName,
                                 },
                             }, [params.row.buyUserName])
                         },
@@ -521,8 +522,8 @@
                         width: 120,
                         render: function (h, params) {
                             return h('span', {
-                                attrs:{
-                                    title:params.row.buyUserTel,
+                                attrs: {
+                                    title: params.row.buyUserTel,
                                 },
                             }, [params.row.buyUserTel])
                         },
@@ -907,10 +908,10 @@
         },
         methods: {
             closemodal() {
-                this.editsb=false
+                this.editsb = false
                 this.editsbforms.saleType = '',
-                this.editsbforms.id = '',
-                this.editsbforms.zoneId = ''
+                    this.editsbforms.id = '',
+                    this.editsbforms.zoneId = ''
                 this.editsbforms.mac = ''
             },
 
@@ -950,46 +951,46 @@
 
 
             dobtns(e) {
-                var _this=this
-                var st=[  '软件升级','设备复位','设备重启','删除']
+                var _this = this
+                var st = ['软件升级', '设备复位', '设备重启', '删除']
                 _this.$Modal.confirm({
                     title: '操作确认',
-                    content: '<p>确认要'+st[e]+'吗？</p>',
+                    content: '<p>确认要' + st[e] + '吗？</p>',
                     loading: true,
-                    onOk: function() {
+                    onOk: function () {
 
 
-
-
-                const el = []
-                var arr=this.selectedArr
-                for(var j in arr) {
-                    console.log(arr[j]);
-                    var m=arr[j]
-                    for (var i = 0; i < m.length; i++) {
-                        el.push(m[i].id);
-                    }
-                }
-
-
-                const sl = el.join(',')
-                this.Global.newfun(this, 'post', {
-                    base: '/mdev/multis/',
-                    other: e+'?',
-                    access_token: this.api.access_token
-                }, {
-                    ids: sl
-                }, function (res, that) {
-                    if (res.data.status == 1) {
-                        that.$Message.success(res.data.msg);
-                        if(e==3){
-                             that.refresh();
+                        const el = []
+                        var arr = this.selectedArr
+                        for (var j in arr) {
+                            console.log(arr[j]);
+                            var m = arr[j]
+                            for (var i = 0; i < m.length; i++) {
+                                el.push(m[i].id);
+                            }
                         }
-                    } else {
-                        that.$Message.destroy();
-                        that.$Message.error(res.data.msg);
-                    }
-                })
+
+
+                        const sl = el.join(',')
+                        _this.Global.newfun(_this, 'post', {
+                            base: '/mdev/multis/',
+                            other: e + '?',
+                            access_token: _this.api.access_token
+                        }, {
+                            ids: sl
+                        }, function (res, that) {
+                            if (res.data.status == 1) {
+                                that.$Message.success(res.data.msg);
+                                if (e == 3) {
+                                    that.refresh();
+                                }
+                                that.$Modal.remove();
+                            } else {
+                                that.$Message.destroy();
+                                that.$Message.error(res.data.msg);
+                                that.$Modal.remove();
+                            }
+                        })
                     },
                 });
             },
@@ -1015,7 +1016,7 @@
                 this.formItem.search_EQ_activeState = ''
                 this.formItem.search_LIKE_mac = ''
                 this.formItem.search_EQ_lineState = ''
-                this.selectedArr={}
+                this.selectedArr = {}
                 this.Global.fun(this, 'get', {
                     base: '/mproduct/all?',
                     other: '',
@@ -1032,12 +1033,12 @@
             },
             HsearchC() {
                 this.Hsearch = false
-                this.selectedArr={}
+                this.selectedArr = {}
 
             },
             HsearchS() {
                 this.search = {},
-                    this.selectedArr={}
+                    this.selectedArr = {}
 
                 this.search = this.formItem
                 if (this.search) {
@@ -1061,7 +1062,7 @@
                 this.loading = true
                 this.searchValue = 'search_LIKE_mac'
                 this.search = {}
-                this.selectedArr={}
+                this.selectedArr = {}
                 // 				this.search = ''
                 // 				this.current = 1
                 this.onchanges(this.current);
@@ -1140,9 +1141,9 @@
 
             editDev: function (params) {
                 debugger
-                this.editsbforms.id=params.row.id
-                this.editsbforms.mac=params.row.mac
-                this.editsb=true
+                this.editsbforms.id = params.row.id
+                this.editsbforms.mac = params.row.mac
+                this.editsb = true
             },
             // added: function () {
             //     this.Global.value = '';
@@ -1168,7 +1169,7 @@
                     for (var i = 0; i < l; i++) {
                         for (var j = 0; j < d; j++) {
                             if (selectall[page][i].id == data[j].id) {
-                                data[j]._checked=true
+                                data[j]._checked = true
                             }
                         }
                     }
@@ -1201,7 +1202,7 @@
                         that.totalpage = res.data.data.totalElements;
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
-                        that.superSetSelected(that.selectedArr,res.data.data.number + 1,res.data.data.content)
+                        that.superSetSelected(that.selectedArr, res.data.data.number + 1, res.data.data.content)
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -1253,7 +1254,7 @@
             },
             dosearch: function () {
                 this.loading = true
-                this.selectedArr={}
+                this.selectedArr = {}
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
                     this.search[this.searchType] = this.searchValue
@@ -1317,7 +1318,7 @@
             this.searchType = 'search_LIKE_mac',
                 this.loading = true,
 
-            this.refresh()
+                this.refresh()
             this.getoptions()
         }
         ,
@@ -1339,5 +1340,6 @@
 </style>
 <style>
     .editbox .ivu-modal-footer {
-        border-top: 0px solid #e9eaec;}
+        border-top: 0px solid #e9eaec;
+    }
 </style>
