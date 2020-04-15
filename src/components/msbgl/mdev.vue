@@ -954,7 +954,7 @@
                 var st=[  '软件升级','设备复位','设备重启','删除']
                 _this.$Modal.confirm({
                     title: '操作确认',
-                    content: '<p>确认要'+st[e]+'吗？</p>',
+                    content: '<p>确认要执行批量 '+st[e]+' 吗？</p>',
                     loading: true,
                     onOk: function() {
 
