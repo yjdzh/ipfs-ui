@@ -18,7 +18,7 @@
                 </Button>
                 <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
                     <p slot="header">
-                        <span>高级查询1</span>
+                        <span>高级查询</span>
                     </p>
                     <div>
                         <Form :model="formItem" :label-width="80" style="overflow: hidden">
@@ -54,7 +54,7 @@
 
             <div slot="btnBox" class="btn">
                 <Button @click="refresh" type="info">刷新</Button>
-                 <Button @click="downpost">账单下载</Button>
+                <Button @click="downpost">账单下载</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="selectchange">
@@ -102,7 +102,15 @@
                 <p><b>币种: </b>{{datadoTransfer.virName==undefined?'':datadoTransfer.virName}} </p>
                 <p><b>转入账户: </b>{{datadoTransfer.userPhone==undefined?'':datadoTransfer.userPhone}} </p>
                 <p><b>转入钱包地址: </b>{{datadoTransfer.virAddress==undefined?'':datadoTransfer.virAddress}} </p>
-                <p><b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}} </p>
+                <p>
+                    
+                        <b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}}
+                   
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="font-weight:bold">提币费率：</span> {{datadoTransfer.fee==undefined?'':datadoTransfer.fee+'%'}}
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span style="font-weight:bold">服务费：</span> {{datadoTransfer.feeMoney==undefined?'':datadoTransfer.feeMoney}}
+                </p>
 
                 <Form ref="formValidate" :model="formValidate" :rules="ruleValidate" :label-width="100">
                     <Col span="23">
@@ -219,6 +227,13 @@
                         align: 'left',
                         title: '真实钱包',
                         key: 'virAddress',
+                    }, {
+                        align: 'left',
+                        title: '提币费率',
+                        render: function(h, params) {
+                            return h('span', params.row.fee+'%')
+                        },
+                        width: 60
                     },
                     {
                         align: 'left',
@@ -439,30 +454,31 @@
             },
             //这部分是新的
             auditRefuse(e) {
-               this.Global.newfun(this, 'post', {
-                   base: 'mpickvir/audit?',
-                   other: '',
-                   access_token: this.api.access_token
-               }, {
-                   id: this.datadoAudit.id,
-                   auditState: '2'
-               }, c)
+                this.Global.newfun(this, 'post', {
+                    base: 'mpickvir/audit?',
+                    other: '',
+                    access_token: this.api.access_token
+                }, {
+                    id: this.datadoAudit.id,
+                    auditState: '2'
+                }, c)
 
-               function c(res, that) {
-                   if (res.data.status == 1) {
-                       debugger
-                       that.$Message.success(res.data.msg);
-                       that.refresh()
-                       that.modal1 = false
-                   } else {
-                       that.$Message.destroy();
-                       that.$Message.error(res.data.msg);
-                       that.modal1 = false
-                   }
-               }
+                function c(res, that) {
+                    if (res.data.status == 1) {
+                        debugger
+                        that.$Message.success(res.data.msg);
+                        that.refresh()
+                        that.modal1 = false
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.modal1 = false
+                    }
+                }
             },
 
-            auditPass(e) { this.Global.newfun(this, 'post', {
+            auditPass(e) {
+                this.Global.newfun(this, 'post', {
                     base: 'mpickvir/audit?',
                     other: '',
                     access_token: this.api.access_token
@@ -482,7 +498,8 @@
                         that.$Message.error(res.data.msg);
                         that.modal1 = false
                     }
-                }},
+                }
+            },
 
 
             cancel() {
@@ -512,7 +529,6 @@
                         }, c)
 
                         function c(res, that) {
-                             debugger
                             if (res.data.status == 1) {
                                 that.$Message.destroy();
                                 // that.$Message.success(res.data.msg);
@@ -774,7 +790,6 @@
                 width: 90px;
                 text-align: right;
             }
-
         }
 
         .tbzz_pwixon {
