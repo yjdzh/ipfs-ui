@@ -8,7 +8,8 @@
                                 v-for="option in options"
                                 :key="option.index"></Option>
                     </Select>
-                    <Button slot="append" icon="ios-search" @click="dosearch"  @mouseleave.native="Global.stopself($event)"></Button>
+                    <Button slot="append" icon="ios-search" @click="dosearch"
+                            @mouseleave.native="Global.stopself($event)"></Button>
                 </Input>
             </div>
 
@@ -65,8 +66,8 @@
 
 
             <div slot="btnBox" class="btn">
-                <Button @click="dobtns()" type="info">批量导出</Button>
-                <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
+                <Button @click="dobtns()" type="info" @mouseleave.native="Global.stopself($event)">批量导出</Button>
+                <Button @click="refresh" type="info" @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading"
@@ -230,6 +231,12 @@
                                     on: {
                                         click: function () {
                                             _this.sytj(params)
+                                        },
+
+                                    },
+                                    nativeOn:{
+                                        mouseleave($event) {
+                                            _this.Global.stopself($event)
                                         }
                                     }
                                 }, '收益统计')
@@ -267,7 +274,7 @@
 
             //切换时候设置某一页的选中、未选中
             superSetSelected(selectall, page, data) {
-                debugger
+                
                 if (selectall[page] == undefined) {
                     return
                 } else {
@@ -278,7 +285,7 @@
                     for (var i = 0; i < l; i++) {
                         for (var j = 0; j < d; j++) {
                             if (selectall[page][i].id == data[j].id) {
-                                data[j]._checked=true
+                                data[j]._checked = true
                             }
                         }
                     }
@@ -291,16 +298,16 @@
             //这部分是新的
 
             datechange(e, v) {
-                debugger
+                
                 this.formItem[v] = e
             },
 
             dobtns() {
                 const el = []
-                var arr=this.selectedArr
-                for(var j in arr) {
+                var arr = this.selectedArr
+                for (var j in arr) {
                     console.log(arr[j]);
-                    var m=arr[j]
+                    var m = arr[j]
                     for (var i = 0; i < m.length; i++) {
                         el.push(m[i].id);
                     }
@@ -308,7 +315,7 @@
 
                 const sl = el.join(',')
                 console.log(sl)
-                debugger
+                
                 this.Global.newfun(this, 'post', {
                     base: '/mpuserprofit/mulexport?',
                     other: '',
@@ -326,7 +333,7 @@
             },
 
             sytj(e) {
-                debugger
+                
                 this.activeid = e.row.id
                 this.activename = e.row.pubUserName
                 this.modal1 = true
@@ -349,7 +356,7 @@
 
                     }, {},
                     function (res, that) {
-                        debugger
+                        
                         const st = res.data.status
                         if (st === 1) {
                             const da = res.data.data
@@ -460,7 +467,7 @@
                 this.formItem.search_LIKE_endDate = ''
                 this.formItem.search_LIKE_userName = ''
                 this.Hsearch = true
-                this.selectedArr={}
+                this.selectedArr = {}
             },
             HsearchC() {
 
@@ -484,7 +491,7 @@
             refresh: function () {
                 this.loading = true
                 this.search = {}
-                this.selectedArr={}
+                this.selectedArr = {}
                 this.searchType = 'search_LIKE_userName'
                 // this.searchValue = ''
                 // this.search = ''
@@ -519,7 +526,7 @@
                         that.totalpage = res.data.data.totalElements;
                         that.current = res.data.data.number + 1;
                         that.databody = res.data.data.content;
-                        that.superSetSelected(that.selectedArr,res.data.data.number + 1,res.data.data.content)
+                        that.superSetSelected(that.selectedArr, res.data.data.number + 1, res.data.data.content)
                         that.loading = false;
                     } else {
                         that.$Message.destroy();
@@ -533,7 +540,7 @@
             },
             dosearch: function () {
                 this.loading = true
-                this.selectedArr={}
+                this.selectedArr = {}
                 if (this.searchValue.match(this.Regex.regexlist.basesearch)) {
                     this.search = {}
                     this.search[this.searchType] = this.searchValue

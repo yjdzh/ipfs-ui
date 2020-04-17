@@ -12,7 +12,11 @@ export default {
     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
 
     stopself(e) {
-        e.currentTarget.blur()
+
+        if(e){
+            e.currentTarget.blur()
+        }
+
     },
     oprahfun: function (that) {        
         var op = {}

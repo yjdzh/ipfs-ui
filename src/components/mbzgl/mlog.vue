@@ -9,11 +9,11 @@
 <!--                    </Select>-->
 <!--                    <Button slot="append" icon="ios-search" @click="dosearch"  @mouseleave.native="Global.stopself($event)"></Button>-->
 <!--                </Input>-->
-                <Button  type="primary" @click="type1sh" style="display: inline-block">运营日志
+                <Button  type="primary" @click="type1sh" style="display: inline-block" @mouseleave.native="Global.stopself($event)">运营日志
                 </Button>
-                <Button  type="primary" @click="type0sh" style="display: inline-block">app日志
+                <Button  type="primary" @click="type0sh" style="display: inline-block" @mouseleave.native="Global.stopself($event)">app日志
                 </Button>
-                <Button  type="primary" @click="refresh1sh" style="display: inline-block">全部
+                <Button  type="primary" @click="refresh1sh" style="display: inline-block" @mouseleave.native="Global.stopself($event)">全部
                 </Button>
             </div>
 

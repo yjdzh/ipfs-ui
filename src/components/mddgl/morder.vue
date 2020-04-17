@@ -653,6 +653,10 @@
                                             _this.modal4 = true
                                             _this.getprint(params.row.id)
                                         }
+                                    },nativeOn:{
+                                        mouseleave($event) {
+                                            _this.Global.stopself($event)
+                                        }
                                     }
                                 }, '打印'),
 

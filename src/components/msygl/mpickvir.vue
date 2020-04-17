@@ -54,7 +54,7 @@
 
             <div slot="btnBox" class="btn">
                 <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
-                <Button @click="downpost">账单下载</Button>
+                <Button @click="downpost" @mouseleave.native="Global.stopself($event)">账单下载</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading" @on-selection-change="selectchange">

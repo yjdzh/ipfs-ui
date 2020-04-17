@@ -52,7 +52,7 @@
 
 
             <div slot="btnBox" class="btn">
-                <Button @click="dobtns()" type="info">批量导出</Button>
+                <Button @click="dobtns()" type="info" @mouseleave.native="Global.stopself($event)">批量导出</Button>
                 <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
@@ -200,6 +200,10 @@
                                     on: {
                                         click: function() {
                                             _this.sytj(params)
+                                        }
+                                    },nativeOn:{
+                                        mouseleave($event) {
+                                            _this.Global.stopself($event)
                                         }
                                     }
                                 }, '收益统计')

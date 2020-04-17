@@ -13,7 +13,7 @@
 
 
             <div slot="Hsearch" class="Hserach">
-                <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">高级查询
+                <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block" @mouseleave.native="Global.stopself($event)">高级查询
                 </Button>
                 <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
                     <p slot="header">
@@ -144,10 +144,10 @@
             </div>
 
             <div slot="moreBtn">
-                <Button @click="dobtns(0)" type="info">软件升级</Button>
-                <Button @click="dobtns(1)" type="info">设备复位</Button>
-                <Button @click="dobtns(2)" type="info">设备重启</Button>
-                <Button @click="dobtns(3)" type="error">删除</Button>
+                <Button @click="dobtns(0)" type="info" @mouseleave.native="Global.stopself($event)">软件升级</Button>
+                <Button @click="dobtns(1)" type="info"  @mouseleave.native="Global.stopself($event)">设备复位</Button>
+                <Button @click="dobtns(2)" type="info"  @mouseleave.native="Global.stopself($event)">设备重启</Button>
+                <Button @click="dobtns(3)" type="error" @mouseleave.native="Global.stopself($event)">删除</Button>
 
 
                 <!--拓展按钮1-->
@@ -734,6 +734,10 @@
                                                         that.modal = true
                                                     }
                                                 });
+                                        }
+                                    },nativeOn:{
+                                        mouseleave($event) {
+                                            _this.Global.stopself($event)
                                         }
                                     }
                                 }, '配置'),

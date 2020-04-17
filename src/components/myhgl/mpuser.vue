@@ -338,6 +338,10 @@
                                         click: function() {
                                             _this.opendqtx(params)
                                         }
+                                    },nativeOn:{
+                                        mouseleave($event) {
+                                            _this.Global.stopself($event)
+                                        }
                                     }
                                 }, '到期提醒'),
 

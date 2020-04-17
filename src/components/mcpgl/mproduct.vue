@@ -283,6 +283,10 @@
                                                 });
 
                                         }
+                                    },nativeOn:{
+                                        mouseleave($event) {
+                                            _this.Global.stopself($event)
+                                        }
                                     }
                                 }, '通用配置'),
                                 h('Button', {

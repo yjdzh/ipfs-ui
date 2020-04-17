@@ -223,6 +223,10 @@
                                             click: function () {
 
                                             }
+                                        },nativeOn:{
+                                            mouseleave($event) {
+                                                _this.Global.stopself($event)
+                                            }
                                         }
                                     }, 'ROM上传'), h('Button', {
                                         props: {
