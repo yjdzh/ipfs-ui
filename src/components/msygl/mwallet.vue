@@ -67,7 +67,7 @@
 
             <div slot="btnBox" class="btn">
                 <Button @click="added" type="success">新增</Button>
-                <Button @click="refresh" type="info">刷新</Button>
+                <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading">

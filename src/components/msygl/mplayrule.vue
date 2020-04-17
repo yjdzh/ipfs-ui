@@ -6,7 +6,7 @@
                 <Select v-model="searchType" placeholder="请选择钱包">
                     <Option v-for="walletOption in options" :value="walletOption.id" :label="walletOption.allName" :key="walletOption.index"></Option>
                 </Select>
-                <Button slot="append" icon="ios-search" @click="dosearch"></Button>
+                <Button slot="append" icon="ios-search" @click="dosearch"  @mouseleave.native="Global.stopself($event)"></Button>
             </div>
 
             <div slot="Hsearch" class="Hserach">
@@ -49,7 +49,7 @@
 
             <div slot="btnBox" class="btn">
                  <Button @click="added" type="success">新增</Button>
-                <Button @click="refresh" type="info">刷新</Button>
+                <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading">

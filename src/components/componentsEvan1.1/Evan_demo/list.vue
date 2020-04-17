@@ -1,11 +1,11 @@
 <template>
-    <div >
+    <div>
 
         <!--内容区域-->
-        <div class="EVeg"  style="padding: 10px;">
+        <div class="EVeg" style="padding: 10px;">
             <span>样例：</span>
             <div>
-                <EVpageList :pageTitle="pageTitle" >
+                <EVpageList :pageTitle="pageTitle">
                     <div slot="searchBox" class="serach">
                         <Input v-model.trim="serValue">
                             <Select v-model="serSelect" slot="prepend" style="width: 80px">
@@ -17,7 +17,7 @@
                     </div>
                     <div slot="btnBox" class="btn">
                         <Button @click="addData" type="success">新增</Button>
-                        <Button @click="reflesh" type="info">刷新</Button>
+                        <Button @click="reflesh" type="info" @mouseleave.native="Global.stopself($event)">刷新</Button>
                     </div>
                     <div slot="table">
                         <Table border :columns="thead" :data="tbody" size='small'>
@@ -51,7 +51,7 @@
         </div>
         <div slot='btnBox' class=btn'>
             <Button @click='addData' type='success'>新增</Button>
-            <Button @click='reflesh' type='info'>刷新</Button>
+            <Button @click='reflesh' type='info'  @mouseleave.native='Global.stopself($event)'>刷新</Button>
         </div>
         <div slot='table'>
             <Table border :columns='thead' :data='tbody' size='small'>
@@ -66,190 +66,190 @@
         </div>
 
         </EVpageList>
-<template>
+        <template>
 
-export default {
-        data () {
+            export default {
+            data () {
             return {
-                thead: [
-                    {
-                        title: '序号',
-                        key: 'id',
-                        align: 'center',
-                        width: 50
-                    },
-                    {
-                        title: '姓名',
-                        key: 'name',
-                        render: (h, params) => {
-                            return h('span', params.row.name);
-                        }
-                    }, {
-                        title: '性别',
-                        key: 'sex',
-                        render: (h, params) => {
-                            if (params.row.sex === 0) {
-                                return h('p', [
-                                    h('Icon', {
-                                        props: {
-                                            type: 'man'
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        }
-                                    }),
-                                    h('span', '男')
-                                ]);
-                            } else if (params.row.sex === 1) {
-                                return h('p', [
-                                    h('Icon', {
-                                        props: {
-                                            type: 'woman'
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        }
-                                    }),
-                                    h('span', '女')
-                                ]);
-                            } else if (params.row.sex === 2) {
-                                return h('p', [
-                                    h('Icon', {
-                                        props: {
-                                            type: 'person'
-                                        },
-                                        style: {
-                                            marginRight: '5px'
-                                        }
-                                    }),
-                                    h('span', '未知')
-                                ]);
-                            }
-                        }
-                    },
-                    {
-                        title: '年龄',
-                        key: 'age'
-                    },
-                    {
-                        title: '地址',
-                        key: 'address'
-                    },
-                    {
-                        title: '状态',
-                        key: 'states',      //状态为1时开通，状态为0时关闭
-                        render: (h, params) => {
-                            if (params.row.state === 1) {
-                                return h('span', {
-                                    attrs: {
-                                        type: Number
-                                    },
-                                    style: {
-                                        color: '#1abd6b'  //设置开通状态的颜色
-                                    }
-                                }, '开通')
-                            } else if (params.row.state === 0) {
-                                return h('div', {
-                                    attrs: {
-                                        type: Number
-                                    },
-                                    style: {
-                                        color: '#ccc'   //设置关闭状态的颜色
-                                    }
-                                }, '关闭')
-                            }
-                        }
-                    },
-                    {
-                        title: '管理',
-                        key: 'action',
-                        width: 150,
-                        align: 'center',
-                        render: (h, params) => {
-                            return h('div', [
-                                h('Button', {
-                                    props: {
-                                        type: 'primary',
-                                        size: 'small'
-                                    },
-                                    style: {
-                                        marginRight: '5px'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.show(params.index)
-                                        }
-                                    }
-                                }, '编辑'),
-                                h('Button', {
-                                    props: {
-                                        type: 'error',
-                                        size: 'small'
-                                    },
-                                    on: {
-                                        click: () => {
-                                            this.remove(params.index)
-                                        }
-                                    }
-                                }, '删除')
-                            ]);
-                        }
-                    }
-                ],
-                tbody: [
-                    {
-                        id: 1,
-                        name: 'John Brown',
-                        age: 18,
-                        address: 'New York No. 1 Lake Park',
-                        state: 1,
-                        sex: 1,
-                    },
-                    {
-                        id: 2,
-                        name: 'Jim Green',
-                        age: 24,
-                        address: 'London No. 1 Lake Park',
-                        state: 0,
-                        sex: 0,
-                    },
-                    {
-                        id: 3,
-                        name: 'Joe Black',
-                        age: 30,
-                        address: 'Sydney No. 1 Lake Park',
-                        state: 0,
-                        sex: 1,
-                    },
-                    {
-                        id: 4,
-                        name: 'Jon Snow',
-                        age: 26,
-                        address: 'Ottawa No. 2 Lake Park',
-                        state: 1,
-                        sex: 2,
-                    }
-                ],
+            thead: [
+            {
+            title: '序号',
+            key: 'id',
+            align: 'center',
+            width: 50
+            },
+            {
+            title: '姓名',
+            key: 'name',
+            render: (h, params) => {
+            return h('span', params.row.name);
+            }
+            }, {
+            title: '性别',
+            key: 'sex',
+            render: (h, params) => {
+            if (params.row.sex === 0) {
+            return h('p', [
+            h('Icon', {
+            props: {
+            type: 'man'
+            },
+            style: {
+            marginRight: '5px'
+            }
+            }),
+            h('span', '男')
+            ]);
+            } else if (params.row.sex === 1) {
+            return h('p', [
+            h('Icon', {
+            props: {
+            type: 'woman'
+            },
+            style: {
+            marginRight: '5px'
+            }
+            }),
+            h('span', '女')
+            ]);
+            } else if (params.row.sex === 2) {
+            return h('p', [
+            h('Icon', {
+            props: {
+            type: 'person'
+            },
+            style: {
+            marginRight: '5px'
+            }
+            }),
+            h('span', '未知')
+            ]);
+            }
+            }
+            },
+            {
+            title: '年龄',
+            key: 'age'
+            },
+            {
+            title: '地址',
+            key: 'address'
+            },
+            {
+            title: '状态',
+            key: 'states', //状态为1时开通，状态为0时关闭
+            render: (h, params) => {
+            if (params.row.state === 1) {
+            return h('span', {
+            attrs: {
+            type: Number
+            },
+            style: {
+            color: '#1abd6b' //设置开通状态的颜色
+            }
+            }, '开通')
+            } else if (params.row.state === 0) {
+            return h('div', {
+            attrs: {
+            type: Number
+            },
+            style: {
+            color: '#ccc' //设置关闭状态的颜色
+            }
+            }, '关闭')
+            }
+            }
+            },
+            {
+            title: '管理',
+            key: 'action',
+            width: 150,
+            align: 'center',
+            render: (h, params) => {
+            return h('div', [
+            h('Button', {
+            props: {
+            type: 'primary',
+            size: 'small'
+            },
+            style: {
+            marginRight: '5px'
+            },
+            on: {
+            click: () => {
+            this.show(params.index)
+            }
+            }
+            }, '编辑'),
+            h('Button', {
+            props: {
+            type: 'error',
+            size: 'small'
+            },
+            on: {
+            click: () => {
+            this.remove(params.index)
+            }
+            }
+            }, '删除')
+            ]);
+            }
+            }
+            ],
+            tbody: [
+            {
+            id: 1,
+            name: 'John Brown',
+            age: 18,
+            address: 'New York No. 1 Lake Park',
+            state: 1,
+            sex: 1,
+            },
+            {
+            id: 2,
+            name: 'Jim Green',
+            age: 24,
+            address: 'London No. 1 Lake Park',
+            state: 0,
+            sex: 0,
+            },
+            {
+            id: 3,
+            name: 'Joe Black',
+            age: 30,
+            address: 'Sydney No. 1 Lake Park',
+            state: 0,
+            sex: 1,
+            },
+            {
+            id: 4,
+            name: 'Jon Snow',
+            age: 26,
+            address: 'Ottawa No. 2 Lake Park',
+            state: 1,
+            sex: 2,
+            }
+            ],
 
             }
-        },`">
-                    </pre>
+            },`">
+            </pre>
 
+    </div>
+    <!--内容区域-->
+    <div class="EVeg" style="padding: 10px;">
+        <span>API ：</span>
+        <p>porps</p>
+        <div class="EVegtb">
+            <Table border :columns="columns1" :data="data1"></Table>
         </div>
-        <!--内容区域-->
-        <div class="EVeg" style="padding: 10px;">
-            <span>API ：</span>
-            <p>porps</p>
-            <div class="EVegtb">
-                <Table border :columns="columns1" :data="data1"></Table>
-            </div>
-            <p>slot</p>
-            <div class="EVegtb">
-                <Table border :columns="columns2" :data="data2"></Table>
-            </div>
+        <p>slot</p>
+        <div class="EVegtb">
+            <Table border :columns="columns2" :data="data2"></Table>
+        </div>
 
-        </div>
-        <!--内容区域-->
+    </div>
+    <!--内容区域-->
 
 
     </div>
@@ -259,7 +259,7 @@ export default {
 
     export default {
 
-        data () {
+        data() {
             return {
                 pageTitle: '列表页面demo ',
                 serValue: '',
@@ -498,22 +498,22 @@ export default {
             }
         },
         methods: {
-            show (index) {
+            show(index) {
                 this.$Modal.info({
                     title: '提示信息',
                     content: `Name：${this.tbody[index].name}<br>Age：${this.tbody[index].age}<br>Address：${this.tbody[index].address}<br>states: ${this.tbody[index].states}`
                 })
             },
-            remove (index) {
+            remove(index) {
                 this.tbody.splice(index, 1);
             },
-            addData () {
+            addData() {
                 console.log('新增');
             },
-            reflesh () {
+            reflesh() {
                 console.log('刷新');
             },
-            searchBtn () {
+            searchBtn() {
                 console.log('搜索');
             }
         }

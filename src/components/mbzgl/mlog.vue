@@ -7,7 +7,7 @@
 <!--                        <Option :value="option.value" :label="option.label"  v-for="option in options"-->
 <!--                                :key="option.index"></Option>-->
 <!--                    </Select>-->
-<!--                    <Button slot="append" icon="ios-search" @click="dosearch"></Button>-->
+<!--                    <Button slot="append" icon="ios-search" @click="dosearch"  @mouseleave.native="Global.stopself($event)"></Button>-->
 <!--                </Input>-->
                 <Button  type="primary" @click="type1sh" style="display: inline-block">运营日志
                 </Button>
@@ -75,7 +75,7 @@
 
             <div slot="btnBox" class="btn">
                 <!-- <Button @click="added" type="success">新增</Button> -->
-                <Button @click="refresh" type="info">刷新</Button>
+                <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
 

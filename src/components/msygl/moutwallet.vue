@@ -6,12 +6,12 @@
             	<Select v-model="searchType" slot="prepend" style="width: 80px">
             		<Option :value="option.value" :label="option.label" v-text="option.label" v-for="option in options" :key="option.index"></Option>
             	</Select>
-            	<Button slot="append" icon="ios-search" @click="dosearch"></Button>
+            	<Button slot="append" icon="ios-search" @click="dosearch"  @mouseleave.native="Global.stopself($event)"></Button>
             	</Input> -->
             </div>
             <div slot="btnBox" class="btn">
                 <Button @click="added" type="success">新增</Button>
-                <Button @click="refresh" type="info">刷新</Button>
+                <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
