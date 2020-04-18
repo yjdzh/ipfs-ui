@@ -234,7 +234,7 @@
                     },
                     {
                         align: 'center',
-                        title: '托管库存余量',
+                        title: '托管总量',
                         key: 'trusteeStock',
 
                     },
