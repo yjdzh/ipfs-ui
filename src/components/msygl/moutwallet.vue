@@ -11,7 +11,7 @@
             </div>
             <div slot="btnBox" class="btn">
                 <Button @click="added" type="success">新增</Button>
-                <Button @click="refresh" type="info"  @mouseleave.native="Global.stopself($event)">刷新</Button>
+                <Button @click="refresh" type="info" @mouseleave.native="Global.stopself($event)">刷新</Button>
             </div>
             <div slot="table">
                 <Table border :columns="datahead" :data="databody" size='small' :loading="loading">
@@ -24,7 +24,7 @@
             </div>
 
             <div slot="moreBtn">
-               <!--  <Button @click="added" type="success">新增</Button> -->
+                <!--  <Button @click="added" type="success">新增</Button> -->
 
                 <!--拓展按钮1-->
             </div>
@@ -46,8 +46,6 @@
                     search_LIKE_phone: '',
                     search_LIKE_name: ''
                 },
-
-
                 api: {
                     base: '/moutwallet', //请求部分
                     access_token: 'access_token=' + JSON.parse(sessionStorage.getItem('wtcp-user-token')),
@@ -85,7 +83,7 @@
                     {
                         align: 'left',
                         title: '是否默认',
-                        width: 60,
+                        width: 80,
                         key: 'isDefaule',
                         render: function(h, params) {
                             return h('span', {
@@ -282,28 +280,28 @@
                 }
             },
             mrsz: function(params) {
-                    this.loading = true
-                    this.Global.fun(this, 'get', {
-                        base: this.api.base,
-                        other: '/reset/' + params.row.id  + '?',
-                        access_token: this.api.access_token,
-                    }, {}, d)
+                this.loading = true
+                this.Global.fun(this, 'get', {
+                    base: this.api.base,
+                    other: '/reset/' + params.row.id + '?',
+                    access_token: this.api.access_token,
+                }, {}, d)
 
-                    function d(res, that) {
-                        if (res.data.status === 1) {
-                            that.$Message.destroy();
-                            that.$Message.info("操作成功");
-                            that.loading = false;
-                            that.$Modal.remove();
-                            that.refresh();
-                        } else {
-                            that.$Message.destroy();
-                            that.$Message.error(res.data.msg);
-                            that.loading = false;
-                            that.$Modal.remove();
-                            that.refresh();
-                        }
+                function d(res, that) {
+                    if (res.data.status === 1) {
+                        that.$Message.destroy();
+                        that.$Message.info("操作成功");
+                        that.loading = false;
+                        that.$Modal.remove();
+                        that.refresh();
+                    } else {
+                        that.$Message.destroy();
+                        that.$Message.error(res.data.msg);
+                        that.loading = false;
+                        that.$Modal.remove();
+                        that.refresh();
                     }
+                }
             },
             dosearch: function() {
                 this.loading = true

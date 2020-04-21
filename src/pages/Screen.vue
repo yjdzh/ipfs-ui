@@ -3,7 +3,7 @@
         <div class="mainContent">
             <div class="screenH">
                 <div class="screenHlogo"></div>
-                <div class="screenHtitle">IPFS星际特工全球分布式云存储监测系统</div>
+                <div class="screenHtitle">币码翁分布式云数据监测系统</div>
                <!-- <div class="screenHlogin"><a @click="login">登录</a></div> -->
             </div>
             <div class="screenB">

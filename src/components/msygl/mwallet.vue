@@ -51,7 +51,6 @@
                             <Col span="23">
                             <FormItem label="办结时长" class="overappend">
                                 <EVinputNumber v-model="formItem.search_EQ_transactTime" :min="1" :max="168" :precision="0" placeholder="请输入办结时长(小时)"></EVinputNumber>
-
                             </FormItem>
                             </Col>
 

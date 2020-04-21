@@ -26,7 +26,7 @@
 
                             <Col span="23">
                                 <FormItem label="用户名称">
-                                    <Input v-model.trim="formItem.search_LIKE_userName" placeholder="请输入数据中心名称"></Input>
+                                    <Input v-model.trim="formItem.search_LIKE_userName" placeholder="请输入用户名称"></Input>
                                 </FormItem>
                             </Col>
 

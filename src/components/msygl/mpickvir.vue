@@ -103,9 +103,9 @@
                 <p><b>转入账户: </b>{{datadoTransfer.userPhone==undefined?'':datadoTransfer.userPhone}} </p>
                 <p><b>转入钱包地址: </b>{{datadoTransfer.virAddress==undefined?'':datadoTransfer.virAddress}} </p>
                 <p>
-                    
+
                         <b>转账金额: </b>{{datadoTransfer.pickMoney==undefined?'':datadoTransfer.pickMoney}}
-                   
+
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <span style="font-weight:bold">提币费率：</span> {{datadoTransfer.fee==undefined?'':datadoTransfer.fee+'%'}}
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -233,13 +233,13 @@
                         render: function(h, params) {
                             return h('span', params.row.fee+'%')
                         },
-                        width: 60
+                        width: 80
                     },
                     {
                         align: 'left',
                         title: '提币数量',
                         key: 'pickMoney',
-                        width: 70
+                        width: 80
                     },
                     {
                         align: 'left',
