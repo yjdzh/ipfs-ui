@@ -143,7 +143,7 @@
                         align: 'center',
                         title: '照片',
                         key: 'img',
-                        width: 150,
+                        width: 130,
                         render: function (h, params) {
                             if (params.row.img === '') {
                                 return h('span', {
@@ -181,65 +181,18 @@
                             ])
                         }
                     },
-
-                    // {
-                    //     align: 'left',
-                    //     title: '配置',
-                    //     key: 'hardInfo',
-                    //
-                    // },
-                    // {
-                    //     align: 'left',
-                    //     title: '功耗',
-                    //     key: 'powerInfo',
-                    //     width: 150
-                    // },
-                    // {
-                    //     align: 'left',
-                    //     title: '自维购买价格',
-                    //     key: 'maintainPrice',
-                    //     width: 100
-                    // },
-                    // {
-                    //     align: 'left',
-                    //     title: '自维默认折扣',
-                    //     key: 'maintainDiscount',
-                    //     width: 100
-                    // },
-                    // {
-                    //     align: 'left',
-                    //     title: '托管购买价格/月',
-                    //     key: 'rusteePrice',
-                    //     width: 110
-                    // },
-                    // {
-                    //     align: 'left',
-                    //     title: '托管默认折扣',
-                    //     key: 'trusteeDiscount',
-                    //     width: 100
-                    // },
-                    // {
-                    //     align: 'left',
-                    //     title: '最低托管时长',
-                    //     key: 'trusteeMin',
-                    //     width: 100
-                    // },
-
-
                     {
                         align: 'center',
                         title: '自维库存余量',
-                        key: 'maintainStock',
-
+                        key: 'unUseMaintainNum',
+                        width: 130,
                     },
                     {
                         align: 'center',
-                        title: '托管总量',
-                        key: 'trusteeStock',
-
+                        title: '托管未分配余量',
+                        key: 'unUseTrusteeNum',
+                        width: 130,
                     },
-
-
                     {
                         title: '管理',
                         key: 'action',
