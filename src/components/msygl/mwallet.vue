@@ -120,8 +120,8 @@
                     search_EQ_zoneId: '',
                     search_EQ_virId: '',
                     search_LIKE_realMoneyUrl: '',
-                    search_EQ_minQuota: '',
-                    search_EQ_transactTime: '',
+                    search_EQ_minQuota: undefined,
+                    search_EQ_transactTime: undefined,
                 },
 
                 api: {

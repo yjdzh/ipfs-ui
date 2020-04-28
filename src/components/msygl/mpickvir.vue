@@ -16,7 +16,7 @@
             <div slot="Hsearch" class="Hserach">
                 <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">高级查询
                 </Button>
-                <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
+                <Modal v-model="Hsearch" width="600" @on-cancel="HsearchC">
                     <p slot="header">
                         <span>高级查询</span>
                     </p>

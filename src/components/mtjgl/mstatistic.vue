@@ -2,7 +2,7 @@
     <EVpageList :pageTitle="pageTitle">
         <div slot="Hsearch" class="Hserach" style="margin-left: -10px;">
             <Button icon="ios-search" type="primary" @click="openHsearch" style="display: inline-block">统计</Button>
-            <Modal v-model="Hsearch" width="500" @on-cancel="HsearchC">
+            <Modal v-model="Hsearch" width="600" @on-cancel="HsearchC">
                 <p slot="header">
                     <span>统计条件</span>
                 </p>
